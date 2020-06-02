@@ -1,1 +1,1 @@
-gunicorn Tawassam.wsgi:tawassam --preload --workers 1
+web: gunicorn Tawassam.wsgi 
