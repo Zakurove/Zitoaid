@@ -9,7 +9,6 @@ https://docs.djangoproject.com/en/3.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
-import django_heroku
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -78,7 +77,16 @@ WSGI_APPLICATION = 'Tawassam.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'test2',
+#         'HOST': '127.0.0.1',
+#         'PORT': '3306',
+#         'USER': 'root',
+#         'PASSWORD': 'Zero/One',
+#     }
+# }
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -128,12 +136,12 @@ USE_TZ = True
 
 # Static Files Settings
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = [
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
+STATICFILES_DIRS = (
     os.path.join(BASE_DIR, 'static'),
-]
+)
 #Media
 MEDIA_URL = 'media/'
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
-#Heroku
-django_heroku.settings(locals())
+# #Heroku
+# django_heroku.settings(locals())
