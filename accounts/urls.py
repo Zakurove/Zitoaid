@@ -1,12 +1,11 @@
-from django.urls import path
-from . import views
-from Tawassam.settings import DEBUG, STATIC_URL,  MEDIA_URL, MEDIA_ROOT
-from django.conf.urls.static import static
+from django.urls import path, include
+from .api import RegisterAPI, LoginAPI, UserAPI
+from knox import views as knox_views
 
 urlpatterns = [
-    path('register/', views.registerPage, name="register"),
-	path('login/', views.loginPage, name="login"),
-	path('logout/', views.logoutPage, name="logout"),
-
-
+  path('api/auth', include('knox.urls')),
+  path('api/auth/register', RegisterAPI.as_view()),
+  path('api/auth/login', LoginAPI.as_view()),
+  path('api/auth/user', UserAPI.as_view()),
+  path('api/auth/logout', knox_views.LogoutView.as_view(), name='knox_logout')
 ]

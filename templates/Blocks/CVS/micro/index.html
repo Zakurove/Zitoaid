@@ -1,14 +1,14 @@
 {% extends "main/base.html" %}
 {% load static %}
-    {% block body_block%}
+    {% block content%}
     <!-- Here would show the slides and it's title -->
-
+index.html
 <div class="container">
 	<H1 class="text-center pb-2 text-info">
 	Cardiovascular: Microbiology Sets
 </H1>
 	<a class="btn btn-secondary" href="/CVS">Previous Page</a>
-	<a class="btn btn-info" href="/CVS/Microbiology/upload">Add a New Set</a>
+	<a class="btn btn-info" href="/CVS/Microbiology/create/set/">Add a New Set</a>
 	<p></p>
   <div class="row border border-info">
     <div class="col"> Title:</div>
@@ -24,16 +24,16 @@
 
 
 
-	 	{% for set in shelf %}
+	 	{% for set in set_list %}
 	<div>
 		<div class="container">
 	  <div class="row border border-info">
-		<div class="col"><p></p><a href="#" class="text-decoration-none"> {{ set.name }} </a></div>
+		<div class="col"><p></p><a href="#" class="text-decoration-none"> {{ set.title }} </a></div>
 		<div class="col" href=""><p></p><a href="#" class="text-decoration-none"> {{ set.id }} </a></div>
 		<div class="col" href=""><p></p><a href="#" class="text-decoration-none"> {{ set.author }}  </a></div>
 		<div class="col"href=""><p></p><a href="#" class="text-decoration-none"> Number of Slides</a> </div>
 	<p>
-			<a href="{{set.id}}" class="btn btn-warning" id = '{{set.id}}' >Study Set</a>
+			<a href="{% url 'set_det' set.id %}" class="btn btn-warning" >Study Set</a>
 		</p>
 		</div>
 	</div>

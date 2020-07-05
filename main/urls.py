@@ -4,7 +4,7 @@ from Tawassam.settings import DEBUG, STATIC_URL, MEDIA_URL, MEDIA_ROOT
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('main', views.home, name="home"),
 
 
 ]

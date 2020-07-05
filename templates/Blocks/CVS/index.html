@@ -1,7 +1,7 @@
 {% extends "main/base.html" %}
 {% load static %}
 
-    {% block body_block%}
+    {% block content %}
 
     <!-- Put the page's code here excluding header and footer -->
     <H1 class="text-center">
@@ -18,12 +18,12 @@
   <div class="row align-items-start pt-2" >
 
 	   <div class="col text-center pb-2" >
-      <img src="{% static 'media/micro.jpg' %}" class="pb-2 img-fluid" alt="Responsive image" style="height: 300px; width: 290;" >  <a href="/CVS/Microbiology" class=" btn btn-warning stretched-link text-center">Microbiology</a>
+      <img src="{% static 'media/micro.jpg' %}" class="pb-2 img-fluid" alt="Responsive image" style="height: 300px; width: 290;" >  <a href="/CVS/Microbiology/sets" class=" btn btn-warning stretched-link text-center">Microbiology</a>
     </div>
 
 	      <div class="col text-center pb-2">
 		<img src="{% static 'media/imaging.jpg' %}" class="pb-2 img-fluid" alt="Responsive image" style="height: 300px; width: 290;">
-      <a href="/CVS/Microbiology"" class="btn btn-warning stretched-link text-center">Imaging</a>
+      <a href="/CVS/Microbiology/sets"" class="btn btn-warning stretched-link text-center">Imaging</a>
     </div>
 
     <div class="col text-center pb-2">
