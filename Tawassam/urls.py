@@ -21,19 +21,12 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 from django.urls import path
-from main import views
-#blocks
-from CVS import views
-from frontend import views
-from leads import views
-from resp import views
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),
-    path('CVS/', include('CVS.urls')),
-    #path('', include('resp.urls')),
     path('', include('frontend.urls')),
-    path('', include('leads.urls')),
+    path('', include('backend.urls')),
     path('', include('accounts.urls')),
     url(r'^fp/', include('django_drf_filepond.urls')),
 

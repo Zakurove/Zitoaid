@@ -17,3 +17,6 @@
 .border-3 {
    border-width:3px !important;
 }
+.filepond--item {
+  width: calc(50% - .5em);
+}

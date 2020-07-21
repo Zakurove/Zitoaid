@@ -1,12 +1,14 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate
-
+# from leads.models import RespMicro
 # User Serializer
 class UserSerializer(serializers.ModelSerializer):
+  # RespMicroSets = serializers.PrimaryKeyRelatedField(many=True, queryset=RespMicro.objects.all())
+
   class Meta:
     model = User
-    fields = ('id', 'username', 'email')
+    fields = ('id', 'username', 'email' )
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):

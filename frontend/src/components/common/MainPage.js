@@ -64,12 +64,12 @@ export class MainPage extends Component {
                 alt="Responsive image"
                 style={{height: "320px", width: "300"}}
               />{" "}
-              <a
-                href="/Respiratory"
+              <Link
+                to="/respiratory"
                 className="btn btn-warning stretched-link text-center"
               >
                 Respiratory
-              </a>
+              </Link>
             </div>
 
             <div className="col text-center">

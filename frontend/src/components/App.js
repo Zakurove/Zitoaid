@@ -23,6 +23,8 @@ import PrivateRoute from "./common/PrivateRoute";
 import MainPage from "./common/MainPage";
 
 //RespiratoryBlock
+import Resp from "./blocks/resp/Resp";
+//Micro
 import ListRespM from "./blocks/resp/micro/ListRespM";
 import DetailsRespM from "./blocks/resp/micro/DetailsRespM";
 import FormRespM from "./blocks/resp/micro/FormRespM";
@@ -51,13 +53,16 @@ class App extends Component {
               <Header />
               <div>
                 <Switch>
+                  <Route exact path="/register" component={Register} />
+                  <Route exact path="/login" component={Login} />
                   <Route exact path="/" component={MainPage} />
-                  <PrivateRoute exact path="/dashboard" component={Dashboard} />
+                  <Route exact path="/dashboard" component={Dashboard} />
+                  {/* Resp */}
+                  <Route exact path="/respiratory" component={Resp} />
                   <Route exact path="/respiratory/microbiology" component={ListRespM} />
                   <Route exact path="/respiratory/microbiology/create" component={FormRespM} />
                   <Route  path="/respiratory/microbiology/:id" component={DetailsRespM} />
-                  <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
+
                 </Switch>
               </div>
               <Footer />
