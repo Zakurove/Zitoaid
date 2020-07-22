@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { Button, Modal } from "react-bootstrap";
+import { UncontrolledPopover, PopoverHeader, PopoverBody } from "reactstrap";
 import _ from "underscore";
 import ReactDOM from "react-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
@@ -9,21 +10,22 @@ import { Carousel } from "react-responsive-carousel";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 import { showSet, getSets } from "../../../../actions/blocks/resp/micro";
 
-
 export class DetailsRespM extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       currentSlide: 0,
-      name: "",
-      modalInputName: "",
       modalShow: false,
+      NoteContent: "",
       x: 0,
-      y: 0
+      y: 0,
+      noteMode: false,
+      noteButtonText: "Enable Adding Notes",
     };
     this.pointXY = this.pointXY.bind(this);
   }
+
   //X and Y
   pointXY(e) {
     this.setState({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY });
@@ -39,7 +41,6 @@ export class DetailsRespM extends Component {
     });
   }
   handleSubmit(e) {
-    this.setState({ name: this.state.modalInputName });
     this.modalClose();
   }
 
@@ -52,6 +53,21 @@ export class DetailsRespM extends Component {
       modalShow: false,
     });
   }
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    const note = new FormData();
+    note.append("NoteContent", this.state.NoteContent);
+    note.append("x", this.state.x);
+    note.append("y", this.state.y);
+
+    this.setState({
+      NoteContent: "",
+      x: "",
+      y: "",
+    });
+    console.log("Adding a note...", this.state.NoteContent);
+  };
 
   //Slider functions
   next = () => {
@@ -74,7 +90,6 @@ export class DetailsRespM extends Component {
     }
   };
 
- 
   static propTypes = {
     sets: PropTypes.array.isRequired,
     getSets: PropTypes.func.isRequired,
@@ -89,10 +104,29 @@ export class DetailsRespM extends Component {
     this.setState({ itemArray: item });
   }
 
-  // onClickImg(e) {
-  //   console.log("Hello from the dev!");
-  // }
+  changeNoteButtonText() {
+    if (this.state.noteMode == true) {
+      this.setState({
+        noteButtonText: "Enable Adding Notes",
+      });
+    } else {
+      this.setState({
+        noteButtonText: "Disable Adding Notes",
+      });
+    }
+  }
 
+  handleToggleNoteMode() {
+    this.setState((currentState) => ({
+      noteMode: !currentState.noteMode,
+    }));
+  }
+
+  handleOverlay() {
+    if (this.state.noteMode == true) {
+      this.modalOpen();
+    }
+  }
   componentDidMount() {
     //So here we got the id of the set and made it a var,
     // then we got all the sets, then filtered through them and kept the set we require
@@ -107,34 +141,46 @@ export class DetailsRespM extends Component {
       <Fragment>
         <Modal
           show={this.state.modalShow}
-          handleClose={(e) => this.modalClose(e)}
           aria-labelledby="contained-modal-title-vcenter"
           centered
-          // size="sm"
-          // dialogClassName="modal-10w"
-          
         >
           <Modal.Header closeButton onClick={(e) => this.modalClose(e)}>
-            <Modal.Title id="contained-modal-title-vcenter" className="text-info text-center">
+            <Modal.Title
+              id="contained-modal-title-vcenter"
+              className="text-info text-center"
+            >
               Add Note
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="form-group">
-              <textarea
-                type="text"
-                value={this.state.modalInputName}
-                name="modalInputName"
-                onChange={(e) => this.handleChange(e)}
-                className="form-control"
-                rows="3"
-              />
-            </div>
+            <form id="noteForm" onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <textarea
+                  type="text"
+                  value={this.state.NoteContent}
+                  name="NoteContent"
+                  onChange={(e) => this.handleChange(e)}
+                  className="form-control"
+                  rows="3"
+                />
+              </div>
+            </form>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={(e) => this.modalClose(e)} className="btn btn-warning">Save</Button>
-            <Button onClick={(e) => this.modalClose(e)} className="btn btn-secondary ml-2">Cancel</Button>
-
+            <Button
+              type="submit"
+              onClick={(e) => this.modalClose(e)}
+              className="btn btn-warning"
+              form="noteForm"
+            >
+              Save
+            </Button>
+            <Button
+              onClick={(e) => this.modalClose(e)}
+              className="btn btn-secondary ml-2"
+            >
+              Cancel
+            </Button>
           </Modal.Footer>
         </Modal>
         {this.props.sets.map((set) => (
@@ -151,11 +197,19 @@ export class DetailsRespM extends Component {
                   variant="warning"
                   className="collapsible btn btn-warning"
                   style={{ marginBottom: "3px" }}
-                  onClick={console.log(x, y)}
                 >
                   Edit Set
                 </Button>
-
+                <UncontrolledPopover
+                  trigger="legacy"
+                  placement="bottom"
+                  target="PopoverLegacy"
+                >
+                  <PopoverHeader>Legacy Trigger</PopoverHeader>
+                  <PopoverBody>
+                    Not sure if this will work but we'll see.
+                  </PopoverBody>
+                </UncontrolledPopover>
                 <div
                   className="collapsible form-group"
                   style={{ display: "none" }}
@@ -174,16 +228,28 @@ export class DetailsRespM extends Component {
               <div className="col-7" style={{ padding: "1px" }}>
                 <Button
                   onClick={this.prev}
-                  variant="warning"
                   className="btn btn-warning fa fa-chevron-circle-left"
                   style={{ fontSize: "20px", marginLeft: "15px" }}
                 ></Button>
                 <Button
                   onClick={this.next}
-                  variant="warning"
                   className="btn btn-warning fa fa-chevron-circle-right ml-1"
                   style={{ fontSize: "20px" }}
                 ></Button>
+                <Button
+                  onClick={(e) => {
+                    this.handleToggleNoteMode(e);
+                    this.changeNoteButtonText(e);
+                  }}
+                  className="btn btn-info float-right"
+                  style={{
+                    marginRight: "15px",
+                    paddingTop: "4px",
+                    paddingBottom: "4px",
+                  }}
+                >
+                  {this.state.noteButtonText}
+                </Button>
               </div>
             </div>
             <div className="row " style={{ height: "770px" }}>
@@ -214,25 +280,35 @@ export class DetailsRespM extends Component {
                   {set.images.map((slide, index) => (
                     <div
                       key={index}
-                      onClick={ (e) => { 
-                        this.modalOpen(e) 
-                        this.pointXY(e)
+                      onClick={(e) => {
+                        this.handleOverlay(e);
+                        // this.modalOpen(e);
+                        // this.pointXY(e);
+                        console.log(x, y);
                       }}
-                      // onClick={this.pointXY}
-                      // onMouseMove={console.log(x, y)}
-                      style={{ "pointer-events": "all" }} 
+                      // onClick={this.handleOverlay}
+                      style={{ pointerEvents: "all" }}
                     >
+                      <div
+                        style={{
+                          zIndex: "3",
+                          fontSize: "20px",
+                          color: "white",
+                          pointerEvents: "all",
+                        }}
+                        className="fas fa-info-circle"
+                        id="PopoverLegacy"
+                      ></div>
+
                       <img
                         index={this.state.index}
                         src={slide.image}
                         style={{
                           maxWidth: "1097px",
                           maxHeight: "800px",
-                          "pointer-events": "all",
                         }}
                       />
                     </div>
-                    
                   ))}
                 </Carousel>
               </div>
