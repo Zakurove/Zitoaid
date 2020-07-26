@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import RespMicro, RespMicroImage
+from .models import RespMicro, RespMicroImage, RespMicroNotes
 import logging
 import sys
 # class LeadSerializer(serializers.ModelSerializer):
@@ -7,10 +7,17 @@ import sys
 #     model = Lead 
 #     fields = ('id', 'name', 'email', 'message', 'owner',)
 
+class RespMicroNotesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = RespMicroNotes
+        fields = ('content','x_dim','y_dim')
+
 class RespMicroImageSerializer(serializers.ModelSerializer):
+    notes = RespMicroNotesSerializer(source='setNotes', many=True, read_only=True)
+
     class Meta:
         model = RespMicroImage
-        fields = ('image',)
+        fields = ('image','notes')
 
 class RespMicroSerializer(serializers.ModelSerializer):
 

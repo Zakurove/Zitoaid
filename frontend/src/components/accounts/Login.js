@@ -34,19 +34,19 @@ export class Login extends Component { // eslint-disable-line react/prefer-state
     const { username, password } = this.state
     return (
 
-      <div class="container pt-5 mt-3">
-      	<div class="d-flex justify-content-center h-100">
-      		<div class="card">
-      			<div class="card-header">
+      <div className="container pt-5 mt-3">
+      	<div className="d-flex justify-content-center h-100">
+      		<div className="card">
+      			<div className="card-header">
       				<h3>Login</h3>
       			</div>
-      			<div class="card-body">
+      			<div className="card-body">
 
               <form  onSubmit={this.onSubmit}>
 
-                <div class="input-group form-group">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fas fa-user"></i></span>
+                <div className="input-group form-group">
+                  <div className="input-group-prepend">
+                    <span className="input-group-text"><i className="fas fa-user"></i></span>
                   </div>
                   <input type="text"
                   className="form-control"
@@ -57,9 +57,9 @@ export class Login extends Component { // eslint-disable-line react/prefer-state
                 </div>
 
 
-      					<div class="input-group form-group">
-      						<div class="input-group-prepend">
-      							<span class="input-group-text"><i class="fas fa-key"></i></span>
+      					<div className="input-group form-group">
+      						<div className="input-group-prepend">
+      							<span className="input-group-text"><i className="fas fa-key"></i></span>
       						</div>
                   <input type="password"
                   className="form-control"
@@ -70,15 +70,15 @@ export class Login extends Component { // eslint-disable-line react/prefer-state
       					</div>
 
 
-      					<div class="form-group">
-      						<input type="submit" class="btn btn-warning float-right login_btn" />
+      					<div className="form-group">
+      						<input type="submit" className="btn btn-warning float-right login_btn" />
       					</div>
       				</form>
       			</div>
 
-      			<div class="card-footer">
-      				<div class="d-flex justify-content-center links">
-      					Don't have an account?<Link to="/register" class="text-info">Register</Link>
+      			<div className="card-footer">
+      				<div className="d-flex justify-content-center links">
+      					Don't have an account?<Link to="/register" className="text-info">Register</Link>
       				</div>
       			</div>
       		</div>

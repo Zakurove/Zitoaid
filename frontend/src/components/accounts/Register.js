@@ -55,9 +55,9 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
               		<div className="card-body">
               			<form  onSubmit={this.onSubmit}>
 
-                      	<div class="input-group form-group">
-                      		<div class="input-group-prepend">
-                      			<span class="input-group-text"><i class="fas fa-user"></i></span>
+                      	<div className="input-group form-group">
+                      		<div className="input-group-prepend">
+                      			<span className="input-group-text"><i className="fas fa-user"></i></span>
                       		</div>
                           <input type="text"
                           className="form-control"
@@ -67,9 +67,9 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                           />
                   			</div>
 
-                        <div class="input-group form-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                        <div className="input-group form-group">
+                          <div className="input-group-prepend">
+                            <span className="input-group-text"><i className="fas fa-envelope"></i></span>
                           </div>
                           <input type="email"
                             className="form-control"
@@ -79,9 +79,9 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                             />
                         </div>
 
-                  			<div class="input-group form-group">
-                  				<div class="input-group-prepend">
-                  					<span class="input-group-text"><i class="fas fa-key"></i></span>
+                  			<div className="input-group form-group">
+                  				<div className="input-group-prepend">
+                  					<span className="input-group-text"><i className="fas fa-key"></i></span>
                   				</div>
                           <input type="password"
                               className="form-control"
@@ -91,9 +91,9 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                             />
                   			</div>
 
-                        <div class="input-group form-group">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-key"></i></span>
+                        <div className="input-group form-group">
+                          <div className="input-group-prepend">
+                            <span className="input-group-text"><i className="fas fa-key"></i></span>
                           </div>
                             <input type="password"
                               className="form-control"
@@ -103,15 +103,15 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                             />
                          </div>
 
-                  			 <div class="form-group">
-                  					<input type="submit" class="btn btn-warning float-right login_btn" />
+                  			 <div className="form-group">
+                  					<input type="submit" className="btn btn-warning float-right login_btn" />
                   				</div>
               			</form>
               		 </div>
 
-              		<div class="card-footer">
-              			<div class="d-flex justify-content-center links">
-              					Already have an account? <Link to="/login" class="text-info">Login</Link>
+              		<div className="card-footer">
+              			<div className="d-flex justify-content-center links">
+              					Already have an account? <Link to="/login" className="text-info">Login</Link>
               			</div>
               		</div>
 

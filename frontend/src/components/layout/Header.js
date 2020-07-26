@@ -18,7 +18,7 @@ export class Header extends Component {
           <strong>{user ? `As ${user.username}` : ""}</strong>
         </span>
 
-        <li class="nav-item ">
+        <li className="nav-item ">
           <a onClick={this.props.logout} className="text-info nav-link">
             Logout
           </a>
@@ -28,7 +28,7 @@ export class Header extends Component {
 
     const guestLinks = (
       <ul className="navbar-nav">
-        <li class="nav-item ">
+        <li className="nav-item ">
           <Link to="/login" className="text-info nav-link">
             Login
           </Link>
@@ -61,7 +61,7 @@ export class Header extends Component {
             src="https://pngimage.net/wp-content/uploads/2018/06/microscope-logo-png-7.png"
             width="50"
             height="50"
-            class="d-inline-block mx-auto"
+            className="d-inline-block mx-auto"
             alt=""
           />
         </a>

@@ -1,6 +1,8 @@
 export const GET_SETS = 'GET_SETS';
 export const DELETE_SET = 'DELETE_SET';
 export const ADD_SET = 'ADD_SET';
+export const UPDATE_SET = 'UPDATE_SET';
+export const REPLACE_SET = 'REPLACE_SET';
 export const SHOW_SET = 'SHOW_SET';
 export const GET_LEADS = 'GET_LEADS';
 export const DELETE_LEAD = 'DELETE_LEAD';
