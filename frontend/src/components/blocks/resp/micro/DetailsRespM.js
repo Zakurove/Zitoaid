@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { Link, Redirect, withRouter } from 'react-router-dom';
 import PropTypes from "prop-types";
 import { Button, Modal } from "react-bootstrap";
 import { UncontrolledPopover, PopoverHeader, PopoverBody } from "reactstrap";
@@ -34,7 +35,7 @@ export class DetailsRespM extends Component {
     this.toggleEdit = this.toggleEdit.bind(this);
     this.updateSetState = this.updateSetState.bind(this);
     this.saveSet = this.saveSet.bind(this);
-    this.rerenderParent = this.rerenderParent.bind(this);
+    this.deleteSet = this.deleteSet.bind(this);
   }
   //Functions for updating then saving the state of the selected set, only owner would be able to
   updateSetState(event) {
@@ -50,8 +51,10 @@ export class DetailsRespM extends Component {
     this.forceUpdate()
     this.setState({ isEditing: false });
   }
-  rerenderParent() {
-    this.forceUpdate();
+//To delete set
+ deleteSet(event) {
+    this.props.actions.deleteSet(this.state.set.id)
+    this.props.history.push("/respiratory/microbiology");
   }
   //For getting the point where the user wanted to add the note
   pointXY(e) {
@@ -65,7 +68,10 @@ export class DetailsRespM extends Component {
   togglePopover() {
     this.setState({ popoverOpen: !this.state.popoverOpen });
   }
-
+  // deleteButton(event) {
+  //   this.props.actions.deleteSet.bind(this, this.state.set.id);
+  //   this.setState({ redirectDelete: true });
+  // }
   //Functions related to the modal for adding notes
   handleChange(e) {
     const target = e.target;
@@ -126,19 +132,9 @@ export class DetailsRespM extends Component {
 
   static propTypes = {
     set: PropTypes.object.isRequired,
-    // getSets: PropTypes.func.isRequired,
-    // updateSet: PropTypes.func.isRequired,
     actions: PropTypes.object.isRequired
-    //   // actions: PropTypes.object.isRequired
   };
-  //I have no idea what this is, but won't remove it till later.
-  createProject() {
-    const item = this.state.itemArray;
-    const title = "";
-    const text = "";
-    item.push({ title, text });
-    this.setState({ itemArray: item });
-  }
+
 
   //For handeling the text on the 'Adding notes' button.
   changeNoteButtonText() {
@@ -167,20 +163,10 @@ export class DetailsRespM extends Component {
 
   //The lifecycle
   componentDidMount() {
-    //So here we got the id of the set and made it a var,
-    // then we got all the sets, then filtered through them and kept the set we require
-    // const id = this.props.match.params.id;
-    // const setId = this.props.match.params.id;
     this.setState({
       tooltipOpen: true,
     });
     this.props.actions.getSets();
-
-    // this.props.sets.filter(set => set.id == setId).map((set) => {
-    //   this.setState({setTest: set});
-    // })
-
-    // this.props.showSet(id);
   }
   componentWillReceiveProps(nextProps) {
     // this.props.getSets();
@@ -188,10 +174,14 @@ export class DetailsRespM extends Component {
       this.setState({set: nextProps.set});
     }
   }
+
   //Finally the Render!!!
   render() {
     const setId = this.props.match.params.id;
     const { x, y } = this.state;
+    if (this.state.redirectDelete == true) {
+      return <Redirect to={'/respiratory/microbiology'} />
+    }
     if (this.state.isEditing) {
       return (
         <div>
@@ -254,7 +244,7 @@ export class DetailsRespM extends Component {
           </Modal.Footer>
         </Modal>
 
-        {/* {this.props.sets.filter(set => set.id == setId).map((set) => (   */}
+
         <Fragment key={this.props.set.id}>
           {console.log(this.props.set.title, "la title")}
           <div className="row">
@@ -273,6 +263,13 @@ export class DetailsRespM extends Component {
                 onClick={this.toggleEdit}
               >
                 Edit Set
+              </Button>
+              <Button
+                className="collapsible btn btn-danger"
+                style={{ marginBottom: "3px" }}
+                onClick={this.deleteSet} 
+              >
+                Delete Set
               </Button>
               <div
                 className="collapsible form-group"
@@ -417,10 +414,6 @@ function mapStateToProps(state, ownProps) {
   return { set: set };
 }
 
-// const mapStateToProps = (state) => ({
-//   // the first one is whatever we're getting so it's okay, the 2nd one is the name of the reducer, the 3rd the state in the reducer
-//   sets: state.sets.sets,
-// });
 
 function mapDispatchToProps(dispatch) {
   return {

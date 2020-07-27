@@ -6,6 +6,23 @@ import { Link } from "react-router-dom";
 
 
 export class ListRespM extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+        isUpdating: true,
+
+    };
+
+  }
+rendering(){
+  if (this.state.isUpdating == true)  {
+    this.setState({
+      isUpdating: false,
+    });
+    this.props.getSets();
+  }
+}
   static propTypes = {
     //This is the first "set" from the func down below
     sets: PropTypes.array.isRequired,
@@ -19,9 +36,9 @@ export class ListRespM extends Component {
     
   }
   render() {
+    {this.rendering()}
     return (
       <div className="container">
-
         <h1 className="text-center py-2 text-info">Respiratory: Microbiology Sets</h1>
         <Link className="btn btn-secondary" to="/respiratory/">
           Previous Page
@@ -40,6 +57,7 @@ export class ListRespM extends Component {
             </tr>
           </thead>
           <tbody>
+            
             {this.props.sets.map((set) => (
               <tr key={set.id}>
                 <td>{set.id}</td>
@@ -56,6 +74,7 @@ export class ListRespM extends Component {
                 </td>
               </tr>
             ))}
+
           </tbody>
         </table>
       </div>

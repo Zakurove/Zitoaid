@@ -1,12 +1,8 @@
 import axios from 'axios';
 import { createMessage, returnErrors } from '../../messages';
 import { tokenConfig } from '../../auth'
-
 import { GET_SETS, DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET} from '../../types';
 
-export function updateSetSuccess(set) {
-  return {type: UPDATE_SET, set}
-}
 //GET Sets
 export const getSets = () => (dispatch, getState) => {
   axios.get('/api/resp/micro/', tokenConfig(getState))
@@ -67,20 +63,15 @@ export const showSet = id => (dispatch, getState) => {
     }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
-//Edit, not yet touched
-
-
-//Delete Set
-//We're getting the ID here so we can learn which set to delete
-export const deleteSet = id => (dispatch, getState) => {
+//Delete Sets
+export const deleteSet = (id) => (dispatch, getState) => {
   axios
-    .delete(`/api/resp/micro/delete/${id}/`, tokenConfig(getState))
+   .delete(`/api/resp/micro/${id}/`, tokenConfig(getState))
     .then(res => {
-      dispatch(createMessage({deleteSet: "Set Deleted Successfully"}))
+      dispatch(createMessage({addSet: "Set Deleted"}))
       dispatch({
         type: DELETE_SET,
-        //After we delete the set we will send its id as the payload then we will forward it to the reducer, where we will change the state and keep every set but the one we deleted.
         payload: id
       });
-    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+    }).catch((err) => console.log(err));
 };
