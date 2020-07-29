@@ -32,7 +32,7 @@ export const addSet = set => (dispatch, getState) => {
 };
 
 //Update Sets
-export const updateSet = set => (dispatch, getState) => {
+export const updateSet = (set) => (dispatch, getState) => {
   axios
     .patch(`/api/resp/micro/${set.id}/`, set, tokenConfig(getState), {
       headers: {
@@ -68,7 +68,7 @@ export const deleteSet = (id) => (dispatch, getState) => {
   axios
    .delete(`/api/resp/micro/${id}/`, tokenConfig(getState))
     .then(res => {
-      dispatch(createMessage({addSet: "Set Deleted"}))
+      dispatch(createMessage({deleteSet: "Set Deleted"}))
       dispatch({
         type: DELETE_SET,
         payload: id

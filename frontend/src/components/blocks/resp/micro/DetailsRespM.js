@@ -29,6 +29,7 @@ export class DetailsRespM extends Component {
       tooltipOpen: false,
       popoverOpen: false,
       set: this.props.set,
+      testing: ["hello", "One"]
     };
 
     this.pointXY = this.pointXY.bind(this);
@@ -41,15 +42,15 @@ export class DetailsRespM extends Component {
   updateSetState(event) {
     const field = event.target.name;
     const set = this.state.set;
-    console.log("moshi mosh!")
     set[field] = event.target.value;
+    // set.images = event.target.setImages
     return this.setState({ set: set });
   }
   saveSet(event) {
     event.preventDefault();
     this.props.actions.updateSet(this.state.set);
-    this.forceUpdate()
     this.setState({ isEditing: false });
+    this.forceUpdate()
   }
 //To delete set
  deleteSet(event) {
@@ -190,9 +191,9 @@ export class DetailsRespM extends Component {
           <EditRespM
             rerenderParent={this.rerenderParent}
             set={this.state.set}
+            updateSet={this.props.actions.updateSet}
             onChange={this.updateSetState}
             onSave={this.saveSet}
-            
           />
         </div>
       );
@@ -246,7 +247,6 @@ export class DetailsRespM extends Component {
 
 
         <Fragment key={this.props.set.id}>
-          {console.log(this.props.set.title, "la title")}
           <div className="row">
             <div className="col">
               <h1 className="text-info text-center my-3">
@@ -397,9 +397,7 @@ export class DetailsRespM extends Component {
 }
 
 function getSetById(sets, id) {
-  console.log("The function started");
   var set = sets.find((set) => set.id == id);
-  console.log(set, "de set hermano");
   return Object.assign({ set }, set);
 }
 
@@ -409,7 +407,6 @@ function mapStateToProps(state, ownProps) {
   let setId = ownProps.match.params.id;
   if (setId && sets.length > 0) {
     set = getSetById(sets, setId);
-    console.log(set, "assignment");
   }
   return { set: set };
 }
