@@ -20,7 +20,7 @@ export class DetailsRespM extends Component {
     this.state = {
       currentSlide: 0,
       modalShow: false,
-      NoteContent: "",
+      noteContent: "",
       x: 0,
       y: 0,
       noteMode: false,
@@ -47,8 +47,8 @@ export class DetailsRespM extends Component {
     return this.setState({ set: set });
   }
   saveSet(event) {
-    event.preventDefault();
-    this.props.actions.updateSet(this.state.set);
+    // event.preventDefault();
+    // this.props.actions.updateSet(this.state.set);
     this.setState({ isEditing: false });
     this.forceUpdate()
   }
@@ -97,17 +97,28 @@ export class DetailsRespM extends Component {
   }
   onSubmit = (e) => {
     e.preventDefault();
+    // const set = new FormData();
+    // set.append("title", this.state.title);
+    // set.append("description", this.state.description);
     const note = new FormData();
-    note.append("NoteContent", this.state.NoteContent);
+    note.append("noteContent", this.state.noteContent);
     note.append("x", this.state.x);
     note.append("y", this.state.y);
-
+    note.append("respMicroImage_id", this.selectedImageId)
+    // set.append('note', note)
+    // set.images.map(slide, index) => (
+    // if slide.id == selectedImageId {
+    //   this.slide.n
+    // }
+    // ))
+    // this.props.actions.addNote(set, this.state.set.id)
     this.setState({
-      NoteContent: "",
+      noteContent: "",
       x: "",
       y: "",
+
     });
-    console.log("Adding a note...", this.state.NoteContent);
+    console.log("Adding a note...", this.state.noteContent);
   };
 
   //Slider functions
@@ -175,6 +186,8 @@ export class DetailsRespM extends Component {
       this.setState({set: nextProps.set});
     }
   }
+  //Add notes
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   //Finally the Render!!!
   render() {
@@ -194,6 +207,7 @@ export class DetailsRespM extends Component {
             updateSet={this.props.actions.updateSet}
             onChange={this.updateSetState}
             onSave={this.saveSet}
+            addSet={this.props.actions.addSet}
           />
         </div>
       );
@@ -218,8 +232,8 @@ export class DetailsRespM extends Component {
               <div className="form-group">
                 <textarea
                   type="text"
-                  value={this.state.NoteContent}
-                  name="NoteContent"
+                  value={this.state.noteContent}
+                  name="noteContent"
                   onChange={(e) => this.handleChange(e)}
                   className="form-control"
                   rows="3"
@@ -340,12 +354,17 @@ export class DetailsRespM extends Component {
               >
                 {this.props.set.images.map((slide, index) => (
                   <div
-                    key={index}
-                    onClick={(e) => {
+                    key={slide.id}
+                    onClick={ (e) => {
+                     this.setState({
+                        selectedImageId: slide.id
+                      })
                       this.handleOverlay(e);
-                      // this.modalOpen(e);
-                      // this.pointXY(e);
-                      // console.log(x, y);
+                    //   this.setState
+
+                    //   // this.modalOpen(e);
+                    //   // this.pointXY(e);
+                    //   // console.log(x, y);
                     }}
                     // onClick={this.handleOverlay}
                     style={{ pointerEvents: "all" }}

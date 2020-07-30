@@ -28,12 +28,12 @@ class RespMicro(models.Model):
 
 class RespMicroImage(models.Model):
     respMicro = models.ForeignKey(RespMicro, on_delete=models.CASCADE, null=True, related_name='setImages')
-    image = models.ImageField( upload_to='testing3/', blank=True, null=True)
+    image = models.ImageField( upload_to='testing4/', blank=True, null=True)
 
 class RespMicroNotes(models.Model):
     respMicroImage = models.ForeignKey(RespMicroImage, on_delete=models.CASCADE, null=True, related_name='setNotes')
-    content = models.TextField(blank=True, null=True)
-    x_dim = models.IntegerField(blank=True, null=True)
-    y_dim = models.IntegerField(blank=True, null=True)
+    noteContent = models.TextField(blank=True, null=True)
+    x = models.IntegerField(blank=True, null=True)
+    y = models.IntegerField(blank=True, null=True)
 
 

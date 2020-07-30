@@ -10,14 +10,14 @@ import sys
 class RespMicroNotesSerializer(serializers.ModelSerializer):
     class Meta:
         model = RespMicroNotes
-        fields = ('content','x_dim','y_dim')
+        fields = ('noteContent','x','y','respMicroImage_id')
 
 class RespMicroImageSerializer(serializers.ModelSerializer):
     notes = RespMicroNotesSerializer(source='setNotes', many=True, read_only=True)
 
     class Meta:
         model = RespMicroImage
-        fields = ('image','notes')
+        fields = ('id','image','notes')
 
 class RespMicroSerializer(serializers.ModelSerializer):
 

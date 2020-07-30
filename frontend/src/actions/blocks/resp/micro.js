@@ -32,9 +32,9 @@ export const addSet = set => (dispatch, getState) => {
 };
 
 //Update Sets
-export const updateSet = (set) => (dispatch, getState) => {
+export const updateSet = (set, id) => (dispatch, getState) => {
   axios
-    .patch(`/api/resp/micro/${set.id}/`, set, tokenConfig(getState), {
+    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState), {
       headers: {
         'content-type': 'multipart/form-data'
       }
@@ -48,6 +48,18 @@ export const updateSet = (set) => (dispatch, getState) => {
     }).catch(error => { throw(error) });
 };
 
+//Add Note
+export const addNote = (set, id) => (dispatch, getState) => {
+  axios
+    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState))
+    .then(res => {
+      dispatch(createMessage({addSet: "Note Added"}))
+      dispatch({
+        type: UPDATE_SET,
+        payload: res.data
+      });
+    }).catch(error => { throw(error) });
+};
 
 
 
