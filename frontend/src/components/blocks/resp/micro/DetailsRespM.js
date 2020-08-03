@@ -198,9 +198,7 @@ export class DetailsRespM extends Component {
     }
     if (this.state.isEditing) {
       return (
-        <div>
-          <h1>Edit Set </h1>
-
+        <Fragment>
           <EditRespM
             rerenderParent={this.rerenderParent}
             set={this.state.set}
@@ -209,7 +207,7 @@ export class DetailsRespM extends Component {
             onSave={this.saveSet}
             addSet={this.props.actions.addSet}
           />
-        </div>
+        </Fragment>
       );
     }
     return (

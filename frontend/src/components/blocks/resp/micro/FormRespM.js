@@ -38,8 +38,9 @@ import { tokenConfig } from '../../../../reducers/auth'
        .map(fileItem => fileItem.file)
        .forEach(file => {
         set.append('image', file, file.name);
+        
        });
-
+       console.log(...set, "testing for set");
        console.log(JSON.stringify(set), "testing for set")
        this.props.addSet(set);
        this.setState({

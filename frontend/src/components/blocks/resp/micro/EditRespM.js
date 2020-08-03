@@ -250,25 +250,28 @@ export class EditRespM extends Component {
     set: PropTypes.object.isRequired,
     addSet: PropTypes.func.isRequired,
     updateSet: PropTypes.func.isRequired,
+    onSave: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
-  onSubmit = (e) => {
+  onSubmit = async (e) => {
     e.preventDefault();
     const set = new FormData();
     set.append("title", this.state.title);
     set.append("description", this.state.description);
     console.log(this.pond, "Up up here, see it works!");
-    this.pond
+    await this.pond
       .getFiles()
       .map((fileItem) => fileItem.file)
       .forEach((file) => {
-        set.append("image", file, file.name);
+       set.append("image", file, file.name);
       });
 
-    console.log(set, "testing for set");
+    console.log(...set)
+    console.log(...set, "testing for set");
     this.props.updateSet(set, this.state.set.id);
+    // this.props.onSave(e)
     this.setState({
       title: "",
       description: "",
@@ -324,17 +327,17 @@ export class EditRespM extends Component {
           </div>
           <div className="col-6">
             <div className="form-group" form="setForm">
-              <h4>Upload set images:</h4>
+              <h4>Add more images:</h4>
               <FilePond
                 name="image"
                 ref={(ref) => (this.pond = ref)}
-                // files={this.state.files}
-                files={this.state.setImages.map((slide, index) => ({
-                  source: slide.image,
-                  options: {
-                    type: "local",
-                  },
-                }))}
+                files={this.state.files}
+                // files={this.state.setImages.map((slide, index) => ({
+                //   source: slide.image,
+                //   options: {
+                //     type: "local",
+                //   },
+                // }))}
                 allowMultiple={true}
                 onuploadfiles={(fileitems) => {
                   this.setState({
@@ -346,17 +349,17 @@ export class EditRespM extends Component {
                     files: fileitems.map((fileitem) => fileitem.file),
                   });
                 }}
-                server={{
-                  process: null,
-                  load: (source, load, error, progress, abort, headers) => {
-                    var myRequest = new Request(source);
-                    fetch(myRequest).then(function (response) {
-                      response.blob().then(function (myBlob) {
-                        load(myBlob);
-                      });
-                    });
-                  },
-                }}
+                // server={{
+                //   process: null,
+                //   load: (source, load, error, progress, abort, headers) => {
+                //     var myRequest = new Request(source);
+                //     fetch(myRequest).then(function (response) {
+                //       response.blob().then(function (myBlob) {
+                //         load(myBlob);
+                //       });
+                //     });
+                //   },
+                // }}
                 form="setForm"
               />
             </div>
@@ -367,4 +370,4 @@ export class EditRespM extends Component {
   }
 }
 
-export default connect(null, { addSet })(EditRespM);
+export default connect(null, { addSet, updateSet })(EditRespM);

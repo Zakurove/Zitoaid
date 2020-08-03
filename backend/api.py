@@ -24,31 +24,11 @@ class RespMicroViewSet(viewsets.ModelViewSet):
         permissions.IsAuthenticated
         # IsAdminUserOrReadOnly
     ]
+    parser_classes = (MultiPartParser, )
 
     serializer_class = RespMicroSerializer
-    # parser_classes = (MultiPartParser,)
-    #in case only want to get the leads of the user
-    # def get_queryset(self):
-    #     return self.request.user.leads.all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
-        
-#
-#Lead viewset
-# class LeadViewSet(viewsets.ModelViewSet):
-#     queryset = Lead.objects.all()
-#     permission_classes = [
-#         permissions.IsAuthenticated
-#     ]
-
-#     serializer_class = LeadSerializer
-#     #in case only want to get the leads of the user
-
-#     # def get_queryset(self):
-#     #     return self.request.user.leads.all()
-
-#     def perform_create(self, serializer):
-#         serializer.save(owner=self.request.user)
