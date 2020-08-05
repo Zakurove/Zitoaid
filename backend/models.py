@@ -20,7 +20,7 @@ class RespMicro(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
     owner_username = models.CharField(max_length=30,null=True)
-    owner_id = models.ForeignKey(
+    owner = models.ForeignKey(
     User, related_name="respMicro", on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
