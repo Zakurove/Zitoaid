@@ -26,24 +26,25 @@ class RespMicroSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description',  'images', 'owner_username','owner_id')
         
     def create(self, validated_data):
+        #SET
         creator = self.context['request'].user
-        images_data = self.context.get('view').request.FILES
         respMicro = RespMicro.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
-       
+
+        #IMAGES
+        images_data = self.context.get('view').request.FILES
+        # validated_data['images'] = i       
         #Three is the genius cat that cracked the code
         images = images_data.getlist('image')
         for img in images:
             print(img)
             RespMicroImage.objects.create(respMicro=respMicro, image=img)
+
+        #RETURN
         return respMicro
 
     def update(self, instance, validated_data):
-        #Must make this an object hmm
+        #SET 
         respMicro = self
-        print(self.context.get('view').request.data)
-        # print(noteContent, noteX, noteY, noteImage, 'this is the note yay!')
-
-        #SET info
         instance.title = validated_data['title']
         instance.description = validated_data['description']
 
@@ -53,15 +54,24 @@ class RespMicroSerializer(serializers.ModelSerializer):
         for img in images:
             print(img, 'got uploaded')
             RespMicroImage.objects.update_or_create(respMicro=respMicro, image=img)
-        print(instance, "instance")
+
         #NOTES
         noteContent = self.context.get('view').request.data.get('noteContent')
         noteId = self.context.get('view').request.data.get('noteId')
         noteX = self.context.get('view').request.data.get('x')
         noteY = self.context.get('view').request.data.get('y')
         noteImage = self.context.get('view').request.data.get('respMicroImage_id')
-        RespMicroNotes.objects.update_or_create(respMicroImage_id=noteImage, noteContent=noteContent, x=noteX, y=noteY)
-        # RespMicroNotes.objects.update_or_create(noteContent=noteContent, id=noteId)
-        print("Done creating the note")
+        editingState = self.context.get('view').request.data.get('editingState')
+        if editingState == 'adding':
+             RespMicroNotes.objects.update_or_create(respMicroImage_id=noteImage, noteContent=noteContent, x=noteX, y=noteY)
+        if editingState == 'editing':
+             note_instance = RespMicroNotes.objects.filter(id=noteId).first()
+             note_instance.noteContent = noteContent
+             note_instance.save()
+        if editingState == 'deleting':
+             note_instance = RespMicroNotes.objects.filter(id=noteId).first()
+             note_instance.delete()
+
+        #Saving and returning
         instance.save()
         return instance

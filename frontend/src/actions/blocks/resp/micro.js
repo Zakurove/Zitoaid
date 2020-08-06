@@ -23,7 +23,7 @@ export const addSet = set => (dispatch, getState) => {
       }
     })
     .then(res => {
-      dispatch(createMessage({addSet: "Set Added Successfully"}))
+      dispatch(createMessage({success: "Set Added Successfully"}))
       dispatch({
         type: ADD_SET,
         payload: res.data
@@ -40,28 +40,13 @@ export const updateSet = (set, id) => (dispatch, getState) => {
       }
     })
     .then(res => {
-      dispatch(createMessage({addSet: "Set Edited"}))
+      dispatch(createMessage({info: "Set Edited"}))
       dispatch({
         type: UPDATE_SET,
         payload: res.data
       });
     }).catch(error => { throw(error) });
 };
-
-//Add Note
-export const addNote = (set, id) => (dispatch, getState) => {
-  axios
-    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState))
-    .then(res => {
-      dispatch(createMessage({addSet: "Note Added"}))
-      dispatch({
-        type: UPDATE_SET,
-        payload: res.data
-      });
-    }).catch(error => { throw(error) });
-};
-
-
 
 //Show details of a single SHOW_SET
 export const showSet = id => (dispatch, getState) => {
@@ -80,10 +65,50 @@ export const deleteSet = (id) => (dispatch, getState) => {
   axios
    .delete(`/api/resp/micro/${id}/`, tokenConfig(getState))
     .then(res => {
-      dispatch(createMessage({deleteSet: "Set Deleted"}))
+      dispatch(createMessage({danger: "Set Deleted"}))
       dispatch({
         type: DELETE_SET,
         payload: id
       });
     }).catch((err) => console.log(err));
+};
+
+
+//Add Note
+export const addNote = (set, id) => (dispatch, getState) => {
+  axios
+    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState))
+    .then(res => {
+      dispatch(createMessage({success: "Note Added"}))
+      dispatch({
+        type: UPDATE_SET,
+        payload: res.data
+      });
+    }).catch(error => { throw(error) });
+};
+
+//Edit Note
+export const editNote = (set, id) => (dispatch, getState) => {
+  axios
+    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState))
+    .then(res => {
+      dispatch(createMessage({info: "Note Edited"}))
+      dispatch({
+        type: UPDATE_SET,
+        payload: res.data
+      });
+    }).catch(error => { throw(error) });
+};
+
+//Delete Note
+export const deleteNote = (set, id) => (dispatch, getState) => {
+  axios
+    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState))
+    .then(res => {
+      dispatch(createMessage({danger: "Note Deleted"}))
+      dispatch({
+        type: UPDATE_SET,
+        payload: res.data
+      });
+    }).catch(error => { throw(error) });
 };
