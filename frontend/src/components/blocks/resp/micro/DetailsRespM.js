@@ -10,6 +10,7 @@ import ReactDOM from "react-dom";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { EditRespM } from "./EditRespM";
+import { DeleteRespM } from "./DeleteRespM";
 import styles from "react-responsive-carousel/lib/styles/carousel.min.css";
 import * as setActions from "../../../../actions/blocks/resp/micro";
 
@@ -39,12 +40,20 @@ export class DetailsRespM extends Component {
       modalEditShow: false,
       noteEditingState: false,
       noteDisplay: "",
+      optionsState: false,
+      isRemovingImage: false,
+      set: this.props.set,
+      deleteModalShow: false,
     };
 
     this.pointXY = this.pointXY.bind(this);
     this.toggleEdit = this.toggleEdit.bind(this);
+    this.deleteModalOpen = this.deleteModalOpen.bind(this);
+    this.toggleRemoveImages = this.toggleRemoveImages.bind(this);
+    this.toggleOptions = this.toggleOptions.bind(this);
     this.saveSet = this.saveSet.bind(this);
     this.deleteSet = this.deleteSet.bind(this);
+    this.doneImage = this.doneImage.bind(this);
   }
   static propTypes = {
     set: PropTypes.object.isRequired,
@@ -76,6 +85,12 @@ export class DetailsRespM extends Component {
   //                                     EDIT & DELETE
   saveSet(event) {
     this.setState({ isEditing: false });
+    this.setState({ optionsState: false })
+    this.forceUpdate();
+  }
+  doneImage(event) {
+    this.setState({ isRemovingImages: false });
+    this.setState({ optionsState: false })
     this.forceUpdate();
   }
   //To delete set
@@ -86,6 +101,13 @@ export class DetailsRespM extends Component {
   //For knowing if the user is editing or not and acting accordingly
   toggleEdit() {
     this.setState({ isEditing: !this.state.isEditing });
+  }
+  toggleRemoveImages() {
+    this.setState({ isRemovingImages: !this.state.isRemovingImages });
+  }
+  //For toggling options button
+  toggleOptions() {
+    this.setState({ optionsState: !this.state.optionsState });
   }
   //----------------------------------------------------------------------------------------------
   //                                      NOTE SYSTEM
@@ -119,6 +141,10 @@ export class DetailsRespM extends Component {
   modalEditOpen() {
     this.setState({ modalEditShow: true });
   }
+
+  deleteModalOpen() {
+    this.setState({ deleteModalShow: true });
+  }
   modalClose() {
     this.setState({
       modalInputName: "",
@@ -129,6 +155,12 @@ export class DetailsRespM extends Component {
     this.setState({
       modalInputName: "",
       modalEditShow: false,
+    });
+  }
+  deleteModalClose() {
+    this.setState({
+      modalInputName: "",
+      deleteModalShow: false,
     });
   }
 
@@ -248,7 +280,6 @@ export class DetailsRespM extends Component {
     this.props.actions.getSets();
   }
   componentWillReceiveProps(nextProps) {
-    // this.props.getSets();
     if (this.props.set.id != nextProps.set.id) {
       this.setState({ set: nextProps.set });
     }
@@ -262,6 +293,7 @@ export class DetailsRespM extends Component {
     if (this.state.redirectDelete == true) {
       return <Redirect to={"/respiratory/microbiology"} />;
     }
+
     if (this.state.isEditing) {
       return (
         <Fragment>
@@ -272,6 +304,17 @@ export class DetailsRespM extends Component {
             onChange={this.updateSetState}
             onSave={this.saveSet}
             addSet={this.props.actions.addSet}
+          />
+        </Fragment>
+      );
+    }
+    if (this.state.isRemovingImages) {
+      return (
+        <Fragment>
+          <DeleteRespM
+            set={this.props.set}
+            removeImage={this.props.actions.removeImage}
+            doneImage={this.doneImage}
           />
         </Fragment>
       );
@@ -367,7 +410,42 @@ export class DetailsRespM extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-
+        <Modal
+          show={this.state.deleteModalShow}
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton onClick={(e) => this.deletModalClose(e)}>
+            <Modal.Title
+              id="contained-modal-title-vcenter"
+              className="text-info text-center"
+            >
+              Are you sure you want to delete this set?
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Footer style={{ justifyContent: "center" }}>
+            <Button
+              variant="danger"
+              onClick={(e) => {
+                this.deleteModalClose(e);
+                this.deleteSet(e);
+              }}
+              style={{ justifyContent: "center" }}
+              form="noteForm"
+            >
+              <i class="far fa-trash-alt"></i>
+              <span> </span>
+              Remove
+            </Button>
+            <Button
+              onClick={(e) => this.deleteModalClose(e)}
+              className="btn btn-secondary ml-2 "
+              style={{ justifyContent: "center" }}
+            >
+              Cancel
+            </Button>
+          </Modal.Footer>
+        </Modal>
         <Fragment key={this.props.set.id}>
           <div className="row">
             <div className="col">
@@ -378,23 +456,73 @@ export class DetailsRespM extends Component {
           </div>
           <div className="row">
             <div className="col-1"></div>
+            <div className="col-4">
+              {this.state.optionsState && (
+                <Button
+                  variant="info"
+                  size="sm"
+                  style={{
+                    marginBottom: "5px",
+                    marginRight: "2px",
+                    marginLeft: "2px",
+                  }}
+                  onClick={this.toggleEdit}
+                >
+                  <i class="fas fa-edit"></i>
+                  <span> </span>
+                  Edit Set & Add Images
+                </Button>
+              )}
+              {this.state.optionsState && (
+                <Button
+                  variant="warning"
+                  size="sm"
+                  style={{
+                    marginBottom: "5px",
+                    marginRight: "2px",
+                    marginLeft: "2px",
+                  }}
+                  onClick={this.toggleRemoveImages}
+                >
+                  <i class="far fa-images"></i>
+                  <span> </span>
+                  Select Images to Remove
+                </Button>
+              )}
+              {this.state.optionsState && (
+                <Button
+                  variant="danger"
+                  size="sm"
+                  style={{
+                    marginBottom: "5px",
+                    marginRight: "2px",
+                    marginLeft: "2px",
+                  }}
+                  onClick={(e) => {
+                    this.deleteModalOpen(e);
+                  }}
+                >
+                  <i class="far fa-trash-alt"></i>
+                  <span> </span>
+                  Delete Set
+                </Button>
+              )}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col-1"></div>
             <div className="col-3">
               <Button
                 // className="collapsible btn btn-warning"
                 style={{ marginBottom: "3px", marginRight: "3px" }}
                 variant="warning"
-                onClick={this.toggleEdit}
+                onClick={this.toggleOptions}
               >
-                Edit Set
+                <i class="fas fa-cog"></i>
+                <span> </span>
+                Options
               </Button>
-              <Button
-                variant="danger"
-                // className="collapsible btn btn-danger"
-                style={{ marginBottom: "3px" }}
-                onClick={this.deleteSet}
-              >
-                Delete Set
-              </Button>
+
               <div
                 className="collapsible form-group"
                 style={{ display: "none" }}
@@ -532,7 +660,6 @@ export class DetailsRespM extends Component {
                                     EditedNoteId: note.id,
                                   });
                                   this.handleNoteEditOverlay(e);
-                                  console.log("HEEY ediiit");
                                 }}
                               >
                                 Edit

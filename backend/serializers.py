@@ -31,8 +31,7 @@ class RespMicroSerializer(serializers.ModelSerializer):
         respMicro = RespMicro.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
 
         #IMAGES
-        images_data = self.context.get('view').request.FILES
-        # validated_data['images'] = i       
+        images_data = self.context.get('view').request.FILES     
         #Three is the genius cat that cracked the code
         images = images_data.getlist('image')
         for img in images:
@@ -44,17 +43,23 @@ class RespMicroSerializer(serializers.ModelSerializer):
 
     def update(self, instance, validated_data):
         #SET 
-        respMicro = self
+        respMicro = instance
         instance.title = validated_data['title']
         instance.description = validated_data['description']
 
         #IMAGES
-        images_data = self.context.get('view').request.FILES
-        images = images_data.getlist('image')
-        for img in images:
-            print(img, 'got uploaded')
-            RespMicroImage.objects.update_or_create(respMicro=respMicro, image=img)
+        editingState = self.context.get('view').request.data.get('editingState')
+        removedImageId = self.context.get('view').request.data.get('removedImageId')
 
+        if editingState == 'removingImage':
+            image_instance = RespMicroImage.objects.filter(id=removedImageId).first()
+            image_instance.delete()
+        else:
+            images_data = self.context.get('view').request.FILES
+            images = images_data.getlist('image')
+            for img in images:
+                print(img, 'got uploaded')
+                RespMicroImage.objects.create(respMicro=respMicro, image=img)
         #NOTES
         noteContent = self.context.get('view').request.data.get('noteContent')
         noteId = self.context.get('view').request.data.get('noteId')

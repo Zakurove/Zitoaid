@@ -69,6 +69,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'Tawassam.wsgi.application'
 
+
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.mysql',

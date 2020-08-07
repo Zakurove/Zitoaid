@@ -86,6 +86,18 @@ export const addNote = (set, id) => (dispatch, getState) => {
       });
     }).catch(error => { throw(error) });
 };
+//Remove Images
+export const removeImage = (set, id) => (dispatch, getState) => {
+  axios
+    .put(`/api/resp/micro/${id}/`, set, tokenConfig(getState))
+    .then(res => {
+      dispatch(createMessage({danger: "Image Removed"}))
+      dispatch({
+        type: UPDATE_SET,
+        payload: res.data
+      });
+    }).catch(error => { throw(error) });
+};
 
 //Edit Note
 export const editNote = (set, id) => (dispatch, getState) => {
