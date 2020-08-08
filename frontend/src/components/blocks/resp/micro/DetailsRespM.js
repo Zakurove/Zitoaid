@@ -299,7 +299,7 @@ export class DetailsRespM extends Component {
         <Fragment>
           <EditRespM
             rerenderParent={this.rerenderParent}
-            set={this.state.set}
+            set={this.props.set}
             updateSet={this.props.actions.updateSet}
             onChange={this.updateSetState}
             onSave={this.saveSet}
@@ -457,20 +457,23 @@ export class DetailsRespM extends Component {
           <div className="row">
             <div className="col-1"></div>
             <div className="col-4">
-              {this.state.optionsState && (
+
+                            {this.state.optionsState && (
                 <Button
-                  variant="info"
+                  variant="danger"
                   size="sm"
                   style={{
                     marginBottom: "5px",
                     marginRight: "2px",
                     marginLeft: "2px",
                   }}
-                  onClick={this.toggleEdit}
+                  onClick={(e) => {
+                    this.deleteModalOpen(e);
+                  }}
                 >
-                  <i class="fas fa-edit"></i>
+                  <i class="far fa-trash-alt"></i>
                   <span> </span>
-                  Edit Set & Add Images
+                  Delete Set
                 </Button>
               )}
               {this.state.optionsState && (
@@ -489,31 +492,34 @@ export class DetailsRespM extends Component {
                   Select Images to Remove
                 </Button>
               )}
-              {this.state.optionsState && (
+                            {this.state.optionsState && (
                 <Button
-                  variant="danger"
+                  variant="info"
                   size="sm"
                   style={{
                     marginBottom: "5px",
                     marginRight: "2px",
                     marginLeft: "2px",
                   }}
-                  onClick={(e) => {
-                    this.deleteModalOpen(e);
-                  }}
+                  onClick={this.toggleEdit}
                 >
-                  <i class="far fa-trash-alt"></i>
+                  <i class="fas fa-edit"></i>
                   <span> </span>
-                  Delete Set
+                  Edit Set & Add Images
                 </Button>
               )}
+
             </div>
           </div>
           <div className="row">
             <div className="col-1"></div>
             <div className="col-3">
+            <Link className="btn btn-secondary " to="/respiratory/microbiology/" style={{ marginBottom: "3px", marginRight: "3px" }}>
+            Previous Page
+          </Link>
               <Button
                 // className="collapsible btn btn-warning"
+                className=" float-right"
                 style={{ marginBottom: "3px", marginRight: "3px" }}
                 variant="warning"
                 onClick={this.toggleOptions}
@@ -586,12 +592,13 @@ export class DetailsRespM extends Component {
             <div className="col-3" style={{ height: "300px" }}>
               <div
                 className=" p-3 pt-4 bg-dark border border-info border-4 rounded"
-                style={{ height: "160%" }}
+                style={{ height: "160%", overflow: "scroll" }}
               >
-                <p className="font-weight-bolder text-info text-justify ">
+                <p className="font-weight-bolder text-info text-justify " style={{fontSize: '20px'}}>
                   {this.props.set.description}
                 </p>
               </div>
+
             </div>
             <div className="slide-container col-7">
               <Carousel

@@ -47,13 +47,13 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
 
 
           <div className="container pt-5 mt-3" >
-            <div className="d-flex justify-content-center h-100">
-              	<div className="card">
+            <div className="d-flex justify-content-center">
+              	<div className="card" style={{height: "400px"}}>
               		<div className="card-header">
               			<h3>Sign Up</h3>
               		</div>
-              		<div className="card-body">
-              			<form  onSubmit={this.onSubmit}>
+              		<div className="card-body pb-5">
+              			<form  onSubmit={this.onSubmit} >
 
                       	<div className="input-group form-group">
                       		<div className="input-group-prepend">
@@ -64,6 +64,7 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                           name="username"
                           onChange={this.onChange}
                           value={username}
+                          placeholder="Username"
                           />
                   			</div>
 
@@ -76,6 +77,7 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                               name="email"
                               onChange={this.onChange}
                               value={email}
+                              placeholder="Email"
                             />
                         </div>
 
@@ -88,6 +90,7 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                               name="password"
                               onChange={this.onChange}
                               value={password}
+                              placeholder="Password"
                             />
                   			</div>
 
@@ -100,12 +103,14 @@ export class Register extends Component { // eslint-disable-line react/prefer-st
                               name="password2"
                               onChange={this.onChange}
                               value={password2}
+                              placeholder="Verify password"
                             />
                          </div>
 
-                  			 <div className="form-group">
-                  					<input type="submit" className="btn btn-warning float-right login_btn" />
+                  			 <div className="input-group form-group">
+                  					<input type="submit" className="btn btn-warning float-right login_btn btn-block" />
                   				</div>
+                          
               			</form>
               		 </div>
 

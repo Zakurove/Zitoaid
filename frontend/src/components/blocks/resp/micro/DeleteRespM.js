@@ -102,14 +102,17 @@ export class DeleteRespM extends Component {
         </Modal>
 
         <div className="row">
-          <h1 className="text-info pb-4">Remove Images:</h1>
+          <div className="col"><h1 className="text-info pb-4 text-center">Remove Images</h1></div>
+          
         </div>
         <div className="row">
           <div className="col-2"></div>
-          <div className="col-8">
-            <h3 className="text-secondary text-center">
+          <div className="col-8 " style={{display: "inlineBlock"}}>
+          <Button variant="secondary mb-1" onClick={this.props.doneImage}>Previous Page</Button>
+            <span className="text-secondary text-center ml-5" style={{fontSize: '20px'}}>
               (Click on the wanted image to remove it)
-            </h3>
+            </span>
+            
           </div>
           <div className="col-2"></div>
         </div>

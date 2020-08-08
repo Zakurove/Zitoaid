@@ -14,12 +14,12 @@ export class Header extends Component {
     const { isAuthenticated, user } = this.props.auth;
     const authLinks = (
       <ul className="navbar-nav">
-        <span className="navbar-text mr-3">
+        <span className="navbar-text mr-3" style={{fontSize:"20px"}}>
           <strong>{user ? `As ${user.username}` : ""}</strong>
         </span>
 
         <li className="nav-item ">
-          <a onClick={this.props.logout} className="text-info nav-link">
+          <a onClick={this.props.logout} className="text-info nav-link" style={{fontSize:"20px"}}>
             Logout
           </a>
         </li>
@@ -29,13 +29,13 @@ export class Header extends Component {
     const guestLinks = (
       <ul className="navbar-nav">
         <li className="nav-item ">
-          <Link to="/login" className="text-info nav-link">
+          <Link to="/login" className="text-info nav-link" style={{fontSize:"20px"}}>
             Login
           </Link>
         </li>
 
         <li className="nav-item ">
-          <Link to="/register" className="text-info nav-link">
+          <Link to="/register" className="text-info nav-link" style={{fontSize:"20px"}}>
             Register
           </Link>
         </li>
@@ -56,31 +56,22 @@ export class Header extends Component {
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <a className="navbar-brand" href="#">
-          <img
-            src="https://pngimage.net/wp-content/uploads/2018/06/microscope-logo-png-7.png"
-            width="50"
-            height="50"
-            className="d-inline-block mx-auto"
-            alt=""
-          />
-        </a>
-        <a className="navbar-brand" href="/">
+        <a className="navbar-brand" href="/" style={{fontSize:"35px", color: "#06d6d6"}}>
           Tawassam
         </a>
 
         <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item active">
-              <a className="nav-link" href="/">
-                Home <span className="sr-only">(current)</span>
+            <li className="nav-item ">
+              <a className="nav-link" href="/" style={{fontSize:"25px"}}>
+                Home 
               </a>
             </li>
-            <li className="nav-item ">
+            {/* <li className="nav-item ">
               <a className="nav-link" href="/about">
                 About
               </a>
-            </li>
+            </li> */}
           </ul>
 
           {isAuthenticated ? authLinks : guestLinks}

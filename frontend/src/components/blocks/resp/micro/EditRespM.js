@@ -49,12 +49,18 @@ export class EditRespM extends Component {
       description: "",
     });
   };
+  componentWillReceiveProps(nextProps) {
+    // this.props.getSets();
+    if (this.props.set.id != nextProps.set.id) {
+      this.setState({ set: nextProps.set });
+    }
+  }
   render() {
     const { title, description, files, setFiles } = this.state;
     return (
       <div className="container">
         <div className="row">
-          <h1 className="text-info pb-4">Edit set:</h1>
+        <div className="col"><h1 className="text-info pb-4 text-center">Edit Set</h1></div>
         </div>
         <div className="row">
           <div className="col-6">
@@ -83,12 +89,21 @@ export class EditRespM extends Component {
                 />
               </div>
               <div className="form-group">
-                <button
+              <button
                   type="submit"
                   className="btn btn-lg btn-warning btn-block"
                 >
                   Submit
                 </button>
+              <button
+                  
+                  onClick={this.props.onSave}
+                  className="btn btn-lg btn-secondary btn-block"
+                >
+                  Cancel
+                </button>
+
+
               </div>
             </form>
           </div>
