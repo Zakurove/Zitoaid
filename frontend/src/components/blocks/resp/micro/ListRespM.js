@@ -28,6 +28,7 @@ rendering(){
     sets: PropTypes.array.isRequired,
     getSets: PropTypes.func.isRequired,
     deleteSet: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
   };
 
   componentDidMount() {
@@ -36,6 +37,7 @@ rendering(){
     
   }
   render() {
+    const {  user } = this.props.auth;
     {this.rendering()}
     return (
       <div className="container">
@@ -43,9 +45,11 @@ rendering(){
         <Link className="btn btn-secondary" to="/respiratory/">
           Previous Page
         </Link>
+        {user ? this.props.auth.user.profile.role == 'Instructor' && (
         <Link className="btn btn-info ml-1" to="/respiratory/microbiology/create/">
           Add a New Set
         </Link>
+         ): ""}
         <p></p>
         <table className="table table-striped">
           <thead>
@@ -85,6 +89,7 @@ rendering(){
 const mapStateToProps = (state) => ({
   // the first one is whatever we're getting so it's okay, the 2nd one is the name of the reducer, the 3rd the state in the reducer
   sets: state.sets.sets,
+  auth: state.auth
 });
 
 export default connect(mapStateToProps, { getSets, deleteSet })(ListRespM);

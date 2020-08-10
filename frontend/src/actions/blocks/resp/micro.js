@@ -45,7 +45,7 @@ export const updateSet = (set, id) => (dispatch, getState) => {
         type: UPDATE_SET,
         payload: res.data
       });
-    }).catch(error => { throw(error) });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 //Show details of a single SHOW_SET
@@ -70,7 +70,7 @@ export const deleteSet = (id) => (dispatch, getState) => {
         type: DELETE_SET,
         payload: id
       });
-    }).catch((err) => console.log(err));
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 
@@ -84,7 +84,7 @@ export const addNote = (set, id) => (dispatch, getState) => {
         type: UPDATE_SET,
         payload: res.data
       });
-    }).catch(error => { throw(error) });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 //Remove Images
 export const removeImage = (set, id) => (dispatch, getState) => {
@@ -96,7 +96,7 @@ export const removeImage = (set, id) => (dispatch, getState) => {
         type: UPDATE_SET,
         payload: res.data
       });
-    }).catch(error => { throw(error) });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 //Edit Note
@@ -109,7 +109,7 @@ export const editNote = (set, id) => (dispatch, getState) => {
         type: UPDATE_SET,
         payload: res.data
       });
-    }).catch(error => { throw(error) });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
 
 //Delete Note
@@ -122,5 +122,5 @@ export const deleteNote = (set, id) => (dispatch, getState) => {
         type: UPDATE_SET,
         payload: res.data
       });
-    }).catch(error => { throw(error) });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };

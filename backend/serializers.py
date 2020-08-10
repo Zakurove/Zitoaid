@@ -23,7 +23,7 @@ class RespMicroSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = RespMicro
-        fields = ('id', 'title', 'description',  'images', 'owner_username','owner_id')
+        fields = ('id', 'title', 'description',  'images', 'owner_username', 'owner')
         
     def create(self, validated_data):
         #SET

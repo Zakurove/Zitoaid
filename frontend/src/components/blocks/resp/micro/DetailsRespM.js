@@ -44,6 +44,8 @@ export class DetailsRespM extends Component {
       isRemovingImage: false,
       set: this.props.set,
       deleteModalShow: false,
+      user: null
+      // username: this.props.auth.user.username
     };
 
     this.pointXY = this.pointXY.bind(this);
@@ -58,6 +60,7 @@ export class DetailsRespM extends Component {
   static propTypes = {
     set: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
+    auth: PropTypes.object.isRequired,
   };
   //-------------------------------------------------------------------------
   //                                 SLIDER & IMAGES
@@ -276,7 +279,10 @@ export class DetailsRespM extends Component {
   componentDidMount() {
     this.setState({
       tooltipOpen: true,
+      user: this.props.user
     });
+    // console.log(this.props.auth.user.username, 'auth did mount')
+    
     this.props.actions.getSets();
   }
   componentWillReceiveProps(nextProps) {
@@ -288,12 +294,15 @@ export class DetailsRespM extends Component {
   //------------------------------------------------------------------------------
   //                                        RENDER
   render() {
+    const {  user } = this.props.auth;
     const setId = this.props.match.params.id;
     const { x, y } = this.state;
     if (this.state.redirectDelete == true) {
       return <Redirect to={"/respiratory/microbiology"} />;
     }
-
+    // console.log(this.state.username, "username")
+    // console.log(user, 'auth')
+    console.log(this.props.auth.user)
     if (this.state.isEditing) {
       return (
         <Fragment>
@@ -517,8 +526,8 @@ export class DetailsRespM extends Component {
             <Link className="btn btn-secondary " to="/respiratory/microbiology/" style={{ marginBottom: "3px", marginRight: "3px" }}>
             Previous Page
           </Link>
+          {user ? this.props.auth.user.username == this.props.set.owner_username && (
               <Button
-                // className="collapsible btn btn-warning"
                 className=" float-right"
                 style={{ marginBottom: "3px", marginRight: "3px" }}
                 variant="warning"
@@ -528,7 +537,8 @@ export class DetailsRespM extends Component {
                 <span> </span>
                 Options
               </Button>
-
+              
+          ): ""}
               <div
                 className="collapsible form-group"
                 style={{ display: "none" }}
@@ -555,6 +565,7 @@ export class DetailsRespM extends Component {
                 className="btn btn-warning fa fa-chevron-circle-right ml-1"
                 style={{ fontSize: "20px" }}
               ></Button>
+              {user ? this.props.auth.user.username == this.props.set.owner_username && (
               <Button
                 onClick={(e) => {
                   this.handleToggleNoteMode(e);
@@ -569,6 +580,7 @@ export class DetailsRespM extends Component {
               >
                 {this.state.noteButtonText}
               </Button>
+              ): ""}
 
               <Button
                 onClick={(e) => {
@@ -583,6 +595,8 @@ export class DetailsRespM extends Component {
                   paddingBottom: "4px",
                 }}
               >
+                <i className="fas fa-info-circle"></i>
+                <span> </span>
                 {this.state.showNotesButtonText}
               </Button>
             </div>
@@ -717,14 +731,17 @@ function getSetById(sets, id) {
 
 function mapStateToProps(state, ownProps) {
   let sets = state.sets.sets;
+  let auth = state.auth
   let set = { title: "", description: "", id: "", images: [] };
   let setId = ownProps.match.params.id;
   if (setId && sets.length > 0) {
     set = getSetById(sets, setId);
   }
-  return { set: set };
+  return { set: set, auth: auth };
 }
-
+// const mapStateToProps = (state) => ({
+//   auth: state.auth,
+// });
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(setActions, dispatch),
