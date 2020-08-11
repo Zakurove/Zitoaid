@@ -1,8 +1,8 @@
-from .models import RespMicro
+from .models import RespMicro, RespPatho, RespImaging, RespHisto, RespCyto, RespClinical
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, renderers
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import  RespMicroSerializer
+from .serializers import  RespMicroSerializer, RespPathoSerializer, RespImagingSerializer, RespHistoSerializer, RespCytoSerializer, RespClinicalSerializer
 from rest_framework.permissions import IsAdminUser, SAFE_METHODS
 
 
@@ -32,15 +32,17 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 #Blocks
 #-------------------------------------------------------------------------------------------------------        
 #Resp
+
+#Micro
 class RespMicroViewSet(viewsets.ModelViewSet):
     # renderer_classes = [renderers.JSONRenderer]
     queryset = RespMicro.objects.all()
     # parser_classes = (MultiPartParser, FormParser)
     permission_classes = [
         # permissions.IsAuthenticated,
-        IsAdminUserOrReadOnly
-        # IsInstructor,
-        # IsOwnerOrReadOnly
+        #IsAdminUserOrReadOnly
+         IsInstructor,
+         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
 
@@ -49,4 +51,92 @@ class RespMicroViewSet(viewsets.ModelViewSet):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+#Patho
+class RespPathoViewSet(viewsets.ModelViewSet):
+    # renderer_classes = [renderers.JSONRenderer]
+    queryset = RespPatho.objects.all()
+    # parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        #IsAdminUserOrReadOnly
+         IsInstructor,
+         IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
 
+    serializer_class = RespPathoSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+#Imaging
+class RespImagingViewSet(viewsets.ModelViewSet):
+    # renderer_classes = [renderers.JSONRenderer]
+    queryset = RespImaging.objects.all()
+    # parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        #IsAdminUserOrReadOnly
+         IsInstructor,
+         IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
+
+    serializer_class = RespImagingSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+#Histo
+class RespHistoViewSet(viewsets.ModelViewSet):
+    # renderer_classes = [renderers.JSONRenderer]
+    queryset = RespHisto.objects.all()
+    # parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        #IsAdminUserOrReadOnly
+         IsInstructor,
+         IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
+
+    serializer_class = RespHistoSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+
+#Cyto
+class RespCytoViewSet(viewsets.ModelViewSet):
+    # renderer_classes = [renderers.JSONRenderer]
+    queryset = RespCyto.objects.all()
+    # parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        #IsAdminUserOrReadOnly
+         IsInstructor,
+         IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
+
+    serializer_class = RespCytoSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+#Clinical
+class RespClinicalViewSet(viewsets.ModelViewSet):
+    # renderer_classes = [renderers.JSONRenderer]
+    queryset = RespClinical.objects.all()
+    # parser_classes = (MultiPartParser, FormParser)
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        #IsAdminUserOrReadOnly
+         IsInstructor,
+         IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
+
+    serializer_class = RespClinicalSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
