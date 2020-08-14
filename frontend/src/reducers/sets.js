@@ -9,7 +9,8 @@ export default function(state = initialState, action) {
     case GET_SETS:
       return {
         ...state,
-        sets: action.payload
+        sets: action.payload.filter((set) =>  set.subject == action.subject && set.block == action.block),
+        //  &&
       }
       case DELETE_SET:
         return {

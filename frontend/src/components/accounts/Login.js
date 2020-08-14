@@ -53,6 +53,7 @@ export class Login extends Component { // eslint-disable-line react/prefer-state
                   name="username"
                   onChange={this.onChange}
                   value={username}
+                  placeholder="Username"
                   />
                 </div>
 
@@ -66,6 +67,7 @@ export class Login extends Component { // eslint-disable-line react/prefer-state
                   name="password"
                   onChange={this.onChange}
                   value={password}
+                  placeholder="Password"
                   />
       					</div>
 

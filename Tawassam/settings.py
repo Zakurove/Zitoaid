@@ -1,24 +1,16 @@
 
 import os
 
-# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '9rea2@eh!ngcq3&(-^*uv*v71@w!58er%t#73jhbvdd8!#pq7@'
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = False
 
 ALLOWED_HOSTS = ['161.35.79.117','127.0.0.1']
-
-
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -70,16 +62,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Tawassam.wsgi.application'
 
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'OPTIONS': {
-#             'read_default_file': '/etc/mysql/my.cnf',
-#         },
-#     }
-# }
-# ...
-
+#Database
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -99,10 +82,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': ('knox.auth.TokenAuthentication',),
-    # 'DEFAULT_PARSER_CLASSES': (
-    #     'rest_framework.parsers.FormParser',
-    #     'rest_framework.parsers.MultiPartParser',
-    #  )
 }
 
 
@@ -118,7 +97,6 @@ USE_TZ = True
 
 
 
-# Static Files Settings
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
@@ -131,14 +109,4 @@ MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
 DJANGO_DRF_FILEPOND_UPLOAD_TMP = os.path.join(BASE_DIR, 'filepond-temp-uploads')
 #For permanent uploads
 DJANGO_DRF_FILEPOND_FILE_STORE_PATH = os.path.join(BASE_DIR, 'stored_uploads')
-#For AWS3
-#DJANGO_DRF_FILEPOND_STORAGES_BACKEND = 'storages.backends.s3boto3.S3Boto3Storage'
-# django_heroku.settings(locals())
-# DJANGO_DRF_FILEPOND_PERMISSION_CLASSES = {
-#     'GET_FETCH': ['rest_framework.permissions.IsAuthenticated', ],
-#     'GET_LOAD': ['rest_framework.permissions.IsAuthenticated', ],
-#     'POST_PROCESS': ['rest_framework.permissions.IsAuthenticated', ],
-#     'GET_RESTORE': ['rest_framework.permissions.IsAuthenticated', ],
-#     'DELETE_REVERT': ['rest_framework.permissions.IsAuthenticated', ],
-#     'PATCH_PATCH': ['rest_framework.permissions.IsAuthenticated', ],
-# }
+

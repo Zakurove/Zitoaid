@@ -1,11 +1,31 @@
-import React, { Component } from "react";
-import { Link } from "react-router-dom";
-import { connect } from "react-redux";
-import PropTypes from "prop-types";
+import React, { Component, Fragment } from "react";
+import Subjects from "./Subjects.js";
 
 export class MainPage extends Component {
-  // eslint-disable-line react/prefer-stateless-function
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      choseBlock: false,
+      block: null
+    };
+    this.backToBlocks = this.backToBlocks.bind(this);
+  }
+  backToBlocks(event) {
+    this.setState({ choseBlock: false });
+  }
   render() {
+    if (this.state.choseBlock) {
+      return (
+        <Fragment>
+          <Subjects
+            block={this.state.block}
+            backToBlocks={this.backToBlocks}
+          />
+        </Fragment>
+      );
+    }
     return (
       <div>
         <div className="jumbotron">
@@ -17,7 +37,7 @@ export class MainPage extends Component {
         </div>
 
         <div className="container">
-          <h1 className="text-left pb-2 text-info">Select Block:</h1>
+          <h1 className="text-left pb-2 text-info">Select a block:</h1>
           <div className="row align-items-start">
             <div className="col text-center pb-2">
               <img
@@ -29,8 +49,13 @@ export class MainPage extends Component {
                 style={{ height: "320px", width: "300" }}
               />{" "}
               <a
-                href="#/cardiology"
                 className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Cardiovascular",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Cardiovascular
               </a>
@@ -41,14 +66,18 @@ export class MainPage extends Component {
                 src={
                   "https://cdn.discordapp.com/attachments/375319053184663554/696058752675348520/unknown.png"
                 }
-                // src={"/static/media/Blocks/MSK.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />{" "}
               <a
-                href="#/msk"
-                className="btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Musculoskeletal",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Musculoskeletal
               </a>
@@ -56,29 +85,39 @@ export class MainPage extends Component {
 
             <div className="col text-center">
               <img
-                src={"/static/media/Blocks/Resp.jpg"}
+                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Resp.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />{" "}
-              <Link
-                to="/respiratory"
-                className="btn btn-warning stretched-link text-center"
+              <a
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Respiratory",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Respiratory
-              </Link>
+              </a>
             </div>
 
             <div className="col text-center">
               <img
-                src={"/static/media/Blocks/Hema.jpg"}
+                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Hema.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />
               <a
-                href="#/hemeonc"
-                className="btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Hematology/Oncology",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Hematology/Oncology
               </a>
@@ -87,14 +126,19 @@ export class MainPage extends Component {
           <div className="row align-items-center mt-2">
             <div className="col text-center">
               <img
-                src={"/static/media/Blocks/Neuro.jpg"}
+                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Neuro.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />
               <a
-                href="#/neurology"
-                className="btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Neurology",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Neurology
               </a>
@@ -102,14 +146,19 @@ export class MainPage extends Component {
 
             <div className="col text-center">
               <img
-                src={"/static/media/Blocks/Endo2.jpg"}
+                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Endo2.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />
               <a
-                href="#/endocrine"
-                className="btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Endocrine",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Endocrine
               </a>
@@ -117,14 +166,19 @@ export class MainPage extends Component {
 
             <div className="col text-center">
               <img
-                src={"/static/media/Blocks/Gastro.jpg"}
+                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Gastro.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />
               <a
-                href="#/gastrointestinal"
-                className="btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Gastrointestinal",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Gastrointestinal
               </a>
@@ -132,14 +186,19 @@ export class MainPage extends Component {
 
             <div className="col text-center">
               <img
-                src={"/static/media/Blocks/Genito.jpg"}
+                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Genito.jpg"}
                 className="img-fluid pb-2"
                 alt="Responsive image"
                 style={{ height: "320px", width: "300" }}
               />
               <a
-                href="#/genitourinary"
-                className="btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center"
+                onClick={(e) => {
+                  this.setState({
+                    block: "Genitourinary",
+                    choseBlock: true,
+                  });
+                }}
               >
                 Genitourinary
               </a>
