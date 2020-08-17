@@ -1,5 +1,6 @@
 
 import os
+from decouple import config
 
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -10,7 +11,7 @@ SECRET_KEY = '9rea2@eh!ngcq3&(-^*uv*v71@w!58er%t#73jhbvdd8!#pq7@'
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['161.35.79.117','127.0.0.1']
+ALLOWED_HOSTS = ['161.35.79.117', 'tawassam.com', 'droplet-of-tawassam']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -72,7 +73,14 @@ DATABASES = {
     }
 }
 #Database
-
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': '/etc/mysql/my.cnf',
+        },
+    }
+}
 
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -104,13 +112,25 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+AWS_ACCESS_KEY_ID = config('AWS_ACCESS')
+AWS_SECRET_ACCESS_KEY = config('AWS_SECRET') 
+AWS_STORAGE_BUCKET_NAME = config('AWS_BUCKET')
+AWS_S3_OBJECT_PARAMETERS = {
+    'CacheControl': 'max-age=86400',
+}
+AWS_LOCATION = 'Test1'
+AWS_S3_ENDPOINT_URL = 'https://ams3.digitaloceanspaces.com'
+AWS_S3_SIGNATURE_VERSION = 's3v4'
+AWS_STATIC_LOCATION = '%s/static' % AWS_LOCATION
+ASW_PUBLIC_MEDIA_LOCATION = '%s/media/public' % AWS_LOCATION
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+AWS_PRIVATE_MEDIA_LOCATION = '%s/media/private' % AWS_LOCATION
+PRIVATE_FILE_STORAGE = 'Tawassam.storage_backends.PrivateMediaStorage'
+STATIC_URL = "https://%s/%s/" % (AWS_S3_ENDPOINT_URL, AWS_STATIC_LOCATION)
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATICFILES_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 #Media
 MEDIA_URL = '/media/'
 MEDIA_ROOT=os.path.join(BASE_DIR, 'media')
