@@ -67,11 +67,15 @@ export class Header extends Component {
                 Home 
               </a>
             </li>
-            {/* <li className="nav-item ">
-              <a className="nav-link" href="/about">
-                About
+            {user
+          ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
+            <li className="nav-item ">
+              <a className="nav-link" href="#/mysets" style={{fontSize:"25px"}}>
+                My Sets
               </a>
-            </li> */}
+            </li>
+            )
+          : "" }
           </ul>
 
           {isAuthenticated ? authLinks : guestLinks}

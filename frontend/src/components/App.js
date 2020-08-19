@@ -23,6 +23,7 @@ import Login from "./accounts/Login.js";
 import Register from "./accounts/Register.js";
 import PrivateRoute from "./common/PrivateRoute.js";
 import MainPage from "./common/MainPage.js";
+import MySets from "./sets/MySets.js";
 
 
 
@@ -43,7 +44,8 @@ class App extends Component {
                 <Switch>
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
-                  <Route exact path="/" component={MainPage} />                                                                                                                     
+                  <Route exact path="/" component={MainPage} />
+                  <Route exact path="/mysets" component={MySets} />                                                                                                                    
                 </Switch>
               </div>
               <Footer />

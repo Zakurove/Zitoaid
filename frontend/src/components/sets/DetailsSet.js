@@ -41,7 +41,7 @@ export class DetailsSet extends Component {
       isRemovingImage: false,
       set: this.props.set,
       deleteModalShow: false,
-      user: null
+      user: null,
       // username: this.props.auth.user.username
     };
 
@@ -89,19 +89,17 @@ export class DetailsSet extends Component {
   //                                     EDIT & DELETE
   saveSet(event) {
     this.setState({ isEditing: false });
-    this.setState({ optionsState: false })
+    this.setState({ optionsState: false });
     this.forceUpdate();
   }
   doneImage(event) {
     this.setState({ isRemovingImages: false });
-    this.setState({ optionsState: false })
+    this.setState({ optionsState: false });
     this.forceUpdate();
   }
   //To delete set
   deleteSet(event) {
-
     this.props.actions.deleteSet(this.state.set.id);
-
   }
   //For knowing if the user is editing or not and acting accordingly
   toggleEdit() {
@@ -276,17 +274,16 @@ export class DetailsSet extends Component {
 
   //onChange Notes
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-  
+
   //------------------------------------------------------------------------------
   //                                     LIFECYCLE
   componentDidMount() {
     this.setState({
       tooltipOpen: true,
-      user: this.props.user
+      user: this.props.user,
     });
-    
-    
-    this.props.actions.getSets(this.props.block, this.props.subject);
+
+    this.props.actions.getAllSets();
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.set.id != nextProps.set.id) {
@@ -297,13 +294,13 @@ export class DetailsSet extends Component {
   //------------------------------------------------------------------------------
   //                                        RENDER
   render() {
-    const {  user } = this.props.auth;
+    const { user } = this.props.auth;
     const setId = this.props.selectedSetId;
     const { x, y } = this.state;
     if (this.state.redirectDelete == true) {
       return <Redirect to={"/sets"} />;
     }
-    
+
     if (this.state.isEditing) {
       return (
         <Fragment>
@@ -436,11 +433,11 @@ export class DetailsSet extends Component {
           <Modal.Footer style={{ justifyContent: "center" }}>
             <Button
               variant="danger"
-              onClick={ (e) => {
+              onClick={(e) => {
                 this.deleteModalClose(e);
-                 
+
                 this.deleteSet(e);
-                this.props.backToList(e)
+                this.props.backToList(e);
               }}
               style={{ justifyContent: "center" }}
               form="noteForm"
@@ -469,8 +466,7 @@ export class DetailsSet extends Component {
           <div className="row">
             <div className="col-1"></div>
             <div className="col-4">
-
-                            {this.state.optionsState && (
+              {this.state.optionsState && (
                 <Button
                   variant="danger"
                   size="sm"
@@ -504,7 +500,7 @@ export class DetailsSet extends Component {
                   Select Images to Remove
                 </Button>
               )}
-                            {this.state.optionsState && (
+              {this.state.optionsState && (
                 <Button
                   variant="info"
                   size="sm"
@@ -520,28 +516,33 @@ export class DetailsSet extends Component {
                   Edit Set & Add Images
                 </Button>
               )}
-
             </div>
           </div>
           <div className="row">
             <div className="col-1"></div>
             <div className="col-3">
-            <Button className="btn btn-secondary " onClick={this.props.backToList} style={{ marginBottom: "3px", marginRight: "3px" }}>
-            Previous Page
-          </Button>
-          {user ? this.props.auth.user.username == this.props.set.owner_username && (
               <Button
-                className=" float-right"
+                className="btn btn-secondary "
+                onClick={this.props.backToList}
                 style={{ marginBottom: "3px", marginRight: "3px" }}
-                variant="warning"
-                onClick={this.toggleOptions}
               >
-                <i class="fas fa-cog"></i>
-                <span> </span>
-                Options
+                Previous Page
               </Button>
-              
-          ): ""}
+              {user
+                ? this.props.auth.user.username ==
+                    this.props.set.owner_username && (
+                    <Button
+                      className=" float-right"
+                      style={{ marginBottom: "3px", marginRight: "3px" }}
+                      variant="warning"
+                      onClick={this.toggleOptions}
+                    >
+                      <i class="fas fa-cog"></i>
+                      <span> </span>
+                      Options
+                    </Button>
+                  )
+                : ""}
               <div
                 className="collapsible form-group"
                 style={{ display: "none" }}
@@ -568,22 +569,25 @@ export class DetailsSet extends Component {
                 className="btn btn-warning fa fa-chevron-circle-right ml-1"
                 style={{ fontSize: "20px" }}
               ></Button>
-              {user ? this.props.auth.user.username == this.props.set.owner_username && (
-              <Button
-                onClick={(e) => {
-                  this.handleToggleNoteMode(e);
-                  this.changeNoteButtonText(e);
-                }}
-                className="btn btn-info float-right"
-                style={{
-                  marginRight: "15px",
-                  paddingTop: "4px",
-                  paddingBottom: "4px",
-                }}
-              >
-                {this.state.noteButtonText}
-              </Button>
-              ): ""}
+              {user
+                ? this.props.auth.user.username ==
+                    this.props.set.owner_username && (
+                    <Button
+                      onClick={(e) => {
+                        this.handleToggleNoteMode(e);
+                        this.changeNoteButtonText(e);
+                      }}
+                      className="btn btn-info float-right"
+                      style={{
+                        marginRight: "15px",
+                        paddingTop: "4px",
+                        paddingBottom: "4px",
+                      }}
+                    >
+                      {this.state.noteButtonText}
+                    </Button>
+                  )
+                : ""}
 
               <Button
                 onClick={(e) => {
@@ -611,11 +615,13 @@ export class DetailsSet extends Component {
                 className=" p-3 pt-4 bg-dark border border-info border-4 rounded"
                 style={{ height: "160%", overflow: "scroll" }}
               >
-                <p className="font-weight-bolder text-info text-justify " style={{fontSize: '20px'}}>
+                <p
+                  className="font-weight-bolder text-info text-justify "
+                  style={{ fontSize: "20px" }}
+                >
                   {this.props.set.description}
                 </p>
               </div>
-
             </div>
             <div className="slide-container col-7">
               <Carousel
@@ -657,7 +663,6 @@ export class DetailsSet extends Component {
                           className="fas fa-info-circle"
                           id={"note" + note.id}
                         >
-                          
                           <UncontrolledPopover
                             trigger="legacy"
                             placement="bottom"
@@ -666,7 +671,7 @@ export class DetailsSet extends Component {
                             <PopoverHeader
                               style={{
                                 minHeight: "60px",
-                                midWidth: "150px",
+                                minWidth: "125px",
                                 fontStyle: "normal",
                                 fontWeight: "normal",
                               }}
@@ -675,31 +680,41 @@ export class DetailsSet extends Component {
                               {note.noteContent}{" "}
                             </PopoverHeader>
                             <PopoverBody>
-                              <Button
-                                size="sm"
-                                variant="outline-info"
-                                onClick={(e) => {
-                                  this.setState({
-                                    noteContent: note.noteContent,
-                                    EditedNoteId: note.id,
-                                  });
-                                  this.handleNoteEditOverlay(e);
-                                }}
-                              >
-                                Edit
-                              </Button>{" "}
-                              <Button
-                                size="sm"
-                                variant="outline-danger"
-                                onClick={async (e) => {
-                                  await this.setState({
-                                    EditedNoteId: note.id,
-                                  });
-                                  this.onDeleteSubmit(e);
-                                }}
-                              >
-                                Delete
-                              </Button>
+                              {user
+                                ? this.props.auth.user.username ==
+                                    this.props.set.owner_username && (
+                                    <Button
+                                      size="sm"
+                                      variant="outline-info"
+                                      onClick={(e) => {
+                                        this.setState({
+                                          noteContent: note.noteContent,
+                                          EditedNoteId: note.id,
+                                        });
+                                        this.handleNoteEditOverlay(e);
+                                      }}
+                                    >
+                                      Edit
+                                    </Button>
+                                  )
+                                : ""}
+                              {user
+                                ? this.props.auth.user.username ==
+                                    this.props.set.owner_username && (
+                                    <Button
+                                      size="sm"
+                                      variant="outline-danger"
+                                      onClick={async (e) => {
+                                        await this.setState({
+                                          EditedNoteId: note.id,
+                                        });
+                                        this.onDeleteSubmit(e);
+                                      }}
+                                    >
+                                      Delete
+                                    </Button>
+                                  )
+                                : ""}
                             </PopoverBody>
                           </UncontrolledPopover>
                         </div>
@@ -729,20 +744,26 @@ export class DetailsSet extends Component {
 
 function getSetById(sets, id) {
   var set = sets.find((set) => set.id == id);
-  
+
   return Object.assign({ set }, set);
 }
 
 function mapStateToProps(state, ownProps) {
   let sets = state.sets.sets;
-  
-  let auth = state.auth
-  let set = { title: "", description: "", block: "", subject: "", id: "", images: [] };
-  let {selectedSetId} = ownProps;
+
+  let auth = state.auth;
+  let set = {
+    title: "",
+    description: "",
+    block: "",
+    subject: "",
+    id: "",
+    images: [],
+  };
+  let { selectedSetId } = ownProps;
   if (selectedSetId && sets.length > 0) {
     set = getSetById(sets, selectedSetId);
   }
-
 
   return { set: set, auth: auth };
 }
@@ -754,4 +775,3 @@ function mapDispatchToProps(dispatch) {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailsSet);
-

@@ -47,17 +47,17 @@ export class Subjects extends Component {
             Previous Page
           </Button>
           <div className="row align-items-start pt-2">
-            <div className="col text-center pb-2">
+            <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2" >
               <img
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/micro.jpg"
                 }
-                className="pb-2 img-fluid"
+                className=" img-fluid"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />{" "}
               <a
-                className=" btn btn-warning stretched-link text-center"
+                className=" btn btn-warning stretched-link text-center d-block" 
                 onClick={(e) => {
                   this.setState({
                     subject: "Microbiology",
@@ -69,12 +69,12 @@ export class Subjects extends Component {
               </a>
             </div>
 
-            <div className="col text-center pb-2">
+            <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2">
               <img
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/imaging.jpg"
                 }
-                className="pb-2 img-fluid"
+                className=" img-fluid"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />
@@ -85,18 +85,18 @@ export class Subjects extends Component {
                     choseSubject: true,
                   });
                 }}
-                className="btn btn-warning stretched-link text-center"
+                className="btn btn-warning stretched-link text-center  d-block"
               >
                 Imaging
               </a>
             </div>
 
-            <div className="col text-center pb-2">
+            <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2">
               <img
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/patho.jpg"
                 }
-                className="pb-2 img-fluid"
+                className=" img-fluid"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />{" "}
@@ -107,19 +107,19 @@ export class Subjects extends Component {
                     choseSubject: true,
                   });
                 }}
-                className="btn btn-warning stretched-link text-center"
+                className="btn btn-warning stretched-link text-center  d-block"
               >
                 Pathology
               </a>
             </div>
-          </div>
-          <div className="row align-items-center mt-2">
-            <div className="col text-center">
+          {/* </div> */}
+          {/* <div className="row align-items-center mt-2"> */}
+            <div className="col-sm-6 col-md-6 col-lg-4 mt-2 text-center">
               <img
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/histo.jpg"
                 }
-                className="pb-2 img-fluid"
+                className=" img-fluid"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />
@@ -130,18 +130,18 @@ export class Subjects extends Component {
                     choseSubject: true,
                   });
                 }}
-                className="btn btn-warning stretched-link text-center"
+                className="btn btn-warning stretched-link text-center  d-block"
               >
                 Histology
               </a>
             </div>
 
-            <div className="col text-center">
+            <div className="col-6-sm col-md-6 col-lg-4 mt-2 text-center">
               <img
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/cyto.jpg"
                 }
-                className="pb-2 img-fluid"
+                className=" img-fluid"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />{" "}
@@ -152,18 +152,18 @@ export class Subjects extends Component {
                     choseSubject: true,
                   });
                 }}
-                className="btn btn-warning stretched-link text-center"
+                className="btn btn-warning stretched-link text-center  d-block"
               >
                 Cytology
               </a>
             </div>
 
-            <div className="col text-center">
+            <div className="col-6-sm col-md-6 col-lg-4 mt-2 text-center">
               <img
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/clinical.jpg"
                 }
-                className="pb-2 img-fluid"
+                className=" img-fluid"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />
@@ -174,7 +174,7 @@ export class Subjects extends Component {
                     choseSubject: true,
                   });
                 }}
-                className="btn btn-warning stretched-link text-center"
+                className="btn btn-warning stretched-link text-center  d-block"
               >
                 Clinical
               </a>

@@ -2,11 +2,11 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { getSets, deleteSet } from "../../actions/sets.js";
+import { getMySets, deleteSet, getSets } from "../../actions/sets.js";
 import FormSet from "./FormSet.js";
 import DetailsSet from "./DetailsSet.js";
 
-export class ListSets extends Component {
+export class MySets extends Component {
   constructor(props) {
     super(props);
 
@@ -18,97 +18,69 @@ export class ListSets extends Component {
       subject: this.props.subject,
       selectedSetId: null,
       selectedSet: null,
+      username: null,
     };
-    this.backToList = this.backToList.bind(this);
+    this.backToMySets = this.backToMySets.bind(this);
   }
-  rendering() {
-    if (this.state.isUpdating == true) {
+  rendering(user) {
+      
+    if (user && this.state.isUpdating == true) {
+        if (this.state.username !== null) {
+            console.log(this.state.username, 'hello')
       this.setState({
         isUpdating: false,
       });
-      this.props.getSets(this.state.block, this.state.subject);
     }
-    this.backToList = this.backToList.bind(this);
+        this.setState({username: user.username})
+      this.props.getMySets(user.username);
+    }
   }
 
   static propTypes = {
     //This is the first "set" from the func down below
     sets: PropTypes.array.isRequired,
+    getMySets: PropTypes.func.isRequired,
     getSets: PropTypes.func.isRequired,
     deleteSet: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
-    block: PropTypes.string.isRequired,
-    subject: PropTypes.string.isRequired,
-    backToSubjects: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
-    this.props.getSets(this.props.block, this.props.subject);
+
   }
-  backToList(event) {
-    this.setState({ isCreating: false, isViewing: false, isUpdating: true,});
+  backToMySets(event) {
+    this.setState({ isCreating: false, isViewing: false, isUpdating: true});
   }
   render() {
-    if (this.state.isCreating) {
-      return (
-        <Fragment>
-          <FormSet
-            block={this.state.block}
-            subject={this.state.subject}
-            backToList={this.backToList}
-          />
-        </Fragment>
-      );
-    }
+    const { user } = this.props.auth;  
     if (this.state.isViewing) {
       return (
         <Fragment>
           <DetailsSet
             selectedSetId={this.state.selectedSetId}
             set={this.state.selectedSet}
-            block={this.state.block}
-            subject={this.state.subject}
-            backToList={this.backToList}
+            block={'Cardiovascular'}
+            subject={"Microbiology"}
+            backToList={this.backToMySets}
           />
         </Fragment>
       );
     }
-    const { user } = this.props.auth;
+
     {
-      this.rendering();
+      this.rendering(user);
     }
     return (
       <div className="container">
         <h1 className="text-center py-2 text-info">
-          {this.state.block} {this.state.subject} Sets
+          {this.state.username +"'s"} Sets
         </h1>
-        <Button
-          className="btn btn-secondary"
-          onClick={this.props.backToSubjects}
-        >
-          Previous Page
-        </Button>
-        {user
-          ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-              <Button
-                className="btn btn-info ml-1"
-                onClick={(e) => {
-                  this.setState({
-                    isCreating: true,
-                  });
-                }}
-              >
-                Add a New Set
-              </Button>
-            )
-          : "" }
         <p></p>
         <table className="table table-striped">
           <thead>
             <tr>
               <th>ID</th>
               <th>Title</th>
-              <th>Owner:</th>
               <th />
             </tr>
           </thead>
@@ -117,7 +89,6 @@ export class ListSets extends Component {
               <tr key={set.id}>
                 <td>{set.id}</td>
                 <td>{set.title}</td>
-                <td>{set.owner_username}</td>
                 <td>
                   <Button
                     to={"/sets/" + set.id}
@@ -129,6 +100,7 @@ export class ListSets extends Component {
                         isViewing: true,
                         selectedSet: set,
                       });
+                      console.log(this.state.selectedSet, this.state.selectedSetId, 'clicked')
                     }}
                   >
                     View Set
@@ -149,4 +121,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getSets, deleteSet })(ListSets);
+export default connect(mapStateToProps, { getMySets, deleteSet, getSets })(MySets);

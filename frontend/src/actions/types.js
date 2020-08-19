@@ -1,4 +1,6 @@
 export const GET_SETS = 'GET_SETS';
+export const GET_ALLSETS = 'GET_ALLSETS';
+export const GET_MYSETS = 'GET_MYSETS';
 export const DELETE_SET = 'DELETE_SET';
 export const ADD_SET = 'ADD_SET';
 export const UPDATE_SET = 'UPDATE_SET';
