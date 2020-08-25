@@ -95,15 +95,17 @@ export class ListSets extends Component {
     }
     return (
       <div className="container">
-        <h1 className="text-center py-2 text-info">
+        <h1 className="text-center py-2 text-info" >
           {this.state.block} {this.state.subject} Sets
         </h1>
+        <hr/>
         <a
           className="btn btn-secondary"
           href= {`#/${this.state.blockLink}`}
         >
           Previous Page
         </a>
+
         {user
           ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
               <Button

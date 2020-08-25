@@ -451,7 +451,7 @@ export class DetailsSet extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <Fragment key={this.props.set.id}>
+        <div className="container" key={this.props.set.id}>
           <div className="row">
             <div className="col">
               <h1 className="text-info text-center my-3">
@@ -459,9 +459,176 @@ export class DetailsSet extends Component {
               </h1>
             </div>
           </div>
-          <div className="row">
-            <div className="col-1"></div>
-            <div className="col-4">
+          <div className="row " style={{ height: "770px" }}>
+            <div className="col-sm-8 order-sm-12 mb-4" style={{  padding: "0px" }} >
+              <div className="col-12">
+                {/* <div className="col-8" style={{ padding: "1px" }}> */}
+
+                {user
+                  ? this.props.auth.user.username ==
+                      this.props.set.owner_username && (
+                      <Button
+                        onClick={(e) => {
+                          this.handleToggleNoteMode(e);
+                          this.changeNoteButtonText(e);
+                        }}
+                        className="btn btn-info float-right mb-1"
+                        style={{
+                          marginLeft: "15px",
+                          paddingTop: "4px",
+                          paddingBottom: "4px",
+                        }}
+                      >
+                        {this.state.noteButtonText}
+                      </Button>
+                    )
+                  : ""}
+
+                <Button
+                  onClick={(e) => {
+                    this.handleShowNotesMode(e);
+                    this.changeShowNotesButtonText(e);
+                    this.changeNoteDisplay(e);
+                  }}
+                  className="btn btn-info float-right mb-1"
+                  style={{
+                    
+                    paddingTop: "4px",
+                    paddingBottom: "4px",
+                  }}
+                >
+                  <i className="fas fa-info-circle"></i>
+                  <span> </span>
+                  {this.state.showNotesButtonText}
+                </Button>
+                <Button
+                  onClick={this.prev}
+                  className="btn btn-warning fa fa-chevron-circle-left float-left"
+                  style={{ fontSize: "20px" }}
+                ></Button>
+                <Button
+                  onClick={this.next}
+                  className="btn btn-warning fa fa-chevron-circle-right ml-1 float-left"
+                  style={{ fontSize: "20px" }}
+                ></Button>
+              </div>
+
+              <div className="col-12">
+                <div className="slide-container">
+                  <Carousel
+                    selectedItem={this.state.currentSlide}
+                    onChange={this.updateCurrentSlide}
+                    useKeyboardArrows={true}
+                    swipeable={true}
+                    emulateTouch={true}
+                    swipeScrollTolerance={5}
+                    infiniteLoop={true}
+                    autoPlay={false}
+                    showThumbs={false}
+                    dynamicHeight={true}
+                  >
+                    {this.props.set.images.map((slide, index) => (
+                      <div
+                        key={slide.id}
+                        onClick={(e) => {
+                          this.setState({
+                            selectedImageId: slide.id,
+                          });
+                          this.handleOverlay(e);
+                        }}
+                        style={{ pointerEvents: "all" }}
+                      >
+                        {slide.notes.map((note, index) => (
+                          <Fragment key={note.id}>
+                            <div
+                              style={{
+                                zIndex: "3",
+                                fontSize: "20px",
+                                color: "white",
+                                pointerEvents: "all",
+                                position: "absolute",
+                                left: note.x + "px",
+                                top: note.y + "px",
+                                display: this.state.noteDisplay,
+                              }}
+                              className="fas fa-info-circle"
+                              id={"note" + note.id}
+                            >
+                              <UncontrolledPopover
+                                trigger="legacy"
+                                placement="bottom"
+                                target={"note" + note.id}
+                              >
+                                <PopoverHeader
+                                  style={{
+                                    minHeight: "60px",
+                                    minWidth: "125px",
+                                    fontStyle: "normal",
+                                    fontWeight: "normal",
+                                  }}
+                                >
+                                  {" "}
+                                  {note.noteContent}{" "}
+                                </PopoverHeader>
+                                <PopoverBody>
+                                  {user
+                                    ? this.props.auth.user.username ==
+                                        this.props.set.owner_username && (
+                                        <Button
+                                          size="sm"
+                                          variant="outline-info"
+                                          onClick={(e) => {
+                                            this.setState({
+                                              noteContent: note.noteContent,
+                                              EditedNoteId: note.id,
+                                            });
+                                            this.handleNoteEditOverlay(e);
+                                          }}
+                                        >
+                                          Edit
+                                        </Button>
+                                      )
+                                    : ""}
+                                  {user
+                                    ? this.props.auth.user.username ==
+                                        this.props.set.owner_username && (
+                                        <Button
+                                          size="sm"
+                                          variant="outline-danger"
+                                          onClick={async (e) => {
+                                            await this.setState({
+                                              EditedNoteId: note.id,
+                                            });
+                                            this.onDeleteSubmit(e);
+                                          }}
+                                        >
+                                          Delete
+                                        </Button>
+                                      )
+                                    : ""}
+                                </PopoverBody>
+                              </UncontrolledPopover>
+                            </div>
+                          </Fragment>
+                        ))}
+
+                        <img
+                          index={this.state.index}
+                          src={slide.image}
+                          style={{
+                            maxWidth: "1097px",
+                            maxHeight: "800px",
+                          }}
+                        />
+                      </div>
+                    ))}
+                  </Carousel>
+                </div>
+              </div>
+            </div>
+            <div className="col-sm-4 order-sm-1" style={{  padding: "0px" }}>
+            
+            <div className="col-12">
               {this.state.optionsState && (
                 <Button
                   variant="danger"
@@ -513,225 +680,63 @@ export class DetailsSet extends Component {
                 </Button>
               )}
             </div>
-          </div>
-          <div className="row">
-            <div className="col-1"></div>
-            <div className="col-3">
-              <Button
-                className="btn btn-secondary "
-                style={{ marginBottom: "3px", marginRight: "3px" }}
-                href= {`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
-              >
-                Previous Page
-              </Button>
-              {user
-                ? this.props.auth.user.username ==
-                    this.props.set.owner_username && (
-                    <Button
-                      className=" float-right"
-                      style={{ marginBottom: "3px", marginRight: "3px" }}
-                      variant="warning"
-                      onClick={this.toggleOptions}
-                    >
-                      <i class="fas fa-cog"></i>
-                      <span> </span>
-                      Options
-                    </Button>
-                  )
-                : ""}
-              <div
-                className="collapsible form-group"
-                style={{ display: "none" }}
-              >
-                <a href="#" className="btn btn-info my-2">
-                  Update Current Image
-                </a>
-                <a href="#" className="btn btn-info my-2">
-                  Update Title/Description
-                </a>
-                <a href="#" className="btn btn-info">
-                  Add new image
-                </a>
-              </div>
-            </div>
-            <div className="col-7" style={{ padding: "1px" }}>
-              <Button
-                onClick={this.prev}
-                className="btn btn-warning fa fa-chevron-circle-left"
-                style={{ fontSize: "20px", marginLeft: "15px" }}
-              ></Button>
-              <Button
-                onClick={this.next}
-                className="btn btn-warning fa fa-chevron-circle-right ml-1"
-                style={{ fontSize: "20px" }}
-              ></Button>
-              {user
-                ? this.props.auth.user.username ==
-                    this.props.set.owner_username && (
-                    <Button
-                      onClick={(e) => {
-                        this.handleToggleNoteMode(e);
-                        this.changeNoteButtonText(e);
-                      }}
-                      className="btn btn-info float-right"
-                      style={{
-                        marginRight: "15px",
-                        paddingTop: "4px",
-                        paddingBottom: "4px",
-                      }}
-                    >
-                      {this.state.noteButtonText}
-                    </Button>
-                  )
-                : ""}
-
-              <Button
-                onClick={(e) => {
-                  this.handleShowNotesMode(e);
-                  this.changeShowNotesButtonText(e);
-                  this.changeNoteDisplay(e);
-                }}
-                className="btn btn-info float-right"
-                style={{
-                  marginRight: "15px",
-                  paddingTop: "4px",
-                  paddingBottom: "4px",
-                }}
-              >
-                <i className="fas fa-info-circle"></i>
-                <span> </span>
-                {this.state.showNotesButtonText}
-              </Button>
-            </div>
-          </div>
-          <div className="row " style={{ height: "770px" }}>
-            <div className="col-1"></div>
-            <div className="col-3" style={{ height: "300px" }}>
-              <div
-                className=" p-3 pt-4 bg-dark border border-info border-4 rounded"
-                style={{ height: "160%", overflow: "scroll" }}
-              >
-                <p
-                  className="font-weight-bolder text-info text-justify "
-                  style={{ fontSize: "20px" }}
+          
+              <div className="col-12">
+                <Button
+                  className="btn btn-secondary "
+                  style={{ marginBottom: "3px", marginRight: "3px" }}
+                  href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
                 >
-                  {this.props.set.description}
-                </p>
+                  Previous Page
+                </Button>
+                {user
+                  ? this.props.auth.user.username ==
+                      this.props.set.owner_username && (
+                      <Button
+                        className=" float-right"
+                        style={{ marginBottom: "3px", marginRight: "3px" }}
+                        variant="warning"
+                        onClick={this.toggleOptions}
+                      >
+                        <i class="fas fa-cog"></i>
+                        <span> </span>
+                        Options
+                      </Button>
+                    )
+                  : ""}
+                <div
+                  className="collapsible form-group"
+                  style={{ display: "none" }}
+                >
+                  <a href="#" className="btn btn-info my-2">
+                    Update Current Image
+                  </a>
+                  <a href="#" className="btn btn-info my-2">
+                    Update Title/Description
+                  </a>
+                  <a href="#" className="btn btn-info">
+                    Add new image
+                  </a>
+                </div>
+              </div>
+
+              <div className="col-12">
+                <div
+                  className=" p-3 pt-4 bg-dark border border-info border-4 rounded"
+                  style={{ height: "400px", overflow: "scroll" }}
+                >
+                  <p
+                    className="font-weight-bolder text-info text-justify "
+                    style={{ fontSize: "20px" }}
+                  >
+                    {this.props.set.description}
+                  </p>
+                </div>
               </div>
             </div>
-            <div className="slide-container col-7">
-              <Carousel
-                selectedItem={this.state.currentSlide}
-                onChange={this.updateCurrentSlide}
-                useKeyboardArrows={true}
-                swipeable={true}
-                emulateTouch={true}
-                swipeScrollTolerance={0}
-                infiniteLoop={true}
-                autoPlay={false}
-                showThumbs={false}
-                dynamicHeight={true}
-              >
-                {this.props.set.images.map((slide, index) => (
-                  <div
-                    key={slide.id}
-                    onClick={(e) => {
-                      this.setState({
-                        selectedImageId: slide.id,
-                      });
-                      this.handleOverlay(e);
-                    }}
-                    style={{ pointerEvents: "all" }}
-                  >
-                    {slide.notes.map((note, index) => (
-                      <Fragment key={note.id}>
-                        <div
-                          style={{
-                            zIndex: "3",
-                            fontSize: "20px",
-                            color: "white",
-                            pointerEvents: "all",
-                            position: "absolute",
-                            left: note.x + "px",
-                            top: note.y + "px",
-                            display: this.state.noteDisplay,
-                          }}
-                          className="fas fa-info-circle"
-                          id={"note" + note.id}
-                        >
-                          <UncontrolledPopover
-                            trigger="legacy"
-                            placement="bottom"
-                            target={"note" + note.id}
-                          >
-                            <PopoverHeader
-                              style={{
-                                minHeight: "60px",
-                                minWidth: "125px",
-                                fontStyle: "normal",
-                                fontWeight: "normal",
-                              }}
-                            >
-                              {" "}
-                              {note.noteContent}{" "}
-                            </PopoverHeader>
-                            <PopoverBody>
-                              {user
-                                ? this.props.auth.user.username ==
-                                    this.props.set.owner_username && (
-                                    <Button
-                                      size="sm"
-                                      variant="outline-info"
-                                      onClick={(e) => {
-                                        this.setState({
-                                          noteContent: note.noteContent,
-                                          EditedNoteId: note.id,
-                                        });
-                                        this.handleNoteEditOverlay(e);
-                                      }}
-                                    >
-                                      Edit
-                                    </Button>
-                                  )
-                                : ""}
-                              {user
-                                ? this.props.auth.user.username ==
-                                    this.props.set.owner_username && (
-                                    <Button
-                                      size="sm"
-                                      variant="outline-danger"
-                                      onClick={async (e) => {
-                                        await this.setState({
-                                          EditedNoteId: note.id,
-                                        });
-                                        this.onDeleteSubmit(e);
-                                      }}
-                                    >
-                                      Delete
-                                    </Button>
-                                  )
-                                : ""}
-                            </PopoverBody>
-                          </UncontrolledPopover>
-                        </div>
-                      </Fragment>
-                    ))}
-
-                    <img
-                      index={this.state.index}
-                      src={slide.image}
-                      style={{
-                        maxWidth: "1097px",
-                        maxHeight: "800px",
-                      }}
-                    />
-                  </div>
-                ))}
-              </Carousel>
-            </div>
           </div>
-        </Fragment>
-        {/* ))}  */}
+        </div>
+
         <div></div>
       </Fragment>
     );
@@ -756,7 +761,7 @@ function mapStateToProps(state, ownProps) {
     id: "",
     images: [],
   };
-  let  selectedSetId  = ownProps.match.params.id;
+  let selectedSetId = ownProps.match.params.id;
   if (selectedSetId && sets.length > 0) {
     set = getSetById(sets, selectedSetId);
   }

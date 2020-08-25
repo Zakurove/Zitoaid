@@ -45,13 +45,15 @@ export class Subjects extends Component {
         <h1 className="text-center"></h1>
 
         <div className="container">
-          <h1 className="text-center text-info">{this.props.block} Block</h1>
+          <h1 className="text-center text-info" >{this.props.block} Block</h1>
+          <hr/>
           <Button
             className="btn btn-secondary"
             href="/#"
           >
             Previous Page
           </Button>
+
           <div className="row align-items-start pt-2">
             <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2" >
               <img
