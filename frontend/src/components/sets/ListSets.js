@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import { getSets, deleteSet } from "../../actions/sets.js";
 import FormSet from "./FormSet.js";
 import DetailsSet from "./DetailsSet.js";
@@ -18,12 +19,27 @@ export class ListSets extends Component {
       subject: this.props.subject,
       selectedSetId: null,
       selectedSet: null,
+      blockLink: null,
+      subjectLink: null,
     };
     this.backToList = this.backToList.bind(this);
   }
   rendering() {
     if (this.state.isUpdating == true) {
+      if (this.props.block == 'Hematology/Oncology') {
+        this.setState({
+          blockLink: 'hemOnc',
+        });
+      }
+      if (this.props.block !== 'Hematology/Oncology') {
+        const blockLink = this.props.block.toLowerCase()
+        this.setState({
+          blockLink: blockLink,
+        });
+      }
+      const subjectLink= this.props.subject.toLowerCase()
       this.setState({
+        subjectLink: subjectLink,
         isUpdating: false,
       });
       this.props.getSets(this.state.block, this.state.subject);
@@ -39,7 +55,7 @@ export class ListSets extends Component {
     auth: PropTypes.object.isRequired,
     block: PropTypes.string.isRequired,
     subject: PropTypes.string.isRequired,
-    backToSubjects: PropTypes.func.isRequired,
+    
   };
 
   componentDidMount() {
@@ -82,12 +98,12 @@ export class ListSets extends Component {
         <h1 className="text-center py-2 text-info">
           {this.state.block} {this.state.subject} Sets
         </h1>
-        <Button
+        <a
           className="btn btn-secondary"
-          onClick={this.props.backToSubjects}
+          href= {`#/${this.state.blockLink}`}
         >
           Previous Page
-        </Button>
+        </a>
         {user
           ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
               <Button
@@ -119,20 +135,20 @@ export class ListSets extends Component {
                 <td>{set.title}</td>
                 <td>{set.owner_username}</td>
                 <td>
-                  <Button
-                    to={"/sets/" + set.id}
+                  <a
+                    href= {`#/${this.state.blockLink}/${this.state.subjectLink}/${set.id}`}
                     className="btn btn-warning"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={(e) => {
                       this.setState({
                         selectedSetId: set.id,
-                        isViewing: true,
+                        // isViewing: true,
                         selectedSet: set,
                       });
                     }}
                   >
                     View Set
-                  </Button>
+                  </a>
                 </td>
               </tr>
             ))}

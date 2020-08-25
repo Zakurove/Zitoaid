@@ -1,48 +1,54 @@
 import React, { Component, Fragment } from "react";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import ListSets from "../sets/ListSets.js";
 
 export class Subjects extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      choseSubject: false,
       subject: null,
-      block: this.props.block
+      block: null,
+      isUpdating: true
     };
-    this.backToSubjects = this.backToSubjects.bind(this);
   }
   static propTypes = {
     block: PropTypes.string.isRequired,
-    backToBlocks: PropTypes.func.isRequired,
   };
 
-  backToSubjects(event) {
-    this.setState({ choseSubject: false });
+  rendering() {
+    if (this.state.isUpdating == true) {
+      if (this.props.block == 'Hematology/Oncology') {
+        this.setState({
+          block: 'hemOnc',
+        });
+      }
+      if (this.props.block !== 'Hematology/Oncology') {
+        const blockLink = this.props.block.toLowerCase()
+        this.setState({
+          block: blockLink,
+        });
+      }
+      this.setState({
+        isUpdating: false,
+      });
+    }
   }
+
+
   render() {
-    if (this.state.choseSubject) {
-      return (
-        <Fragment>
-          <ListSets
-            block={this.props.block}
-            subject={this.state.subject}
-            backToSubjects={this.backToSubjects}
-          />
-        </Fragment>
-      );
+    {
+      this.rendering();
     }
     return (
       <Fragment>
         <h1 className="text-center"></h1>
 
         <div className="container">
-          <h1 className="text-center text-info">{this.state.block} Block</h1>
+          <h1 className="text-center text-info">{this.props.block} Block</h1>
           <Button
             className="btn btn-secondary"
-            onClick={this.props.backToBlocks}
+            href="/#"
           >
             Previous Page
           </Button>
@@ -58,12 +64,7 @@ export class Subjects extends Component {
               />{" "}
               <a
                 className=" btn btn-warning stretched-link text-center d-block" 
-                onClick={(e) => {
-                  this.setState({
-                    subject: "Microbiology",
-                    choseSubject: true,
-                  });
-                }}
+                href= {`#/${this.state.block}/microbiology`}
               >
                 Microbiology
               </a>
@@ -79,12 +80,7 @@ export class Subjects extends Component {
                 style={{ height: "300px", width: "290" }}
               />
               <a
-                onClick={(e) => {
-                  this.setState({
-                    subject: "Imaging",
-                    choseSubject: true,
-                  });
-                }}
+                href= {`#/${this.state.block}/imaging`}
                 className="btn btn-warning stretched-link text-center  d-block"
               >
                 Imaging
@@ -101,19 +97,12 @@ export class Subjects extends Component {
                 style={{ height: "300px", width: "290" }}
               />{" "}
               <a
-                onClick={(e) => {
-                  this.setState({
-                    subject: "Pathology",
-                    choseSubject: true,
-                  });
-                }}
+                href= {`#/${this.state.block}/pathology`}
                 className="btn btn-warning stretched-link text-center  d-block"
               >
                 Pathology
               </a>
             </div>
-          {/* </div> */}
-          {/* <div className="row align-items-center mt-2"> */}
             <div className="col-sm-6 col-md-6 col-lg-4 mt-2 text-center">
               <img
                 src={
@@ -124,12 +113,7 @@ export class Subjects extends Component {
                 style={{ height: "300px", width: "290" }}
               />
               <a
-                onClick={(e) => {
-                  this.setState({
-                    subject: "Histology",
-                    choseSubject: true,
-                  });
-                }}
+                href= {`#/${this.state.block}/histology`}
                 className="btn btn-warning stretched-link text-center  d-block"
               >
                 Histology
@@ -146,12 +130,7 @@ export class Subjects extends Component {
                 style={{ height: "300px", width: "290" }}
               />{" "}
               <a
-                onClick={(e) => {
-                  this.setState({
-                    subject: "Cytology",
-                    choseSubject: true,
-                  });
-                }}
+                href= {`#/${this.state.block}/cytology`}
                 className="btn btn-warning stretched-link text-center  d-block"
               >
                 Cytology
@@ -168,12 +147,7 @@ export class Subjects extends Component {
                 style={{ height: "300px", width: "290" }}
               />
               <a
-                onClick={(e) => {
-                  this.setState({
-                    subject: "Clinical",
-                    choseSubject: true,
-                  });
-                }}
+                href= {`#/${this.state.block}/clinical`}
                 className="btn btn-warning stretched-link text-center  d-block"
               >
                 Clinical

@@ -58,10 +58,6 @@ export class DetailsSet extends Component {
     set: PropTypes.object.isRequired,
     actions: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
-    selectedSetId: PropTypes.number.isRequired,
-    block: PropTypes.string.isRequired,
-    subject: PropTypes.string.isRequired,
-    backToList: PropTypes.func.isRequired,
   };
   //-------------------------------------------------------------------------
   //                                 SLIDER & IMAGES
@@ -283,7 +279,7 @@ export class DetailsSet extends Component {
       user: this.props.user,
     });
 
-    this.props.actions.getAllSets();
+    this.props.actions.getSets(this.props.block, this.props.subject);
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.set.id != nextProps.set.id) {
@@ -523,8 +519,8 @@ export class DetailsSet extends Component {
             <div className="col-3">
               <Button
                 className="btn btn-secondary "
-                onClick={this.props.backToList}
                 style={{ marginBottom: "3px", marginRight: "3px" }}
+                href= {`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
               >
                 Previous Page
               </Button>
@@ -760,7 +756,7 @@ function mapStateToProps(state, ownProps) {
     id: "",
     images: [],
   };
-  let { selectedSetId } = ownProps;
+  let  selectedSetId  = ownProps.match.params.id;
   if (selectedSetId && sets.length > 0) {
     set = getSetById(sets, selectedSetId);
   }

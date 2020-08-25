@@ -7,25 +7,10 @@ export class MainPage extends Component {
     super(props);
 
     this.state = {
-      choseBlock: false,
       block: null
     };
-    this.backToBlocks = this.backToBlocks.bind(this);
-  }
-  backToBlocks(event) {
-    this.setState({ choseBlock: false });
   }
   render() {
-    if (this.state.choseBlock) {
-      return (
-        <Fragment>
-          <Subjects
-            block={this.state.block}
-            backToBlocks={this.backToBlocks}
-          />
-        </Fragment>
-      );
-    }
     return (
       <div>
         <div className="jumbotron">
@@ -49,12 +34,7 @@ export class MainPage extends Component {
               />{" "}
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Cardiovascular",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/cardiovascular"
               >
                 Cardiovascular
               </a>
@@ -71,12 +51,7 @@ export class MainPage extends Component {
               />{" "}
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Musculoskeletal",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/musculoskeletal"
               >
                 Musculoskeletal
               </a>
@@ -91,12 +66,7 @@ export class MainPage extends Component {
               />{" "}
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Respiratory",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/respiratory"
               >
                 Respiratory
               </a>
@@ -111,18 +81,12 @@ export class MainPage extends Component {
               />
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Hematology/Oncology",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/hemOnc"
               >
                 Hematology/Oncology
               </a>
             </div>
-          {/* </div> */}
-          {/* <div className="row align-items-center mt-2"> */}
+
             <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-4" >
               <img
                 src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Neuro.jpg"}
@@ -132,12 +96,7 @@ export class MainPage extends Component {
               />
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Neurology",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/neurology"
               >
                 Neurology
               </a>
@@ -152,12 +111,7 @@ export class MainPage extends Component {
               />
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Endocrine",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/endocrine"
               >
                 Endocrine
               </a>
@@ -172,12 +126,7 @@ export class MainPage extends Component {
               />
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Gastrointestinal",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/gastrointestinal"
               >
                 Gastrointestinal
               </a>
@@ -192,12 +141,7 @@ export class MainPage extends Component {
               />
               <a
                 className=" btn btn-warning stretched-link text-center d-block"
-                onClick={(e) => {
-                  this.setState({
-                    block: "Genitourinary",
-                    choseBlock: true,
-                  });
-                }}
+                href="/#/genitourinary"
               >
                 Genitourinary
               </a>
