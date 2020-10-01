@@ -161,6 +161,7 @@ class App extends Component {
 
                   <Route exact path="/sets/details/:id" component={DetailsSet} />
                   <Route exact path="/mysets" component={MySets} />
+                  <Route exact path="/mysets/:id" render={(props) => <DetailsSet {...props} block={`.`} subject={`.`}/>} />
 
                 </Switch>
               </div>

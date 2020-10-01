@@ -15,11 +15,11 @@ export class Header extends Component {
     const authLinks = (
       <ul className="navbar-nav">
         <span className="navbar-text mr-3" style={{fontSize:"20px"}}>
-          <strong>{user ? `As ${user.username}` : ""}</strong>
+          <strong>{user ? `Logged as ${user.username}` : ""}</strong>
         </span>
 
         <li className="nav-item ">
-          <a onClick={this.props.logout} className="text-info nav-link" style={{fontSize:"20px"}}>
+          <a onClick={this.props.logout} className=" nav-link" style={{fontSize:"20px", textColor: "#F8F8FF"}}>
             Logout
           </a>
         </li>
@@ -29,13 +29,13 @@ export class Header extends Component {
     const guestLinks = (
       <ul className="navbar-nav">
         <li className="nav-item ">
-          <Link to="/login" className="text-info nav-link" style={{fontSize:"20px"}}>
+          <Link to="/login" className=" nav-link" style={{fontSize:"20px"}}>
             Login
           </Link>
         </li>
 
         <li className="nav-item ">
-          <Link to="/register" className="text-info nav-link" style={{fontSize:"20px"}}>
+          <Link to="/register" className=" nav-link" style={{fontSize:"20px"}}>
             Register
           </Link>
         </li>
@@ -63,14 +63,14 @@ export class Header extends Component {
         <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
           <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
             <li className="nav-item ">
-              <a className="nav-link" href="/" style={{fontSize:"25px"}}>
+              <a className="nav-link" href="/" style={{fontSize:"25px", textColor: "#F8F8FF"}}>
                 Home 
               </a>
             </li>
             {user
           ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
             <li className="nav-item ">
-              <a className="nav-link" href="#/mysets" style={{fontSize:"25px"}}>
+              <a className="nav-link" href="#/mysets" style={{fontSize:"25px", textColor: "#F8F8FF"}}>
                 My Sets
               </a>
             </li>

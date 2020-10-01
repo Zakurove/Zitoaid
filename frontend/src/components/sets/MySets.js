@@ -89,22 +89,22 @@ export class MySets extends Component {
               <tr key={set.id}>
                 <td>{set.id}</td>
                 <td>{set.title}</td>
+
                 <td>
-                  <Button
-                    to={"/sets/" + set.id}
+                  <a
+                    href= {`#/mysets/${set.id}`}
                     className="btn btn-warning"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={(e) => {
                       this.setState({
                         selectedSetId: set.id,
-                        isViewing: true,
+                        // isViewing: true,
                         selectedSet: set,
                       });
-                      console.log(this.state.selectedSet, this.state.selectedSetId, 'clicked')
                     }}
                   >
                     View Set
-                  </Button>
+                  </a>
                 </td>
               </tr>
             ))}

@@ -126,7 +126,7 @@ export class ListSets extends Component {
             <tr>
               <th>ID</th>
               <th>Title</th>
-              <th>Owner:</th>
+              <th>Owner</th>
               <th />
             </tr>
           </thead>

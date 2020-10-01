@@ -97,6 +97,7 @@ export class DetailsSet extends Component {
   deleteSet(event) {
     this.props.actions.deleteSet(this.state.set.id);
   }
+
   //For knowing if the user is editing or not and acting accordingly
   toggleEdit() {
     this.setState({ isEditing: !this.state.isEditing });
@@ -104,10 +105,12 @@ export class DetailsSet extends Component {
   toggleRemoveImages() {
     this.setState({ isRemovingImages: !this.state.isRemovingImages });
   }
+  
   //For toggling options button
   toggleOptions() {
     this.setState({ optionsState: !this.state.optionsState });
   }
+  
   //----------------------------------------------------------------------------------------------
   //                                      NOTE SYSTEM
 
@@ -279,7 +282,9 @@ export class DetailsSet extends Component {
       user: this.props.user,
     });
 
-    this.props.actions.getSets(this.props.block, this.props.subject);
+    // this.props.actions.getSets(this.props.block, this.props.subject);
+    this.props.actions.getAllSets();
+    
   }
   componentWillReceiveProps(nextProps) {
     if (this.props.set.id != nextProps.set.id) {
@@ -429,12 +434,17 @@ export class DetailsSet extends Component {
           <Modal.Footer style={{ justifyContent: "center" }}>
             <Button
               variant="danger"
+
+              // To delete the set
               onClick={(e) => {
                 this.deleteModalClose(e);
-
                 this.deleteSet(e);
-                this.props.backToList(e);
+                
               }}
+
+              // To go back to previous page after deleteing the set
+              href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
+
               style={{ justifyContent: "center" }}
               form="noteForm"
             >
@@ -459,11 +469,17 @@ export class DetailsSet extends Component {
               </h1>
             </div>
           </div>
-          <div className="row " style={{ height: "770px" }}>
-            <div className="col-sm-8 order-sm-12 mb-4" style={{  padding: "0px" }} >
-              <div className="col-12">
-                {/* <div className="col-8" style={{ padding: "1px" }}> */}
 
+          {/* Row that contains both slider and explanation */}
+          <div className="row " style={{ height: "770px" }}>
+
+            {/* Slider and buttons above it */}
+            <div className="col-sm-8 order-sm-12 mb-4" style={{  padding: "0px" }} >
+              {/* Buttons Row over the slider */}
+              <div className="row">
+              <div className="col-12 p-0">
+                {/* <div className="col-8" style={{ padding: "1px" }}> */}
+                <div className="col-sm-12 col-md-12 col-lg">
                 {user
                   ? this.props.auth.user.username ==
                       this.props.set.owner_username && (
@@ -490,7 +506,7 @@ export class DetailsSet extends Component {
                     this.changeShowNotesButtonText(e);
                     this.changeNoteDisplay(e);
                   }}
-                  className="btn btn-info float-right mb-1"
+                  className="btn btn-info float-right mb-1 "
                   style={{
                     
                     paddingTop: "4px",
@@ -501,6 +517,9 @@ export class DetailsSet extends Component {
                   <span> </span>
                   {this.state.showNotesButtonText}
                 </Button>
+                </div>
+
+                <div className="col-sm-12 col-md-12 col-lg"> 
                 <Button
                   onClick={this.prev}
                   className="btn btn-warning fa fa-chevron-circle-left float-left"
@@ -512,7 +531,11 @@ export class DetailsSet extends Component {
                   style={{ fontSize: "20px" }}
                 ></Button>
               </div>
-
+              </div>
+              </div>
+             
+              {/* Slider's row */}
+              <div className="row">
               <div className="col-12">
                 <div className="slide-container">
                   <Carousel
@@ -625,7 +648,10 @@ export class DetailsSet extends Component {
                   </Carousel>
                 </div>
               </div>
+              </div>
             </div>
+            
+            {/* Explanation and buttons above it */}
             <div className="col-sm-4 order-sm-1" style={{  padding: "0px" }}>
             
             <div className="col-12">
@@ -687,7 +713,7 @@ export class DetailsSet extends Component {
                   style={{ marginBottom: "3px", marginRight: "3px" }}
                   href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
                 >
-                  Previous Page
+                  Back to sets list
                 </Button>
                 {user
                   ? this.props.auth.user.username ==
@@ -722,8 +748,8 @@ export class DetailsSet extends Component {
 
               <div className="col-12">
                 <div
-                  className=" p-3 pt-4 bg-dark border border-info border-4 rounded"
-                  style={{ height: "400px", overflow: "scroll" }}
+                  className=" p-3 pt-4 bg-dark border border-info border-4 rounded" id="style-1"
+                  style={{ height: "400px", overflow: "auto" }}
                 >
                   <p
                     className="font-weight-bolder text-info text-justify "

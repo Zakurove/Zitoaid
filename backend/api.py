@@ -44,6 +44,7 @@ class SetViewSet(viewsets.ModelViewSet):
     permission_classes = [
         # permissions.IsAuthenticated,
         # IsAdminUserOrReadOnly
+        IsInstructor,
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
