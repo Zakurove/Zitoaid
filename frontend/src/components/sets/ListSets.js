@@ -14,6 +14,7 @@ export class ListSets extends Component {
     this.state = {
       isUpdating: true,
       isCreating: false,
+      isReady: false,
       isViewing: false,
       block: this.props.block,
       subject: this.props.subject,
@@ -24,26 +25,46 @@ export class ListSets extends Component {
     };
     this.backToList = this.backToList.bind(this);
   }
+  //Before render, to fetch info about this list regarding subject and block
   rendering() {
     if (this.state.isUpdating == true) {
-      if (this.props.block == 'Hematology/Oncology') {
+      if (this.props.block == "Hematology/Oncology") {
         this.setState({
-          blockLink: 'hemOnc',
+          blockLink: "hemOnc",
         });
       }
-      if (this.props.block !== 'Hematology/Oncology') {
-        const blockLink = this.props.block.toLowerCase()
+      if (this.props.block !== "Hematology/Oncology") {
+        const blockLink = this.props.block.toLowerCase();
         this.setState({
           blockLink: blockLink,
         });
       }
-      const subjectLink= this.props.subject.toLowerCase()
+      const subjectLink = this.props.subject.toLowerCase();
       this.setState({
         subjectLink: subjectLink,
         isUpdating: false,
       });
+
+      // setTimeout(
+      //   () => this.setState({ isUpdating: false }),
+      //   3000
+      // );
+
+      //   setTimeout(
+      //     function() {
+      //         this.setState({ isUpdating: false });
+
+      //     }
+      //     .bind(this),
+      //     3000
+      // );
+
+      // setTimeout(() => {
+
+      // })
       this.props.getSets(this.state.block, this.state.subject);
     }
+
     this.backToList = this.backToList.bind(this);
   }
 
@@ -55,14 +76,14 @@ export class ListSets extends Component {
     auth: PropTypes.object.isRequired,
     block: PropTypes.string.isRequired,
     subject: PropTypes.string.isRequired,
-    
   };
 
   componentDidMount() {
     this.props.getSets(this.props.block, this.props.subject);
   }
   backToList(event) {
-    this.setState({ isCreating: false, isViewing: false, isUpdating: true,});
+    this.setState({ isCreating: false, isViewing: false, isUpdating: true, isReady: false });
+    this.props.getSets(this.props.block, this.props.subject);
   }
   render() {
     if (this.state.isCreating) {
@@ -93,71 +114,90 @@ export class ListSets extends Component {
     {
       this.rendering();
     }
-    return (
-      <div className="container">
-        <h1 className="text-center py-2 text-info" >
-          {this.state.block} {this.state.subject} Sets
-        </h1>
-        <hr/>
-        <a
-          className="btn btn-secondary"
-          href= {`#/${this.state.blockLink}`}
-        >
-          Previous Page
-        </a>
 
-        {user
-          ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-              <Button
-                className="btn btn-info ml-1"
-                onClick={(e) => {
-                  this.setState({
-                    isCreating: true,
-                  });
-                }}
-              >
-                Add a New Set
-              </Button>
-            )
-          : "" }
-        <p></p>
-        <table className="table table-striped">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Title</th>
-              <th>Owner</th>
-              <th />
-            </tr>
-          </thead>
-          <tbody>
-            {this.props.sets.map((set) => (
-              <tr key={set.id}>
-                <td>{set.id}</td>
-                <td>{set.title}</td>
-                <td>{set.owner_username}</td>
-                <td>
-                  <a
-                    href= {`#/${this.state.blockLink}/${this.state.subjectLink}/${set.id}`}
-                    className="btn btn-warning"
-                    style={{ whiteSpace: "nowrap" }}
-                    onClick={(e) => {
-                      this.setState({
-                        selectedSetId: set.id,
-                        // isViewing: true,
-                        selectedSet: set,
-                      });
-                    }}
-                  >
-                    View Set
-                  </a>
-                </td>
+    // The loading handler
+    if (this.state.isReady == false) {
+    setTimeout(() => this.setState({ isReady: true }), 600);
+    }
+    //The List component
+    if (this.state.isReady) {
+      return (
+        <div className="container">
+          <h1 className="text-center py-2 text-info">
+            {this.state.block} {this.state.subject} Sets
+          </h1>
+          <hr />
+          <a className="btn btn-secondary" href={`#/${this.state.blockLink}`}>
+            Previous Page
+          </a>
+
+          {user
+            ? this.props.auth.user.profile.role &&
+              this.props.auth.user.profile.role == "Instructor" && (
+                <Button
+                  className="btn btn-info ml-1"
+                  onClick={(e) => {
+                    this.setState({
+                      isCreating: true,
+                    });
+                  }}
+                >
+                  Add a New Set
+                </Button>
+              )
+            : ""}
+          <p></p>
+          <table className="table table-striped">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Owner</th>
+                <th />
               </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    );
+            </thead>
+            <tbody>
+              {this.props.sets.map((set) => (
+                <tr key={set.id}>
+                  <td>{set.id}</td>
+                  <td>{set.title}</td>
+                  <td>{set.owner_username}</td>
+                  <td>
+                    <a
+                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/${set.id}`}
+                      className="btn btn-warning"
+                      style={{ whiteSpace: "nowrap" }}
+                      onClick={(e) => {
+                        this.setState({
+                          selectedSetId: set.id,
+                          // isViewing: true,
+                          selectedSet: set,
+                        });
+                      }}
+                    >
+                      View Set
+                    </a>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      );
+    }
+    //The loading component
+    if (this.state.isReady == false) {
+    return (<Fragment>
+
+
+<div className="cssload-loader mt-5">
+	<div className="cssload-inner cssload-one"></div>
+	<div className="cssload-inner cssload-two"></div>
+	<div className="cssload-inner cssload-three"></div>
+</div>
+
+    </Fragment>);
+    }
   }
 }
 
