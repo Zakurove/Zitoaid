@@ -44,10 +44,7 @@
 
 
 
-/* Loading Cube*/
-/* #app:not(:empty) + .sk-cube-grid {
-  display: none;
-} */
+
 
 /* .sk-cube-grid {
   width: 40px;
@@ -113,12 +110,18 @@
 
 /* HTML loader not react */
 
+/* Loading Cube*/
+ #app:not(:empty) + .htmlLoader {
+  display: none;
+} 
+
 /* Spinner Loader */
 .cssload-loader {
 	position: relative;
-	left: calc(50% - 56px);
-	width: 112px;
-	height: 112px;
+  left: calc(47% - 56px);
+  top: 130px;
+	width: 200px;
+	height: 200px;
 	border-radius: 50%;
 		-o-border-radius: 50%;
 		-ms-border-radius: 50%;

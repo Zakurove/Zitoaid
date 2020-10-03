@@ -42,6 +42,7 @@ class App extends Component {
             <Fragment>
             <Alerts />
               <Header />
+              
               <div>
                 <Switch>
                   <Route exact path="/register" component={Register} />

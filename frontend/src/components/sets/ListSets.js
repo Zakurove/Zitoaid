@@ -4,6 +4,7 @@ import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { getSets, deleteSet } from "../../actions/sets.js";
+// import { loadingOn, loadingOff } from "../../actions/loading.js";
 import FormSet from "./FormSet.js";
 import DetailsSet from "./DetailsSet.js";
 
@@ -86,6 +87,11 @@ export class ListSets extends Component {
     this.props.getSets(this.props.block, this.props.subject);
   }
   render() {
+        // // The loading handler
+        // if (this.props.loadingState == true) {
+        //   setTimeout(() => this.props.loadingOff(), 1000);
+        //   }
+
     if (this.state.isCreating) {
       return (
         <Fragment>
@@ -119,6 +125,8 @@ export class ListSets extends Component {
     if (this.state.isReady == false) {
     setTimeout(() => this.setState({ isReady: true }), 600);
     }
+
+
     //The List component
     if (this.state.isReady) {
       return (
@@ -185,18 +193,19 @@ export class ListSets extends Component {
         </div>
       );
     }
-    //The loading component
+    // The loading component
     if (this.state.isReady == false) {
-    return (<Fragment>
+    return (
 
-
+    <Fragment>
 <div className="cssload-loader mt-5">
 	<div className="cssload-inner cssload-one"></div>
 	<div className="cssload-inner cssload-two"></div>
 	<div className="cssload-inner cssload-three"></div>
 </div>
+    </Fragment>
 
-    </Fragment>);
+    );
     }
   }
 }
@@ -205,6 +214,7 @@ const mapStateToProps = (state) => ({
   // the first one is whatever we're getting so it's okay, the 2nd one is the name of the reducer, the 3rd the state in the reducer
   sets: state.sets.sets,
   auth: state.auth,
+  loadingState: state.loadingState,
 });
 
 export default connect(mapStateToProps, { getSets, deleteSet })(ListSets);

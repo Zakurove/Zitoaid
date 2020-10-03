@@ -4,6 +4,8 @@ import errors from './errors';
 import messages from './messages';
 import auth from './auth';
 import sets from './sets';
+import loading from './loading';
+
 
 
 export default combineReducers({
@@ -11,5 +13,6 @@ export default combineReducers({
   sets,
   errors,
   messages,
-  auth
+  auth,
+  loading
 });
