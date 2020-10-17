@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
@@ -54,18 +54,28 @@ export class Register extends Component {
     }
     const { username, email, password, password2 } = this.state;
     return (
-      <div className="container pt-5 mt-3">
-        <div className="d-flex justify-content-center">
-          <div className="card" style={{ height: "460px" }}>
-            <div className="card-header">
-              <h3>Sign Up</h3>
-            </div>
-            <div className="card-body pb-5">
-              <form onSubmit={this.onSubmit}>
+      <Fragment>
+      <div className="container ">
+        <div className="row flex-lg-row-reverse">
+        <div className="col-lg-7 p-0">
+
+<img
+  src={
+    "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/19836.jpg"
+  }
+  className="img-fluid float-right"
+  alt="Responsive image"
+  style={{ width: "150%" }}
+/>
+
+</div>
+        <div className="col-lg-5">           
+         <form onSubmit={this.onSubmit} className="mt-5">
+            <h3 className="text-info mb-3">Sign Up</h3>
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">
-                      <i className="fas fa-user"></i>
+                      <i className="fas fa-user mx-auto"></i>
                     </span>
                   </div>
                   <input
@@ -81,7 +91,7 @@ export class Register extends Component {
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">
-                      <i className="fas fa-envelope"></i>
+                      <i className="fas fa-envelope mx-auto"></i>
                     </span>
                   </div>
                   <input
@@ -97,7 +107,7 @@ export class Register extends Component {
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">
-                      <i className="fas fa-key"></i>
+                      <i className="fas fa-key mx-auto"></i>
                     </span>
                   </div>
                   <input
@@ -113,7 +123,7 @@ export class Register extends Component {
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">
-                      <i className="fas fa-key"></i>
+                      <i className="fas fa-key mx-auto"></i>
                     </span>
                   </div>
                   <input
@@ -128,7 +138,7 @@ export class Register extends Component {
                 <div className="input-group form-group">
                   <div className="input-group-prepend">
                     <span className="input-group-text">
-                      <i className="fas fa-user-tag"></i>
+                      <i className="fas fa-user-tag mx-auto"></i>
                     </span>
                   </div>
 
@@ -145,26 +155,50 @@ export class Register extends Component {
                   </Form.Control>
                 </div>
 
-                <div className="input-group form-group">
-                  <input
-                    type="submit"
-                    className="btn btn-warning float-right login_btn btn-block"
-                  />
-                </div>
-              </form>
-            </div>
 
-            <div className="card-footer">
+
+                <button
+                  type="submit"
+                  className="btn btn-dark btn-lg btn-block mt-4"
+                >
+                  Sign Up
+                </button>
+                <hr/>
+                <div className="">
+                Already have an account?{" "}
+                <Link to="/login" className="text-info" style={{fontWeight: "bold"}}>
+                  Login
+                </Link>
+              </div>
+
+              </form>
+               </div>
+
+            
+
+
+        </div>
+        {/* <div className="d-flex justify-content-center">
+          <div className="card" style={{ height: "460px" }}>
+            <div className="card-header">
+              <h3>Sign Up</h3>
+            </div>
+            <div className="card-body pb-5">
+              
+            </div> */}
+
+            {/* <div className="card-footer">
               <div className="d-flex justify-content-center links">
                 Already have an account?{" "}
                 <Link to="/login" className="text-info">
                   Login
                 </Link>
               </div>
-            </div>
+            </div> */}
           </div>
-        </div>
-      </div>
+        {/* </div>
+      </div> */}
+      </Fragment>
     );
   }
 }

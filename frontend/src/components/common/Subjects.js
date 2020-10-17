@@ -46,7 +46,7 @@ export class Subjects extends Component {
 
         <div className="container">
           <h1 className="text-center text-info" >{this.props.block} Block</h1>
-          <hr/>
+          {/* <hr/> */}
           <Button
             className="btn btn-secondary"
             href="/#"
@@ -60,12 +60,12 @@ export class Subjects extends Component {
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/micro.jpg"
                 }
-                className=" img-fluid"
+                className=" img-fluid blocksBorder"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />{" "}
               <a
-                className=" btn btn-warning stretched-link text-center d-block" 
+                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block" 
                 href= {`#/${this.state.block}/microbiology`}
               >
                 Microbiology
@@ -77,13 +77,13 @@ export class Subjects extends Component {
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/imaging.jpg"
                 }
-                className=" img-fluid"
+                className=" img-fluid blocksBorder"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />
               <a
                 href= {`#/${this.state.block}/imaging`}
-                className="btn btn-warning stretched-link text-center  d-block"
+                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
               >
                 Imaging
               </a>
@@ -94,13 +94,13 @@ export class Subjects extends Component {
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/patho.jpg"
                 }
-                className=" img-fluid"
+                className=" img-fluid blocksBorder"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />{" "}
               <a
                 href= {`#/${this.state.block}/pathology`}
-                className="btn btn-warning stretched-link text-center  d-block"
+                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
               >
                 Pathology
               </a>
@@ -110,13 +110,13 @@ export class Subjects extends Component {
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/histo.jpg"
                 }
-                className=" img-fluid"
+                className=" img-fluid blocksBorder"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />
               <a
                 href= {`#/${this.state.block}/histology`}
-                className="btn btn-warning stretched-link text-center  d-block"
+                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
               >
                 Histology
               </a>
@@ -127,13 +127,13 @@ export class Subjects extends Component {
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/cyto.jpg"
                 }
-                className=" img-fluid"
+                className=" img-fluid blocksBorder"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />{" "}
               <a
                 href= {`#/${this.state.block}/cytology`}
-                className="btn btn-warning stretched-link text-center  d-block"
+                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
               >
                 Cytology
               </a>
@@ -144,13 +144,13 @@ export class Subjects extends Component {
                 src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/clinical.jpg"
                 }
-                className=" img-fluid"
+                className=" img-fluid blocksBorder"
                 alt="Responsive image"
                 style={{ height: "300px", width: "290" }}
               />
               <a
                 href= {`#/${this.state.block}/clinical`}
-                className="btn btn-warning stretched-link text-center  d-block"
+                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
               >
                 Clinical
               </a>

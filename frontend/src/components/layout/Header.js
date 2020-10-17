@@ -1,8 +1,9 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { logout } from "../../actions/auth";
+import { Navbar, Nav, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 export class Header extends Component {
   static propTypes = {
@@ -11,76 +12,68 @@ export class Header extends Component {
   };
 
   render() {
+    const renderTooltip1 = (props) => (
+      <Tooltip id="button-tooltip1" style={{fontSize: "2rem", maxWidth: "200%"}} {...props}>
+        Logout
+      </Tooltip>
+    );
     const { isAuthenticated, user } = this.props.auth;
     const authLinks = (
-      <ul className="navbar-nav">
-        <span className="navbar-text mr-3" style={{fontSize:"20px"}}>
-          <strong>{user ? `Logged as ${user.username}` : ""}</strong>
-        </span>
+      <Navbar.Collapse className="justify-content-end">
 
-        <li className="nav-item ">
-          <a onClick={this.props.logout} className=" nav-link" style={{fontSize:"20px", textColor: "#F8F8FF"}}>
-            Logout
-          </a>
-        </li>
-      </ul>
+        <Navbar.Text style={{fontSize: "1.5rem"}}>
+        <i className="fas fa-user"></i> {user ? <span className="text-info" style={{fontWeight: "bold"}}> {user.username}</span> : ""}
+          </Navbar.Text>
+        
+
+          <Nav>
+        <Nav.Link onClick={this.props.logout} style={{fontSize: "2rem"}} className="ml-3">               
+        <OverlayTrigger
+                placement="bottom"
+                delay={{ show: 250, hide: 400 }}
+                overlay={renderTooltip1}
+              >
+                <i className="fas fa-sign-out-alt"></i>
+              </OverlayTrigger></Nav.Link>
+        </Nav>
+
+      </Navbar.Collapse>
     );
 
     const guestLinks = (
-      <ul className="navbar-nav">
-        <li className="nav-item ">
-          <Link to="/login" className=" nav-link" style={{fontSize:"20px"}}>
-            Login
-          </Link>
-        </li>
 
-        <li className="nav-item ">
-          <Link to="/register" className=" nav-link" style={{fontSize:"20px"}}>
-            Register
-          </Link>
-        </li>
-      </ul>
+
+          <Navbar.Collapse className="justify-content-end">
+
+            <Nav >  
+            <Nav.Link href="#/login" style={{fontSize: "1.3rem"}}><i className="fas fa-sign-in-alt"></i> Login</Nav.Link>
+            <Nav.Link href="#/register" className="ml-2" style={{fontSize: "1.3rem"}}><i className="fas fa-user-plus" style={{fontSize: "1.2rem"}}></i> Sign Up</Nav.Link>
+            </Nav>
+            
+          </Navbar.Collapse>
     );
 
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-        <button
-          className="navbar-toggler"
-          type="button"
-          data-toggle="collapse"
-          data-target="#navbarTogglerDemo03"
-          aria-controls="navbarTogglerDemo03"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span className="navbar-toggler-icon"></span>
-        </button>
+      <Fragment>
+      <Navbar  bg="light" expand="lg" className="mb-5">
+      <Navbar.Brand href="/#" style={{fontSize: "2.5rem"}} className="text-info">Tawassam</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav">
+      <Nav className="mr-auto ml-2" style={{fontSize: "1.8rem"}}>
+      <Nav.Link href="/#" className="ml-2"><i className="fas fa-home"></i> Home</Nav.Link>
+      {user
+        ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
+          <Nav.Link href="#/mysets" className="ml-2"><i className="fas fa-layer-group"></i> My Sets</Nav.Link>
+          )
+        : "" }
+  
+      </Nav>
+      {isAuthenticated ? authLinks : guestLinks} 
 
-        <a className="navbar-brand" href="/" style={{fontSize:"35px", color: "#06d6d6"}}>
-          Tawassam
-        </a>
+      </Navbar.Collapse>
+    </Navbar>
 
-        <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
-          <ul className="navbar-nav mr-auto mt-2 mt-lg-0">
-            <li className="nav-item ">
-              <a className="nav-link" href="/" style={{fontSize:"25px", textColor: "#F8F8FF"}}>
-                Home 
-              </a>
-            </li>
-            {user
-          ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-            <li className="nav-item ">
-              <a className="nav-link" href="#/mysets" style={{fontSize:"25px", textColor: "#F8F8FF"}}>
-                My Sets
-              </a>
-            </li>
-            )
-          : "" }
-          </ul>
-
-          {isAuthenticated ? authLinks : guestLinks}
-        </div>
-      </nav>
+    </Fragment>
     );
   }
 }

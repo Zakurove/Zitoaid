@@ -598,6 +598,7 @@ export class DetailsSet extends Component {
                                     ? this.props.auth.user.username ==
                                         this.props.set.owner_username && (
                                         <Button
+                                        className="mr-2"
                                           size="sm"
                                           variant="outline-info"
                                           onClick={(e) => {

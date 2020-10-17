@@ -134,7 +134,7 @@ export class ListSets extends Component {
           <h1 className="text-center py-2 text-info">
             {this.state.block} {this.state.subject} Sets
           </h1>
-          <hr />
+          {/* <hr /> */}
           <a className="btn btn-secondary" href={`#/${this.state.blockLink}`}>
             Previous Page
           </a>

@@ -43,8 +43,10 @@ top: -15px;
 
 .input-group-prepend span{
 width: 50px;
-background-color: #FFC312;
-color: black;
+background-color: #343a40;
+
+/* #FFC312 */
+color: white;
 border:0 !important;
 }
 
