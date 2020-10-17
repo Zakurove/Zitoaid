@@ -10,7 +10,8 @@ import "filepond/dist/filepond.min.css";
 import FilePondPluginImageExifOrientation from "filepond-plugin-image-exif-orientation";
 import FilePondPluginImagePreview from "filepond-plugin-image-preview";
 import "filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css";
-registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
 export class EditSet extends Component {
   state = {
@@ -117,6 +118,7 @@ export class EditSet extends Component {
                 //     type: "local",
                 //   },
                 // }))}
+                acceptedFileTypes='image/*'
                 allowMultiple={true}
                 onuploadfiles={(fileitems) => {
                   this.setState({

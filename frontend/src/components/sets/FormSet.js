@@ -12,7 +12,8 @@ import { addSet } from '../../actions/sets.js';
  import FilePondPluginImagePreview from 'filepond-plugin-image-preview';
  import 'filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css';
  import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
- registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview);
+ import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
+ registerPlugin(FilePondPluginImageExifOrientation, FilePondPluginImagePreview, FilePondPluginFileValidateType);
 
 
  export class FormSet extends Component {
@@ -113,6 +114,8 @@ import { addSet } from '../../actions/sets.js';
               ref={ref => this.pond = ref}
               files={this.state.files}
               allowMultiple={true}
+              allowReorder={true}
+              acceptedFileTypes='image/*'
               onuploadfiles={(fileitems => {
                 this.setState({
                   files: fileitems.map(fileitem => fileitem.file)

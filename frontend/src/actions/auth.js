@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { returnErrors } from './messages';
+import { returnErrors, createMessage } from './messages';
 
 import {
   USER_LOADED,
@@ -48,7 +48,9 @@ export const login = (username, password) => (dispatch) => {
   axios
     .post('/api/auth/login', body, config)
     .then((res) => {
-      dispatch({
+      dispatch(createMessage({info: `Welcome back ${res.data.user.username}!`  }))
+      console.log(res.data.user.username, "hey")
+      dispatch({  
         type: LOGIN_SUCCESS,
         payload: res.data,
       });
@@ -76,6 +78,7 @@ export const register = newUser => (dispatch) => {
   axios
     .post('/api/auth/register', newUser, config)
     .then((res) => {
+      dispatch(createMessage({success: `Welcome ${res.data.user.username}!`  }))
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,
@@ -94,7 +97,8 @@ export const logout = () => (dispatch, getState) => {
   axios
     .post('/api/auth/logout/', null, tokenConfig(getState))
     .then((res) => {
-      dispatch({ type: 'CLEAR_LEADS' });
+
+      dispatch(createMessage({success: "Logged out successfully"  }))
       dispatch({
         type: LOGOUT_SUCCESS,
       });

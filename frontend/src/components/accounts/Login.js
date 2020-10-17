@@ -20,12 +20,43 @@ export class Login extends Component {
     isAuthenticated: PropTypes.bool,
   };
 
+  componentDidMount() {
+    if (localStorage.checkbox && localStorage.username !== "") {
+        this.setState({
+            isChecked: true,
+            username: localStorage.username,
+            password: localStorage.password
+        })
+    }
+}
 
+onChangeValue = event => {
+  this.setState({
+      [event.target.name]: event.target.value
+  })
+}
+
+onChangeCheckbox = event => {
+  this.setState({
+      isChecked: event.target.checked
+  })
+}
 
   onSubmit = (e) => {
     e.preventDefault();
     this.props.login(this.state.username, this.state.password);
   };
+
+  loginSubmit = () => {
+    const { username, password, isChecked } = this.state
+    if (isChecked && username !== "") {
+        localStorage.username = username
+        localStorage.password = password
+        localStorage.checkbox = isChecked
+    }
+    this.props.login(this.state.username, this.state.password);
+}
+
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -34,7 +65,7 @@ export class Login extends Component {
       return <Redirect to="/" />;
     }
 
-    const { username, password } = this.state;
+    const { username, password, isChecked } = this.state;
     return (
       <Fragment>
         <div className="container">
@@ -50,7 +81,7 @@ export class Login extends Component {
               />
             </div>
             <div className="col-md-6">
-              <form onSubmit={this.onSubmit} className="mt-5">
+              <form className="mt-5">
                 <h3 className="text-info mb-3">Login</h3>
 
                 <div className="input-group form-group mt-4">
@@ -63,7 +94,7 @@ export class Login extends Component {
                     type="text"
                     className="form-control"
                     name="username"
-                    onChange={this.onChange}
+                    onChange={this.onChangeValue}
                     value={username}
                     placeholder="Username"
                   />
@@ -79,7 +110,7 @@ export class Login extends Component {
                     type="password"
                     className="form-control"
                     name="password"
-                    onChange={this.onChange}
+                    onChange={this.onChangeValue}
                     value={password}
                     placeholder="Password"
                   />
@@ -90,6 +121,9 @@ export class Login extends Component {
                     <input
                       type="checkbox"
                       className="custom-control-input"
+                      checked={isChecked}
+                      onChange={this.onChangeCheckbox}
+                      name="lsRememberMe"
                       id="customCheck1"
                     />
                     <label
@@ -102,7 +136,9 @@ export class Login extends Component {
                 </div>
 
                 <button
-                  type="submit"
+                  type="button"
+                  value="Login"
+                  onClick={this.loginSubmit}
                   className="btn btn-dark btn-lg btn-block mt-4"
                 >
                   Sign in

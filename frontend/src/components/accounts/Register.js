@@ -33,7 +33,7 @@ export class Register extends Component {
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: "Passwords do not match" });
     } 
-    if (this.state.role == "Instructor" || this.state.role == "Student" ) {
+    else if (this.state.role == "Instructor" || this.state.role == "Student" ) {
       const newUser = new FormData();
       newUser.append("username", this.state.username);
       newUser.append("password", this.state.password);
