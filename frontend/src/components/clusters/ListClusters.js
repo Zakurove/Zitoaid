@@ -3,18 +3,18 @@ import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { getSets, deleteSet } from "../../actions/sets.js";
+import { getClusters, deleteCluster } from "../../actions/clusters.js";
 // import { loadingOn, loadingOff } from "../../actions/loading.js";
-import FormSet from "./FormSet.js";
-import DetailsSet from "./DetailsSet.js";
+import FormCluster from "./FormCluster.js";
+import DetailsCluster from "./DetailsCluster.js";
 
-export class ListSets extends Component {
+export class ListClusters extends Component {
   static propTypes = {
-    goCluster: PropTypes.func.isRequired,
+    goSet: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
-
+    
     this.state = {
       isUpdating: true,
       isCreating: false,
@@ -22,8 +22,8 @@ export class ListSets extends Component {
       isViewing: false,
       block: this.props.block,
       subject: this.props.subject,
-      selectedSetId: null,
-      selectedSet: null,
+      selectedClusterId: null,
+      selectedCluster: null,
       blockLink: null,
       subjectLink: null,
     };
@@ -49,56 +49,37 @@ export class ListSets extends Component {
         isUpdating: false,
       });
 
-      // setTimeout(
-      //   () => this.setState({ isUpdating: false }),
-      //   3000
-      // );
 
-      //   setTimeout(
-      //     function() {
-      //         this.setState({ isUpdating: false });
-
-      //     }
-      //     .bind(this),
-      //     3000
-      // );
-
-      // setTimeout(() => {
-
-      // })
-      this.props.getSets(this.state.block, this.state.subject);
+      this.props.getClusters(this.state.block, this.state.subject);
     }
 
     this.backToList = this.backToList.bind(this);
   }
 
   static propTypes = {
-    //This is the first "set" from the func down below
-    sets: PropTypes.array.isRequired,
-    getSets: PropTypes.func.isRequired,
-    deleteSet: PropTypes.func.isRequired,
+    //This is the first "cluster" from the func down below
+    clusters: PropTypes.array.isRequired,
+    getClusters: PropTypes.func.isRequired,
+    deleteCluster: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     block: PropTypes.string.isRequired,
     subject: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
-    this.props.getSets(this.props.block, this.props.subject);
+    this.props.getClusters(this.props.block, this.props.subject);
   }
   backToList(event) {
     this.setState({ isCreating: false, isViewing: false, isUpdating: true, isReady: false });
-    this.props.getSets(this.props.block, this.props.subject);
+    this.props.getClusters(this.props.block, this.props.subject);
   }
   render() {
-        // // The loading handler
-        // if (this.props.loadingState == true) {
-        //   setTimeout(() => this.props.loadingOff(), 1000);
-        //   }
+
 
     if (this.state.isCreating) {
       return (
         <Fragment>
-          <FormSet
+          <FormCluster
             block={this.state.block}
             subject={this.state.subject}
             backToList={this.backToList}
@@ -109,9 +90,9 @@ export class ListSets extends Component {
     if (this.state.isViewing) {
       return (
         <Fragment>
-          <DetailsSet
-            selectedSetId={this.state.selectedSetId}
-            set={this.state.selectedSet}
+          <DetailsCluster
+            selectedClusterId={this.state.selectedClusterId}
+            cluster={this.state.selectedCluster}
             block={this.state.block}
             subject={this.state.subject}
             backToList={this.backToList}
@@ -135,7 +116,7 @@ export class ListSets extends Component {
       return (
         <div className="container">
           <h1 className="text-center py-2 text-info">
-            {this.state.block} {this.state.subject} Sets
+            {this.state.block} {this.state.subject} Clusters
           </h1>
           {/* <hr /> */}
           <a className="btn btn-secondary" href={`#/${this.state.blockLink}`}>
@@ -153,19 +134,19 @@ export class ListSets extends Component {
                     });
                   }}
                 >
-                  Add a New Set
+                  Add a New Cluster
                 </Button>
               )
             : ""}
-
+          
           <a className="btn btn-outline-info float-right" href={`#/${this.state.blockLink}`}        
              onClick={(e) => {
-            this.props.goCluster();
+            this.props.goSet();
             event.preventDefault();
           }}
           style={{ fontWeight: "bold" }}
           >
-            <i class="fas fa-sitemap" style={{ fontSize: "1.3rem" }}></i> Clusters
+            <i class="fas fa-layer-group"  style={{ fontSize: "1.3rem" }}></i> Sets
           </a>
           <p></p>
           <table className="table table-striped">
@@ -178,25 +159,25 @@ export class ListSets extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.sets.map((set) => (
-                <tr key={set.id}>
-                  <td>{set.id}</td>
-                  <td>{set.title}</td>
-                  <td>{set.owner_username}</td>
+              {this.props.clusters.map((cluster) => (
+                <tr key={cluster.id}>
+                  <td>{cluster.id}</td>
+                  <td>{cluster.title}</td>
+                  <td>{cluster.owner_username}</td>
                   <td>
                     <a
-                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/${set.id}`}
+                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/${cluster.id}`}
                       className="btn btn-warning"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={(e) => {
                         this.setState({
-                          selectedSetId: set.id,
+                          selectedClusterId: cluster.id,
                           // isViewing: true,
-                          selectedSet: set,
+                          selectedCluster: cluster,
                         });
                       }}
                     >
-                      View Set
+                      View Cluster
                     </a>
                   </td>
                 </tr>
@@ -225,9 +206,9 @@ export class ListSets extends Component {
 
 const mapStateToProps = (state) => ({
   // the first one is whatever we're getting so it's okay, the 2nd one is the name of the reducer, the 3rd the state in the reducer
-  sets: state.sets.sets,
+  clusters: state.clusters.clusters,
   auth: state.auth,
   loadingState: state.loadingState,
 });
 
-export default connect(mapStateToProps, { getSets, deleteSet })(ListSets);
+export default connect(mapStateToProps, { getClusters, deleteCluster })(ListClusters);

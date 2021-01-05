@@ -143,6 +143,13 @@ onChangeCheckbox = event => {
                 >
                   Sign in
                 </button>
+                <hr/>
+                <div className="">
+                Don't have an account?{" "}
+                <Link to="/register" className="text-info" style={{fontWeight: "bold"}}>
+                  Sign Up
+                </Link>
+              </div>
                 {/* <p className="forgot-password text-right">
             Forgot <a href="#">password?</a>
           </p> */}

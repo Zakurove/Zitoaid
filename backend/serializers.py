@@ -1,15 +1,42 @@
 from rest_framework import serializers
-from .models import Set, SetImage, SetNotes
+from .models import Set, SetImage, SetNotes, Cluster
 import logging
 import json
 import sys
 
-#Set
+
+
+#Cluster
+class ClusterSerializer(serializers.ModelSerializer):
+    #Many to many relationship between sets and clusters
+    # sets = SetSerializer(many=True, read_only=True)
+    class Meta:
+        ordering = ['-id']
+        model = Cluster
+        fields = ('id', 'title', 'description','block', 'subject', 'owner_username', 'owner', 'sets')
+        extra_kwargs = {'sets': {'required': False}}
+  
+    # def create(self, validated_data):
+    #     set_data = validated_data.pop('sets')
+    #     cluster = Cluster.objects.create(**validated_data)
+    #     cluster.save()
+    #     for set in set_data:
+    #         a, created = Set.objects.get_or_create(set=set)
+    #         cluster.sets.add(a)
+    #         # Cluster.objects.create(cluster=cluster, set=set)
+    #     return cluster
+
+
+
+#Set Items:
+
+#Set Notes
 class SetNotesSerializer(serializers.ModelSerializer):
     class Meta:
         model = SetNotes
         fields = ('id','noteContent','x','y')
 
+#Set Images
 class SetImageSerializer(serializers.ModelSerializer):
     notes = SetNotesSerializer(source='setNotes', many=True, read_only=True)
 
@@ -17,13 +44,17 @@ class SetImageSerializer(serializers.ModelSerializer):
         model = SetImage
         fields = ('id','image','notes')
 
+#The Set
 class SetSerializer(serializers.ModelSerializer):
 
     images = SetImageSerializer(source='setImages', many=True, read_only=True)
-
+    clusters = ClusterSerializer ( read_only=True, many=True)
+    
     class Meta:
+        ordering = ['-id']
         model = Set
-        fields = ('id', 'title', 'description',  'images', 'block', 'subject', 'owner_username', 'owner')
+        fields = ('id', 'title', 'description',  'images', 'block', 'subject', 'owner_username', 'owner', 'clusters')
+        extra_kwargs = {'clusters': {'required': False}}
         
     def create(self, validated_data):
         #SET

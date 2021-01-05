@@ -49,7 +49,6 @@ export const login = (username, password) => (dispatch) => {
     .post('/api/auth/login', body, config)
     .then((res) => {
       dispatch(createMessage({info: `Welcome back ${res.data.user.username}!`  }))
-      console.log(res.data.user.username, "hey")
       dispatch({  
         type: LOGIN_SUCCESS,
         payload: res.data,

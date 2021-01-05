@@ -43,7 +43,7 @@ export class MainPage extends Component {
 
         {/* For text content */}
       <div className="col-lg-4  jumbotron bg-light " style={{marginTop: "100px"}}>
-          <h1 className="display-4 text-info mb-4" >Welcome to <span style={{fontWeight: "bold", color: "#06D6D6"}}>Tawassam</span></h1>
+          <h1 className="display-4 text-info mb-4 pl-2" >Welcome to <span style={{fontWeight: "bold", color: "#06D6D6"}}>Tawassam</span></h1>
           {/* <p className="text-info" style={{fontSize: "1.5rem"}}>
             This is your distentation for learning and teaching visual materials
             in health care!
