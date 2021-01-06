@@ -146,7 +146,7 @@ export class ListClusters extends Component {
           }}
           style={{ fontWeight: "bold" }}
           >
-            <i class="fas fa-layer-group"  style={{ fontSize: "1.3rem" }}></i> Sets
+            <i className="fas fa-layer-group"  style={{ fontSize: "1.3rem" }}></i> Sets
           </a>
           <p></p>
           <table className="table table-striped">
@@ -164,6 +164,8 @@ export class ListClusters extends Component {
                   <td>{cluster.id}</td>
                   <td>{cluster.title}</td>
                   <td>{cluster.owner_username}</td>
+                  {console.log(cluster)}
+                  {console.log(cluster.owner_username)}
                   <td>
                     <a
                       href={`#/${this.state.blockLink}/${this.state.subjectLink}/${cluster.id}`}

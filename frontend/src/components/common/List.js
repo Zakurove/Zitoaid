@@ -45,7 +45,7 @@ export class List extends Component {
 <div className="container">
   <h1 className="text-center text-info" >{this.props.block} {this.props.subject}</h1>
   {/* <hr/> */}
-  <div className="row align-items-start px-4 mt-3">
+  <div className="row align-items-start px-4 mt-4">
       <div className="col-1"></div>
 
   <Button
@@ -55,7 +55,7 @@ export class List extends Component {
     Previous Page
   </Button>
         </div>
-  <div className="row align-items-start mt-2 pt-2 px-5">
+  <div className="row align-items-start mt-2 pt-2 px-5 mb-5">
       {/* <div className="col-1"></div> */}
     <div className="col-sm-6 col-md-6 col-lg-6 text-center pb-2" >
       {/* <img

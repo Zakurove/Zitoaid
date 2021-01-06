@@ -3,7 +3,7 @@ from .models import Set, SetImage, SetNotes, Cluster
 import logging
 import json
 import sys
-
+import re
 
 
 #Cluster
@@ -16,20 +16,38 @@ class ClusterSerializer(serializers.ModelSerializer):
         fields = ('id', 'title', 'description','block', 'subject', 'owner_username', 'owner', 'sets')
         extra_kwargs = {'sets': {'required': False}}
   
-    # def create(self, validated_data):
-    #     set_data = validated_data.pop('sets')
-    #     cluster = Cluster.objects.create(**validated_data)
-    #     cluster.save()
-    #     for set in set_data:
-    #         a, created = Set.objects.get_or_create(set=set)
-    #         cluster.sets.add(a)
-    #         # Cluster.objects.create(cluster=cluster, set=set)
-    #     return cluster
+    def create(self, validated_data):
+        #Cluster
+        creator = self.context['request'].user
+        cluster = Cluster.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+        #Get the sets array from fronend
+        setsArray =self.context.get('view').request.data.get('setsArray')
+        #To ignore the comma
+        setsArray = re.sub('[^0-9]', '', setsArray)
+        #Adding the sets one by one, bun intended (One is the name of my cat)
+        for set in setsArray:
+            cluster.sets.add(set)
+        #RETURN
+        return cluster
+
+    def update(self, instance, validated_data):
+        #CLUSTER
+        cluster = instance
+        instance.title = validated_data['title']
+        instance.description = validated_data['description']
+        setsArray =self.context.get('view').request.data.get('setsArray')
+        #To ignore the comma
+        setsArray = re.sub('[^0-9]', '', setsArray)
+        #Adding the sets one by one, bun intended (One is the name of my cat)
+        for set in setsArray:
+            instance.sets.add(set)
+        #Saving and returning
+        instance.save()
+        return instance
 
 
 
-#Set Items:
-
+#---Set Items:
 #Set Notes
 class SetNotesSerializer(serializers.ModelSerializer):
     class Meta:
@@ -64,7 +82,7 @@ class SetSerializer(serializers.ModelSerializer):
 
         #IMAGES
         images_data = self.context.get('view').request.FILES     
-        #Three is the genius cat that cracked the code
+        #Three is the genius cat that cracked the code (Three is the name of my cat)
         images = images_data.getlist('image')
         for img in images:
             print(img)

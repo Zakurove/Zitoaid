@@ -26,6 +26,7 @@ import { addCluster } from '../../actions/clusters.js';
        const cluster = new FormData();
        cluster.append('title', this.state.title)
        cluster.append('description', this.state.description);
+       cluster.append('setsArray', ['2','3']);
        cluster.append('block', this.props.block);
        cluster.append('subject', this.props.subject);
        this.props.addCluster(cluster);

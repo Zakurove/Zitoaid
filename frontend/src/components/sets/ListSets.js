@@ -165,7 +165,7 @@ export class ListSets extends Component {
           }}
           style={{ fontWeight: "bold" }}
           >
-            <i class="fas fa-sitemap" style={{ fontSize: "1.3rem" }}></i> Clusters
+            <i className="fas fa-sitemap" style={{ fontSize: "1.3rem" }}></i> Clusters
           </a>
           <p></p>
           <table className="table table-striped">
