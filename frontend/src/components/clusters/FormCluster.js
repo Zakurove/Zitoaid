@@ -104,18 +104,18 @@ import { getSets } from '../../actions/sets.js';
        const cluster = new FormData();
        cluster.append('title', this.state.title)
        cluster.append('description', this.state.description);
-       setTimeout(() => cluster.append('setsArray', this.state.setsArray), 200);
+       setTimeout(() => cluster.append('setsArray', this.state.setsArray), 300);
        cluster.append('block', this.props.block);
        cluster.append('subject', this.props.subject);
       //  this.props.addCluster(cluster);
-       setTimeout(() => this.props.addCluster(cluster), 400);
+       setTimeout(() => this.props.addCluster(cluster), 500);
        this.setState({
          title: "",
          description: "",
        })
        
       //  Go to associate sets
-      setTimeout(() => this.props.backToList(), 600);
+      setTimeout(() => this.props.backToList(), 700);
        
 
      };

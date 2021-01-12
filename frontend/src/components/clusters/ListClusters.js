@@ -168,7 +168,7 @@ export class ListClusters extends Component {
                   {console.log(cluster.owner_username)}
                   <td>
                     <a
-                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/${cluster.id}`}
+                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters/${cluster.id}`}
                       className="btn btn-warning"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={(e) => {

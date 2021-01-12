@@ -8,8 +8,9 @@ import { UncontrolledPopover, PopoverHeader, PopoverBody } from "reactstrap";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { EditCluster } from "./EditCluster.js";
-import { DeleteCluster } from "./DeleteCluster.js";
-import * as setActions from "../../actions/clusters.js";
+// import { DeleteSet } from "./DeleteCluster.js";
+import * as clusterActions from "../../actions/clusters.js";
+import * as setActions from "../../actions/sets.js";
 
 export class DetailsCluster extends Component {
   constructor(props) {
@@ -29,8 +30,8 @@ export class DetailsCluster extends Component {
       isEditing: false,
       tooltipOpen: false,
       popoverOpen: false,
-      set: this.props.set,
-      testing: ["hello", "One"],
+      cluster: this.props.cluster,
+      sets: [this.props.sets],
       selectedImageId: null,
       EditedNoteId: null,
       noteEditMode: false,
@@ -39,10 +40,10 @@ export class DetailsCluster extends Component {
       noteDisplay: "",
       optionsState: false,
       isRemovingImage: false,
-      set: this.props.set,
       deleteModalShow: false,
       user: null,
-      // username: this.props.auth.user.username
+      chosenSet: this.props.clusterSets[0],
+      isReady: false,
     };
 
     this.pointXY = this.pointXY.bind(this);
@@ -55,7 +56,8 @@ export class DetailsCluster extends Component {
     this.doneImage = this.doneImage.bind(this);
   }
   static propTypes = {
-    set: PropTypes.object.isRequired,
+    cluster: PropTypes.object.isRequired,
+    sets: PropTypes.array.isRequired,
     actions: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
   };
@@ -283,12 +285,13 @@ export class DetailsCluster extends Component {
     });
 
     // this.props.actions.getSets(this.props.block, this.props.subject);
-    this.props.actions.getAllSets();
+    this.props.actions.getAllClusters();
+    this.props.setActions.getAllSets();
     
   }
   componentWillReceiveProps(nextProps) {
-    if (this.props.set.id != nextProps.set.id) {
-      this.setState({ set: nextProps.set });
+    if (this.props.cluster.id != nextProps.cluster.id) {
+      this.setState({ cluster: nextProps.cluster });
     }
   }
 
@@ -296,16 +299,16 @@ export class DetailsCluster extends Component {
   //                                        RENDER
   render() {
     const { user } = this.props.auth;
-    const setId = this.props.selectedSetId;
+    const clusterId = this.props.selectedClusterId;
     const { x, y } = this.state;
     if (this.state.redirectDelete == true) {
-      return <Redirect to={"/sets"} />;
+      return <Redirect to={"/clusters"} />;
     }
 
     if (this.state.isEditing) {
       return (
         <Fragment>
-          <EditSet
+          <EditCluster
             rerenderParent={this.rerenderParent}
             set={this.props.set}
             updateSet={this.props.actions.updateSet}
@@ -316,17 +319,23 @@ export class DetailsCluster extends Component {
         </Fragment>
       );
     }
-    if (this.state.isRemovingImages) {
-      return (
-        <Fragment>
-          <DeleteSet
-            set={this.props.set}
-            removeImage={this.props.actions.removeImage}
-            doneImage={this.doneImage}
-          />
-        </Fragment>
-      );
-    }
+    // if (this.state.isRemovingImages) {
+    //   return (
+    //     <Fragment>
+    //       <DeleteCluster
+    //         set={this.props.set}
+    //         removeImage={this.props.actions.removeImage}
+    //         doneImage={this.doneImage}
+    //       />
+    //     </Fragment>
+    //   );
+    // }
+
+    // The loading handler
+    if (this.state.isReady == false) {
+      setTimeout(() => this.setState({ isReady: true, chosenSet: this.props.clusterSets[0] }), 400);
+      }
+    if (this.state.isReady) {
     return (
       <Fragment>
         <Modal
@@ -428,22 +437,22 @@ export class DetailsCluster extends Component {
               id="contained-modal-title-vcenter"
               className="text-info text-center"
             >
-              Are you sure you want to delete this set?
+              Are you sure you want to delete this cluster?
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer style={{ justifyContent: "center" }}>
             <Button
               variant="danger"
 
-              // To delete the set
+              // To delete the cluster
               onClick={(e) => {
                 this.deleteModalClose(e);
-                this.deleteSet(e);
+                this.deleteCluster(e);
                 
               }}
 
-              // To go back to previous page after deleteing the set
-              href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
+              // To go back to previous page after deleteing the cluster
+              href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}`}
 
               style={{ justifyContent: "center" }}
               form="noteForm"
@@ -461,15 +470,20 @@ export class DetailsCluster extends Component {
             </Button>
           </Modal.Footer>
         </Modal>
-        <div className="container" key={this.props.set.id}>
+        <div className="container" key={this.props.cluster.id}>
           <div className="row">
             <div className="col">
               <h1 className="text-info text-center my-3">
-                {this.props.set.title}
+                {this.props.cluster.title}
               </h1>
+              <div className=" mb-3 mt-4 text-center py-3" style={{  fontSize: "1.1rem", border: "1px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)"}}>
+                <span className="mx-auto  text-center py-3 px-5 "><span className="text-info" style={{fontSize: "1.1rem"}}>Cluster Description: </span>{this.props.cluster.description}</span>
+              </div>
             </div>
           </div>
-
+              <hr className="mb-4 mt-2" />
+             {/* Current set title */}
+              <div className="row mt-2 mb-2"><div className="col"><h3 className=" text-center text-secondary">Current Set: {this.state.chosenSet.title}</h3></div></div>
           {/* Row that contains both slider and explanation */}
           <div className="row " style={{ height: "770px" }}>
 
@@ -480,9 +494,9 @@ export class DetailsCluster extends Component {
               <div className="col-12 p-0">
                 {/* <div className="col-8" style={{ padding: "1px" }}> */}
                 <div className="col-sm-12 col-md-12 col-lg">
-                {user
+                {/* {user
                   ? this.props.auth.user.username ==
-                      this.props.set.owner_username && (
+                      this.props.cluster.owner_username && (
                       <Button
                         onClick={(e) => {
                           this.handleToggleNoteMode(e);
@@ -498,7 +512,7 @@ export class DetailsCluster extends Component {
                         {this.state.noteButtonText}
                       </Button>
                     )
-                  : ""}
+                  : ""} */}
 
                 <Button
                   onClick={(e) => {
@@ -534,7 +548,7 @@ export class DetailsCluster extends Component {
               </div>
               </div>
              
-              {/* Slider's row */}
+              {/* Sets row */}
               <div className="row">
               <div className="col-12">
                 <div className="slide-container">
@@ -550,7 +564,7 @@ export class DetailsCluster extends Component {
                     showThumbs={false}
                     dynamicHeight={true}
                   >
-                    {this.props.set.images.map((slide, index) => (
+                    {this.state.chosenSet.images.map((slide, index) => (
                       <div
                         key={slide.id}
                         onClick={(e) => {
@@ -676,22 +690,6 @@ export class DetailsCluster extends Component {
               )}
               {this.state.optionsState && (
                 <Button
-                  variant="warning"
-                  size="sm"
-                  style={{
-                    marginBottom: "5px",
-                    marginRight: "2px",
-                    marginLeft: "2px",
-                  }}
-                  onClick={this.toggleRemoveImages}
-                >
-                  <i class="far fa-images"></i>
-                  <span> </span>
-                  Select Images to Remove
-                </Button>
-              )}
-              {this.state.optionsState && (
-                <Button
                   variant="info"
                   size="sm"
                   style={{
@@ -703,7 +701,7 @@ export class DetailsCluster extends Component {
                 >
                   <i class="fas fa-edit"></i>
                   <span> </span>
-                  Edit Set & Add Images
+                  Edit Cluster
                 </Button>
               )}
             </div>
@@ -712,13 +710,13 @@ export class DetailsCluster extends Component {
                 <Button
                   className="btn btn-secondary "
                   style={{ marginBottom: "3px", marginRight: "3px" }}
-                  href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
+                  href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}`}
                 >
-                  Back to sets list
+                  Back to List
                 </Button>
                 {user
                   ? this.props.auth.user.username ==
-                      this.props.set.owner_username && (
+                      this.props.cluster.owner_username && (
                       <Button
                         className=" float-right"
                         style={{ marginBottom: "3px", marginRight: "3px" }}
@@ -747,19 +745,57 @@ export class DetailsCluster extends Component {
                 </div>
               </div>
 
-              <div className="col-12">
-                <div
-                  className=" p-3 pt-4 bg-dark border border-info border-4 rounded" id="style-1"
-                  style={{ height: "400px", overflow: "auto" }}
+              <div className="col-12" >
+            <h5 className="text-secondary text-center mt-2">Associated Sets:</h5>
+            {/* Sets List */}
+            <div style={{ maxHeight: "300px", overflow: "auto"}}>
+            <table className="table table-striped " > 
+            <thead>
+              
+              <tr
+                            onClick={(e) => {
+                              this.setState({
+                                chosenSet: set,
+                                currentSlide: 0,
+                              });
+                              event.preventDefault();
+                            }}
+                            href="#"
+              >
+                {/* <th></th> */}
+                <th>ID</th>
+                <th>Title</th>
+                {/* <th>Owner</th> */}
+                 </tr>
+            </thead>
+            <tbody>
+              {this.props.clusterSets.map((set) => (
+                
+                <tr key={set.id} className="clusterSets" style={{cursor: "pointer", }}               
+                  onClick={(e) => {
+                  this.setState({
+                    chosenSet: set,
+                    currentSlide: 0,
+                  });
+                  
+                }}
                 >
-                  <p
-                    className="font-weight-bolder text-info text-justify "
-                    style={{ fontSize: "20px" }}
-                  >
-                    {this.props.set.description}
-                  </p>
-                </div>
+                  <td>{set.id}</td>
+                  <td>{set.title}</td>
+
+                </tr>
+              ))}
+            </tbody>
+          </table>
+             </div>
+              {/* Set Description */}
+              <div className=" mb-3 mt-2 text-left py-3 px-3" style={{ border: "1px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)", minHeight: "100px"}}>
+              <span className="mx-auto  text-center  "><span className="text-info" >Current Set Description: </span>{this.state.chosenSet.description}</span>
               </div>
+
+            </div>
+
+            
             </div>
           </div>
         </div>
@@ -768,37 +804,72 @@ export class DetailsCluster extends Component {
       </Fragment>
     );
   }
+
+  if (this.state.isReady == false) {
+    return (
+
+    <Fragment>
+<div className="cssload-loader mt-5">
+	<div className="cssload-inner cssload-one"></div>
+	<div className="cssload-inner cssload-two"></div>
+	<div className="cssload-inner cssload-three"></div>
+</div>
+    </Fragment>
+
+    );
+    }
+
+  }
 }
 
-function getSetById(sets, id) {
-  var set = sets.find((set) => set.id == id);
 
-  return Object.assign({ set }, set);
+function getClusterById(clusters, id) {
+  var cluster = clusters.find((cluster) => cluster.id == id);
+  return Object.assign({ cluster }, cluster);
 }
+function getClusterSets(sets, array) {
+  var clusterSets = sets.filter((set) =>  array.includes(set.id))
+
+  return Object.assign({ clusterSets }, clusterSets);
+  
+}
+
+
 
 function mapStateToProps(state, ownProps) {
+  let clusters = state.clusters.clusters;
   let sets = state.sets.sets;
 
   let auth = state.auth;
-  let set = {
+  let cluster = {
     title: "",
     description: "",
     block: "",
     subject: "",
     id: "",
-    images: [],
+    sets: [],
   };
-  let selectedSetId = ownProps.match.params.id;
-  if (selectedSetId && sets.length > 0) {
-    set = getSetById(sets, selectedSetId);
+
+
+  //Filtering through all clusters to get this one
+  let selectedClusterId = ownProps.match.params.id;
+  if (selectedClusterId && clusters.length > 0) {
+    cluster = getClusterById(clusters, selectedClusterId);
   }
 
-  return { set: set, auth: auth };
+  //Filtering through all sets to get the ones that are associated with this cluster
+  let clusterSets = sets.filter((set) =>  cluster.sets.includes(set.id))
+  // this.setState({chosenSet: clusterSets[0], })
+  console.log(clusterSets, "cluster sets")
+//returning
+  return { cluster: cluster, auth: auth, clusterSets: clusterSets };
 }
 
 function mapDispatchToProps(dispatch) {
   return {
-    actions: bindActionCreators(setActions, dispatch),
+    actions: bindActionCreators(clusterActions, dispatch),
+    setActions: bindActionCreators(setActions, dispatch)
+
   };
 }
 

@@ -185,7 +185,7 @@ export class ListSets extends Component {
                   <td>{set.owner_username}</td>
                   <td>
                     <a
-                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/${set.id}`}
+                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets/${set.id}`}
                       className="btn btn-warning"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={(e) => {

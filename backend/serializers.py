@@ -22,8 +22,8 @@ class ClusterSerializer(serializers.ModelSerializer):
         cluster = Cluster.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
         #Get the sets array from fronend
         setsArray =self.context.get('view').request.data.get('setsArray')
-        #To ignore the comma
-        setsArray = re.sub('[^0-9]', '', setsArray)
+        #To split set ids
+        setsArray = setsArray.split(',')
         #Adding the sets one by one, bun intended (One is the name of my cat)
         for set in setsArray:
             cluster.sets.add(set)
@@ -38,10 +38,12 @@ class ClusterSerializer(serializers.ModelSerializer):
         setsArray =self.context.get('view').request.data.get('setsArray')
         #To ignore the comma
         setsArray = re.sub('[^0-9]', '', setsArray)
+
         #Adding the sets one by one, bun intended (One is the name of my cat)
         for set in setsArray:
             instance.sets.add(set)
         #Saving and returning
+
         instance.save()
         return instance
 

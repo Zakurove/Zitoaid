@@ -13,7 +13,13 @@
  position: relative;
  padding-bottom: 300px; /* height of your footer */
 }
-
+.clusterSets {
+	color:#17a2b8;
+	font-size: 1.2rem;
+}
+.clusterSets:hover {
+	font-weight: bold;
+}
 .btn-rounded1 {
 	font-family: Raleway-SemiBold;
 	font-size: 13px;
