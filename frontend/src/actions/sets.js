@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth'
-import { GET_SETS, DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET, GET_MYSETS, GET_ALLSETS} from './types';
+import { GET_SETS, DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET, GET_MYSETS, GET_ALLSETS, GET_SETS_BY_ID} from './types';
 
 //Choose Block
 
@@ -19,6 +19,23 @@ export const getSets = (block, subject) => (dispatch, getState) => {
       });
     }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
+
+//GET Sets By ID
+export const getSetById = ( subject, block, id) => (dispatch, getState) => {
+  axios.get('/api/sets/', tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: GET_SETS_BY_ID,
+        payload: res.data,
+        subject: subject,
+        block: block,
+        id: id
+        
+      
+      });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
 //GET My Sets
 export const getMySets = (user) => (dispatch, getState) => {
   axios.get('/api/sets/', tokenConfig(getState))

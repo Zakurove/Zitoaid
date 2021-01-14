@@ -1,5 +1,6 @@
 // Sets
 export const GET_SETS = 'GET_SETS';
+export const GET_SETS_BY_ID = 'GET_SETS_BY_ID';
 export const GET_ALLSETS = 'GET_ALLSETS';
 export const GET_MYSETS = 'GET_MYSETS';
 export const DELETE_SET = 'DELETE_SET';

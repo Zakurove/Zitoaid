@@ -66,6 +66,11 @@ export class Header extends Component {
           <Nav.Link href="#/mysets" className="ml-2"><i className="fas fa-layer-group"></i> My Sets</Nav.Link>
           )
         : "" }
+              {user
+        ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
+          <Nav.Link href="#/myclusters" className="ml-2"><i className="fas fa-sitemap"></i> My Clusters</Nav.Link>
+          )
+        : "" }
   
       </Nav>
       {isAuthenticated ? authLinks : guestLinks} 

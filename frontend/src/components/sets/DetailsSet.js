@@ -480,25 +480,7 @@ export class DetailsSet extends Component {
               <div className="col-12 p-0">
                 {/* <div className="col-8" style={{ padding: "1px" }}> */}
                 <div className="col-sm-12 col-md-12 col-lg">
-                {user
-                  ? this.props.auth.user.username ==
-                      this.props.set.owner_username && (
-                      <Button
-                        onClick={(e) => {
-                          this.handleToggleNoteMode(e);
-                          this.changeNoteButtonText(e);
-                        }}
-                        className="btn btn-info float-right mb-1"
-                        style={{
-                          marginLeft: "15px",
-                          paddingTop: "4px",
-                          paddingBottom: "4px",
-                        }}
-                      >
-                        {this.state.noteButtonText}
-                      </Button>
-                    )
-                  : ""}
+
 
                 <Button
                   onClick={(e) => {
@@ -748,7 +730,7 @@ export class DetailsSet extends Component {
               </div>
 
               <div className="col-12">
-                <div
+                {/* <div
                   className=" p-3 pt-4 bg-dark border border-info border-4 rounded" id="style-1"
                   style={{ height: "400px", overflow: "auto" }}
                 >
@@ -758,7 +740,10 @@ export class DetailsSet extends Component {
                   >
                     {this.props.set.description}
                   </p>
-                </div>
+                </div> */}
+                <div className=" mb-3 mt-2 text-left py-3 px-3 style-1"  style={{ border: "2px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)", minHeight: "130px", maxHeight: "200px", overflow: "auto"}}>
+              <p className="mx-auto  text-center" style={{ fontSize: "1.2rem"}}><span className="text-info" >Set Description: </span>{this.props.set.description}</p>
+              </div>
               </div>
             </div>
           </div>

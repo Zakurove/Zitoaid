@@ -29,14 +29,14 @@ export default function(state = initialState, action) {
         };
 
       case UPDATE_CLUSTER:
-        console.log(action.payload, "payloaad");
         return {
           ...state,
           clusters: state.clusters.map(cluster => {
             if (cluster.id !== action.payload.id) {
               return cluster;
             } else {
-              return { ...cluster, title: action.payload.title, description: action.payload.description, images: action.payload.images };
+              return { ...cluster, title: action.payload.title, description: action.payload.description, setsArray: action.payload.setsArray };
+
             }
           })
         };

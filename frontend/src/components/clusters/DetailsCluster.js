@@ -51,13 +51,14 @@ export class DetailsCluster extends Component {
     this.deleteModalOpen = this.deleteModalOpen.bind(this);
     this.toggleRemoveImages = this.toggleRemoveImages.bind(this);
     this.toggleOptions = this.toggleOptions.bind(this);
-    this.saveSet = this.saveSet.bind(this);
-    this.deleteSet = this.deleteSet.bind(this);
+    this.saveCluster = this.saveCluster.bind(this);
+    this.deleteCluster = this.deleteCluster.bind(this);
     this.doneImage = this.doneImage.bind(this);
   }
   static propTypes = {
     cluster: PropTypes.object.isRequired,
     sets: PropTypes.array.isRequired,
+    notedSets: PropTypes.object,
     actions: PropTypes.object.isRequired,
     auth: PropTypes.object.isRequired,
   };
@@ -85,19 +86,24 @@ export class DetailsCluster extends Component {
 
   //------------------------------------------------------------------------------
   //                                     EDIT & DELETE
-  saveSet(event) {
-    this.setState({ isEditing: false });
-    this.setState({ optionsState: false });
+  saveCluster(event) {
     this.forceUpdate();
+        
+    setTimeout(() => this.setState({ isEditing: false, clusterSets: this.props.sets.filter((set) =>  this.props.cluster.sets.includes(set.id)) }), 500);
+    setTimeout(() =>  window.location.reload(), 300);
+    this.setState({ optionsState: false });
+
+
+
   }
   doneImage(event) {
     this.setState({ isRemovingImages: false });
     this.setState({ optionsState: false });
     this.forceUpdate();
   }
-  //To delete set
-  deleteSet(event) {
-    this.props.actions.deleteSet(this.state.set.id);
+  //To delete Cluster
+  deleteCluster(event) {
+    this.props.setActions.deleteCluster(this.state.cluster.id);
   }
 
   //For knowing if the user is editing or not and acting accordingly
@@ -171,51 +177,64 @@ export class DetailsCluster extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const set = new FormData();
-    set.append("title", this.props.set.title);
-    set.append("description", this.props.set.description);
+    set.append("title", this.state.chosenSet.title);
+    set.append("description", this.state.chosenSet.description);
     set.append("editingState", "adding");
     set.append("noteContent", this.state.noteContent);
     set.append("x", this.state.x);
     set.append("y", this.state.y);
     set.append("setImage_id", this.state.selectedImageId);
 
-    this.props.actions.addNote(set, this.state.set.id);
+    this.props.setActions.addNote(set, this.state.chosenSet.id);
+    setTimeout(() => this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id), 300);
+    
+    setTimeout(() =>
     this.setState({
       noteContent: "",
       x: "",
       y: "",
-    });
+      chosenSet: this.props.notedSets,
+    })
+    , 500);
   };
   onEditSubmit = (e) => {
     e.preventDefault();
     const set = new FormData();
-    set.append("title", this.props.set.title);
-    set.append("description", this.props.set.description);
+    set.append("title", this.state.chosenSet.title);
+    set.append("description", this.state.chosenSet.description);
     set.append("noteId", this.state.EditedNoteId);
     set.append("noteContent", this.state.noteContent);
     set.append("setImage_id", this.state.selectedImageId);
     set.append("editingState", "editing");
-    this.props.actions.editNote(set, this.state.set.id);
+    this.props.setActions.editNote(set, this.state.chosenSet.id);
+    this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id)
+    setTimeout(() =>
     this.setState({
       noteContent: "",
       x: "",
       y: "",
-    });
+      chosenSet: this.props.notedSets,
+    })
+    , 300);
   };
   onDeleteSubmit = (e) => {
     e.preventDefault();
     const set = new FormData();
-    set.append("title", this.props.set.title);
-    set.append("description", this.props.set.description);
+    set.append("title", this.state.chosenSet.title);
+    set.append("description", this.state.chosenSet.description);
     set.append("noteId", this.state.EditedNoteId);
     set.append("setImage_id", this.state.selectedImageId);
     set.append("editingState", "deleting");
-    this.props.actions.deleteNote(set, this.state.set.id);
+    this.props.setActions.deleteNote(set, this.state.chosenSet.id);
+    this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id)
+    setTimeout(() =>
     this.setState({
       noteContent: "",
       x: "",
       y: "",
-    });
+      chosenSet: this.props.notedSets,
+    })
+    , 300);
   };
   //For handeling the text on the 'Adding notes' button.
   changeNoteButtonText() {
@@ -287,6 +306,7 @@ export class DetailsCluster extends Component {
     // this.props.actions.getSets(this.props.block, this.props.subject);
     this.props.actions.getAllClusters();
     this.props.setActions.getAllSets();
+
     
   }
   componentWillReceiveProps(nextProps) {
@@ -310,32 +330,26 @@ export class DetailsCluster extends Component {
         <Fragment>
           <EditCluster
             rerenderParent={this.rerenderParent}
-            set={this.props.set}
-            updateSet={this.props.actions.updateSet}
-            onChange={this.updateSetState}
-            onSave={this.saveSet}
-            addSet={this.props.actions.addSet}
+            cluster={this.props.cluster}
+            sets={this.props.sets}
+            block={this.props.cluster.block}
+            subject={this.props.cluster.subject}
+            updateCluster={this.props.actions.updateCluster}
+            onChange={this.updateClusterState}
+            onSave={this.saveCluster}
           />
         </Fragment>
       );
     }
-    // if (this.state.isRemovingImages) {
-    //   return (
-    //     <Fragment>
-    //       <DeleteCluster
-    //         set={this.props.set}
-    //         removeImage={this.props.actions.removeImage}
-    //         doneImage={this.doneImage}
-    //       />
-    //     </Fragment>
-    //   );
-    // }
 
     // The loading handler
     if (this.state.isReady == false) {
+      
       setTimeout(() => this.setState({ isReady: true, chosenSet: this.props.clusterSets[0] }), 400);
       }
     if (this.state.isReady) {
+    //for sets that have changed notes
+    // this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id)
     return (
       <Fragment>
         <Modal
@@ -494,9 +508,9 @@ export class DetailsCluster extends Component {
               <div className="col-12 p-0">
                 {/* <div className="col-8" style={{ padding: "1px" }}> */}
                 <div className="col-sm-12 col-md-12 col-lg">
-                {/* {user
+                {user
                   ? this.props.auth.user.username ==
-                      this.props.cluster.owner_username && (
+                      this.state.chosenSet.owner_username && (
                       <Button
                         onClick={(e) => {
                           this.handleToggleNoteMode(e);
@@ -512,8 +526,7 @@ export class DetailsCluster extends Component {
                         {this.state.noteButtonText}
                       </Button>
                     )
-                  : ""} */}
-
+                  : ""}
                 <Button
                   onClick={(e) => {
                     this.handleShowNotesMode(e);
@@ -610,16 +623,20 @@ export class DetailsCluster extends Component {
                                 <PopoverBody>
                                   {user
                                     ? this.props.auth.user.username ==
-                                        this.props.set.owner_username && (
+                                        this.state.chosenSet.owner_username && (
                                         <Button
                                         className="mr-2"
                                           size="sm"
                                           variant="outline-info"
                                           onClick={(e) => {
+                                           
+                                            
                                             this.setState({
                                               noteContent: note.noteContent,
                                               EditedNoteId: note.id,
-                                            });
+                                              
+                                            })
+                                            
                                             this.handleNoteEditOverlay(e);
                                           }}
                                         >
@@ -629,7 +646,7 @@ export class DetailsCluster extends Component {
                                     : ""}
                                   {user
                                     ? this.props.auth.user.username ==
-                                        this.props.set.owner_username && (
+                                        this.state.chosenSet.owner_username && (
                                         <Button
                                           size="sm"
                                           variant="outline-danger"
@@ -748,7 +765,7 @@ export class DetailsCluster extends Component {
               <div className="col-12" >
             <h5 className="text-secondary text-center mt-2">Associated Sets:</h5>
             {/* Sets List */}
-            <div style={{ maxHeight: "300px", overflow: "auto"}}>
+            <div style={{ maxHeight: "300px", overflow: "auto"}} className="style-1">
             <table className="table table-striped " > 
             <thead>
               
@@ -789,7 +806,7 @@ export class DetailsCluster extends Component {
           </table>
              </div>
               {/* Set Description */}
-              <div className=" mb-3 mt-2 text-left py-3 px-3" style={{ border: "1px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)", minHeight: "100px"}}>
+              <div className=" mb-3 mt-2 text-left py-3 px-3 style-1" style={{ border: "2px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)", minHeight: "100px"}}>
               <span className="mx-auto  text-center  "><span className="text-info" >Current Set Description: </span>{this.state.chosenSet.description}</span>
               </div>
 
@@ -839,6 +856,7 @@ function getClusterSets(sets, array) {
 function mapStateToProps(state, ownProps) {
   let clusters = state.clusters.clusters;
   let sets = state.sets.sets;
+  let notedSets = state.sets.notedSets
 
   let auth = state.auth;
   let cluster = {
@@ -859,10 +877,9 @@ function mapStateToProps(state, ownProps) {
 
   //Filtering through all sets to get the ones that are associated with this cluster
   let clusterSets = sets.filter((set) =>  cluster.sets.includes(set.id))
-  // this.setState({chosenSet: clusterSets[0], })
-  console.log(clusterSets, "cluster sets")
+
 //returning
-  return { cluster: cluster, auth: auth, clusterSets: clusterSets };
+  return { cluster: cluster, auth: auth, clusterSets: clusterSets, sets: sets, notedSets: notedSets };
 }
 
 function mapDispatchToProps(dispatch) {

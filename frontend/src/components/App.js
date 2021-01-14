@@ -218,11 +218,11 @@ class App extends Component {
 
                   <Route exact path="/sets/details/sets/:id" component={DetailsSet} />
                   <Route exact path="/mysets" component={MySets} />
-                  <Route exact path="/mysets/sets/:id" render={(props) => <DetailsSet {...props} block={`.`} subject={`.`}/>} />
+                  <Route exact path="/mysets/:id" render={(props) => <DetailsSet {...props} block={`.`} subject={`.`}/>} />
 
                   <Route exact path="/clusters/details/clusters/:id" component={DetailsCluster} />
                   <Route exact path="/myclusters" component={MyClusters} />
-                  <Route exact path="/myclusters/sets/:id" render={(props) => <DetailsCluster {...props} block={`.`} subject={`.`}/>} />
+                  <Route exact path="/myclusters/:id" render={(props) => <DetailsCluster {...props} block={`.`} subject={`.`}/>} />
 
                 </Switch>
               </div>

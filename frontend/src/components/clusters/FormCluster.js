@@ -180,7 +180,7 @@ import { getSets } from '../../actions/sets.js';
             </div>
             <div className="col-6" >
             <h4 className="text-info">Select sets for this cluster:</h4>
-            <div style={{ height: "350px", overflow: "auto" }}>
+            <div style={{ height: "350px", overflow: "auto" }} className="style-1">
             <table className="table table-striped " > 
             <thead>
               <tr>

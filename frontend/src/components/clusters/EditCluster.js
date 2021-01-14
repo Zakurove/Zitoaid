@@ -2,32 +2,95 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addCluster, updateCluster } from "../../actions/clusters.js";
-
+import { Button, Form } from "react-bootstrap";
 
 export class EditCluster extends Component {
   state = {
     cluster: this.props.cluster,
     title: this.props.cluster.title,
     description: this.props.cluster.description,
+    sets: [],
+    setsArray: [],
+    isUpdating: true,
+    isPending: true,
+    isReady: false,
   };
   static propTypes = {
     cluster: PropTypes.object.isRequired,
+    block: PropTypes.string.isRequired,
+    subject: PropTypes.string.isRequired,
+    sets: PropTypes.array.isRequired,
     addCluster: PropTypes.func.isRequired,
     updateCluster: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
   };
 
+  //Before render, to fetch info about this list regarding subject and block
+  rendering() {
+    if (this.state.isUpdating == true) {
+      this.setState({
+        isUpdating: false,
+        isPending: true,
+      });
+      // this.props.getSets(this.props.block, this.props.subject);
+    }
+
+    //Pending
+    if (this.state.isPending == true) {
+      // To give the 'sets' an isChecked field
+      let newSeti;
+      console.log(this.props.sets);
+      console.log(this.props.block);
+      console.log(this.props.subject);
+      let newSets = [...this.props.sets];
+
+      // for (newSeti = 0; newSeti < newSets.length; newSeti++) {
+      //   newSets[newSeti] = {...newSets[newSeti], isChecked: false}
+      // }
+      newSets.forEach((set) => {
+        if (this.props.cluster.sets.includes(set.id)) {
+          set.isChecked = true;
+        } else {
+          set.isChecked = false;
+        }
+      });
+      this.setState({
+        sets: newSets,
+        isPending: false,
+      });
+    }
+  }
+  handleCheckElement = (e) => {
+    let checkedSets = this.state.sets;
+    checkedSets.forEach((set) => {
+      if (set.id == e.target.value) {
+        set.isChecked = e.target.checked;
+      }
+    });
+    this.setState({ sets: checkedSets });
+  };
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   onSubmit = async (e) => {
     e.preventDefault();
+    //Sets related to the cluster
+    let setsArray=[];
+    this.state.sets.forEach((set) => {
+      if (set.isChecked) {
+        setsArray.push(set.id)
+
+      }
+    });
+
     const cluster = new FormData();
     cluster.append("title", this.state.title);
     cluster.append("description", this.state.description);
-    this.props.updateCluster(cluster, this.state.cluster.id);
-    this.props.onSave(e)
+    cluster.append("setsArray", setsArray)
+    setTimeout(() =>  this.props.updateCluster(cluster, this.state.cluster.id), 300);
+    this.props.onSave(e);
     this.setState({
       title: "",
       description: "",
+
     });
   };
   componentWillReceiveProps(nextProps) {
@@ -35,63 +98,116 @@ export class EditCluster extends Component {
       this.setState({ cluster: nextProps.cluster });
     }
   }
+
   render() {
+    // The loading handler: isReady(For loading screen) > isUpdating(for fetching sets) > isPending (for adding 'isChecked' for sets) > Then finally loading the page
+    if (this.state.isReady == false) {
+      setTimeout(() => this.setState({ isReady: true }), 600);
+    }
+    if (this.state.isReady == true) {
+      this.rendering();
+    }
     const { title, description } = this.state;
-    return (
-      <div className="container">
+    if (this.state.isPending == false) {
+      this.rendering();
+      return (
+        <div className="container">
         <div className="row">
         <div className="col"><h1 className="text-info pb-4 text-center">Edit Cluster</h1></div>
         </div>
-        <div className="row">
-          <div className="col-6">
-            <form onSubmit={this.onSubmit} id="clusterForm">
-              <div className="form-group">
-                <h4>Title:</h4>
-                <input
-                  className="form-control"
-                  type="text"
-                  name="title"
-                  onChange={this.onChange}
-                  value={title}
-                  placeholder="Title of the cluster"
-                />
-              </div>
-              <div className="form-group">
-                <h4>Description:</h4>
-                <textarea
-                  className="form-control"
-                  type="text"
-                  name="description"
-                  onChange={this.onChange}
-                  value={description}
-                  placeholder="Cluster description"
-                  rows="6"
-                />
-              </div>
-              <div className="form-group">
-              <button
-                  type="submit"
-                  className="btn btn-lg btn-warning btn-block"
-                >
-                  Update
-                </button>
-              <button
-                  
-                  onClick={this.props.onSave}
-                  className="btn btn-lg btn-secondary btn-block"
-                >
-                  Cancel
-                </button>
 
-
+          <div className="row pt-4" style={{ borderTop: "2px solid #ffc107" }}>
+            <div className="col-6">
+              <form onSubmit={this.onSubmit} id="clusterForm">
+                <div className="form-group">
+                  <h4 className="text-info">Title:</h4>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="title"
+                    onChange={this.onChange}
+                    value={title}
+                    placeholder="Title of the cluster"
+                  />
+                </div>
+                <div className="form-group">
+                  <h4 className="text-info">Description:</h4>
+                  <textarea
+                    className="form-control"
+                    type="text"
+                    name="description"
+                    onChange={this.onChange}
+                    value={description}
+                    placeholder="Cluster description"
+                    rows="6"
+                  />
+                </div>
+              </form>
+            </div>
+            <div className="col-6">
+              <h4 className="text-info">Select sets for this cluster:</h4>
+              <div style={{ height: "350px", overflow: "auto" }}>
+                <table className="table table-striped ">
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th>ID</th>
+                      <th>Title</th>
+                      <th>Owner</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.props.sets.map((set) => (
+                      <tr key={set.id}>
+                        <td>
+                          <input
+                            key={set.id}
+                            onChange={(e) => this.handleCheckElement(e)}
+                            type="checkbox"
+                            checked={set.isChecked}
+                            value={set.id}
+                          />
+                        </td>
+                        <td>{set.id}</td>
+                        <td>{set.title}</td>
+                        <td>{set.owner_username}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
               </div>
-            </form>
+            </div>
+          </div>
+          <div className="row pt-4">
+            <button
+              type="submit"
+              form="clusterForm"
+              className="btn btn-lg btn-warning btn-block"
+            >
+              Update
+            </button>
+            <button
+              onClick={this.props.onSave}
+              className="btn btn-lg btn-secondary btn-block"
+            >
+              Cancel
+            </button>
           </div>
         </div>
-      </div>
-    );
+      );
+    }
+    if (this.state.isPending == true) {
+      return (
+        <Fragment>
+          <div className="cssload-loader mt-5">
+            <div className="cssload-inner cssload-one"></div>
+            <div className="cssload-inner cssload-two"></div>
+            <div className="cssload-inner cssload-three"></div>
+          </div>
+        </Fragment>
+      );
+    }
   }
 }
 
 export default connect(null, { addCluster, updateCluster })(EditCluster);
-
