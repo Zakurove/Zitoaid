@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addCluster, updateCluster } from "../../actions/clusters.js";
 import { Button, Form } from "react-bootstrap";
-
+import { createMessage } from "../../actions/messages";
 export class EditCluster extends Component {
   state = {
     cluster: this.props.cluster,
@@ -39,9 +39,6 @@ export class EditCluster extends Component {
     if (this.state.isPending == true) {
       // To give the 'sets' an isChecked field
       let newSeti;
-      console.log(this.props.sets);
-      console.log(this.props.block);
-      console.log(this.props.subject);
       let newSets = [...this.props.sets];
 
       // for (newSeti = 0; newSeti < newSets.length; newSeti++) {
@@ -80,18 +77,28 @@ export class EditCluster extends Component {
 
       }
     });
-
+    console.log(setsArray, "hmm")
+    if (this.state.title.trim() == "") {
+      this.props.createMessage({ titleEmpty: "'Title field is required" });
+    } 
+    if (setsArray.length == 0 ) {
+      this.props.createMessage({ setsListEmpty: "Must select sets" });
+    } 
+    
+    else if (this.state.title.trim() !== "" && setsArray.length) {
     const cluster = new FormData();
     cluster.append("title", this.state.title);
     cluster.append("description", this.state.description);
     cluster.append("setsArray", setsArray)
     setTimeout(() =>  this.props.updateCluster(cluster, this.state.cluster.id), 300);
-    this.props.onSave(e);
+    setTimeout(() =>  this.props.onSave(e), 400);
+    
     this.setState({
       title: "",
       description: "",
 
     });
+    }
   };
   componentWillReceiveProps(nextProps) {
     if (this.props.cluster.id != nextProps.cluster.id) {
@@ -210,4 +217,4 @@ export class EditCluster extends Component {
   }
 }
 
-export default connect(null, { addCluster, updateCluster })(EditCluster);
+export default connect(null, { addCluster, updateCluster, createMessage })(EditCluster);

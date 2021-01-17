@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Button } from "react-bootstrap";
 import { addSet } from '../../actions/sets.js';
+import { createMessage } from "../../actions/messages";
 
 
 //FilePond
@@ -35,12 +36,15 @@ import { addSet } from '../../actions/sets.js';
 
      onSubmit = (e) => {
        e.preventDefault();
+       if (this.state.title.trim() == "") {
+        this.props.createMessage({ titleEmpty: "'Title field is required" });
+      } 
+      else if (this.state.title.trim() !== "") {
        const set = new FormData();
        set.append('title', this.state.title)
        set.append('description', this.state.description);
        set.append('block', this.props.block);
        set.append('subject', this.props.subject);
-       console.log( this.pond, "Up up here, see it works!")
        this.pond.getFiles()
        .map(fileItem => fileItem.file)
        .forEach(file => {
@@ -57,6 +61,7 @@ import { addSet } from '../../actions/sets.js';
        this.props.backToList()
 
      };
+    }
      render() {
        const {title, description, files, setFiles } = this.state;
        return (
@@ -136,4 +141,4 @@ import { addSet } from '../../actions/sets.js';
      }
    }
 
-  export default connect(null, { addSet })(FormSet);
+  export default connect(null, { addSet, createMessage })(FormSet);

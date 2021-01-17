@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { addSet, updateSet } from "../../actions/sets.js";
-
+import { createMessage } from "../../actions/messages";
 
 //FilePond
 import { FilePond, File, registerPlugin } from "react-filepond";
@@ -26,15 +26,19 @@ export class EditSet extends Component {
     addSet: PropTypes.func.isRequired,
     updateSet: PropTypes.func.isRequired,
     onSave: PropTypes.func.isRequired,
+    createMessage: PropTypes.func.isRequired,
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   onSubmit = async (e) => {
     e.preventDefault();
+    if (this.state.title.trim() == "") {
+      this.props.createMessage({ titleEmpty: "'Title field is required" });
+    } 
+    else if (this.state.title.trim() !== "") {
     const set = new FormData();
     set.append("title", this.state.title);
     set.append("description", this.state.description);
-    console.log(this.pond, "Up up here, see it works!");
     await this.pond
       .getFiles()
       .map((fileItem) => fileItem.file)
@@ -48,6 +52,7 @@ export class EditSet extends Component {
       description: "",
     });
   };
+}
   componentWillReceiveProps(nextProps) {
     if (this.props.set.id != nextProps.set.id) {
       this.setState({ set: nextProps.set });
@@ -151,5 +156,5 @@ export class EditSet extends Component {
   }
 }
 
-export default connect(null, { addSet, updateSet })(EditSet);
+export default connect(null, { addSet, updateSet, createMessage })(EditSet);
 

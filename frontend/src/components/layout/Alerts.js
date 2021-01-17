@@ -18,6 +18,8 @@ export class Alerts extends Component {
       if(error.msg.non_field_errors) alert.error(error.msg.non_field_errors.join());
       if(error.msg.username) alert.error(error.msg.username.join());
       if(error.msg.detail) if(error.msg.detail == 'You do not have permission to perform this action.') alert.error(error.msg.detail);
+      if(error.msg.title) if(error.msg.title == 'This field may not be blank.') alert.error(`Title: ${error.msg.title.join()}`);
+      if(error.msg.sets) if(error.msg.title == 'This list may not be empty.') alert.error(`You must choose sets`);
     }
     if(message !== prevProps.message){
       if(message.deleteLead) alert.success(message.deleteLead);
@@ -27,6 +29,9 @@ export class Alerts extends Component {
       if(message.info) alert.show(message.info);
       if(message.passwordNotMatch) alert.error(message.passwordNotMatch);
       if(message.roleNotSelected) alert.error(message.roleNotSelected);
+      if(message.titleEmpty) alert.error(message.titleEmpty);
+      if(message.setsListEmpty) alert.error(message.setsListEmpty);
+      
     }
   }
 

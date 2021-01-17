@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { createMessage } from "../../actions/messages";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Button, Modal } from "react-bootstrap";
@@ -306,6 +307,7 @@ export class DetailsSet extends Component {
       return (
         <Fragment>
           <EditSet
+            createMessage={this.props.createMessage}
             rerenderParent={this.rerenderParent}
             set={this.props.set}
             updateSet={this.props.actions.updateSet}
@@ -784,6 +786,7 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(setActions, dispatch),
+    createMessage: bindActionCreators(createMessage, dispatch)
   };
 }
 

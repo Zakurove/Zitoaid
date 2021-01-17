@@ -26,7 +26,7 @@ export class MySets extends Component {
       
     if (user && this.state.isUpdating == true) {
         if (this.state.username !== null) {
-            console.log(this.state.username, 'hello')
+            
       this.setState({
         isUpdating: false,
       });

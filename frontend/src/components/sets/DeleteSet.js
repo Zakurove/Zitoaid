@@ -27,7 +27,6 @@ export class DeleteSet extends Component {
     set.append("description", this.props.set.description);
     set.append("editingState", "removingImage");
     set.append("removedImageId", this.state.selectedImageId);
-    console.log(this.state.selectedImageId);
     this.props.removeImage(set, this.state.set.id);
   };
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });

@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
+import { createMessage } from "../../actions/messages";
 import { Link, Redirect, withRouter } from "react-router-dom";
 import PropTypes from "prop-types";
 import { Button, Modal } from "react-bootstrap";
@@ -329,6 +330,7 @@ export class DetailsCluster extends Component {
       return (
         <Fragment>
           <EditCluster
+            createMessage={this.props.createMessage}
             rerenderParent={this.rerenderParent}
             cluster={this.props.cluster}
             sets={this.props.sets}
@@ -885,8 +887,8 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   return {
     actions: bindActionCreators(clusterActions, dispatch),
-    setActions: bindActionCreators(setActions, dispatch)
-
+    setActions: bindActionCreators(setActions, dispatch),
+    createMessage: bindActionCreators(createMessage, dispatch)
   };
 }
 

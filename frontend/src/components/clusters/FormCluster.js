@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Button, Form } from "react-bootstrap";
 import { addCluster } from '../../actions/clusters.js';
 import { getSets } from '../../actions/sets.js';
-
+import { createMessage } from "../../actions/messages";
 
  export class FormCluster extends Component {
    
@@ -92,19 +92,27 @@ import { getSets } from '../../actions/sets.js';
        e.preventDefault();
       
       //Sets related to the cluster
+      let setsArray=[];
        this.state.sets.forEach(set => {
         if (set.isChecked) {
           let id = set.id
-          this.setState(previousState => ({
-            setsArray: [...previousState.setsArray, id ]
-        }));
+          setsArray.push(set.id)
+        //   this.setsArray.setState(previousState => ({
+        //     setsArray: [...previousState.setsArray, id ]
+        // }));
         }
        })
-
+       if (this.state.title.trim() == "") {
+        this.props.createMessage({ titleEmpty: "'Title field is required" });
+      } 
+      if (setsArray == 0 ) {
+        this.props.createMessage({ setsListEmpty: "Must select sets" });
+      } 
+      else if (this.state.title.trim() !== "" && setsArray.length ) {
        const cluster = new FormData();
        cluster.append('title', this.state.title)
        cluster.append('description', this.state.description);
-       setTimeout(() => cluster.append('setsArray', this.state.setsArray), 300);
+       setTimeout(() => cluster.append('setsArray', setsArray), 300);
        cluster.append('block', this.props.block);
        cluster.append('subject', this.props.subject);
       //  this.props.addCluster(cluster);
@@ -117,7 +125,7 @@ import { getSets } from '../../actions/sets.js';
       //  Go to associate sets
       setTimeout(() => this.props.backToList(), 700);
        
-
+      }
      };
      componentDidMount() {
       this.props.getSets(this.props.block, this.props.subject);
@@ -197,7 +205,7 @@ import { getSets } from '../../actions/sets.js';
                   <td>{set.id}</td>
                   <td>{set.title}</td>
                   <td>{set.owner_username}</td>
-                  {/* {console.log(set)} */}
+                  
 
                   {/* <td>
                     <a
@@ -255,4 +263,4 @@ import { getSets } from '../../actions/sets.js';
     // loadingState: state.loadingState,
   });
   // export default connect(null, { addCluster })(FormCluster);
-  export default connect(mapStateToProps, { getSets, addCluster })(FormCluster);
+  export default connect(mapStateToProps, { getSets, addCluster, createMessage })(FormCluster);

@@ -164,8 +164,6 @@ export class ListClusters extends Component {
                   <td>{cluster.id}</td>
                   <td>{cluster.title}</td>
                   <td>{cluster.owner_username}</td>
-                  {console.log(cluster)}
-                  {console.log(cluster.owner_username)}
                   <td>
                     <a
                       href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters/${cluster.id}`}
