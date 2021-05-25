@@ -4,6 +4,9 @@ import PropTypes from "prop-types";
 import { addCluster, updateCluster } from "../../actions/clusters.js";
 import { Button, Form } from "react-bootstrap";
 import { createMessage } from "../../actions/messages";
+import Loader from "../layout/Loader.js";
+
+
 export class EditCluster extends Component {
   state = {
     cluster: this.props.cluster,
@@ -118,16 +121,16 @@ export class EditCluster extends Component {
     if (this.state.isPending == false) {
       this.rendering();
       return (
-        <div className="container">
+        <div className="container mt-5 mb-5">
         <div className="row">
-        <div className="col"><h1 className="text-info pb-4 text-center">Edit Cluster</h1></div>
+        <div className="col"><h1 className="tawassamBlue pb-4 text-center">Edit Cluster</h1></div>
         </div>
 
-          <div className="row pt-4" style={{ borderTop: "2px solid #ffc107" }}>
+          <div className="row pt-4" >
             <div className="col-6">
               <form onSubmit={this.onSubmit} id="clusterForm">
                 <div className="form-group">
-                  <h4 className="text-info">Title:</h4>
+                  <h4 className="tawassamYellow">Title:</h4>
                   <input
                     className="form-control"
                     type="text"
@@ -138,7 +141,7 @@ export class EditCluster extends Component {
                   />
                 </div>
                 <div className="form-group">
-                  <h4 className="text-info">Description:</h4>
+                  <h4 className="tawassamYellow mt-3">Description:</h4>
                   <textarea
                     className="form-control"
                     type="text"
@@ -152,15 +155,15 @@ export class EditCluster extends Component {
               </form>
             </div>
             <div className="col-6">
-              <h4 className="text-info">Select sets for this cluster:</h4>
+              <h4 className="tawassamYellow">Select sets for this cluster:</h4>
               <div style={{ height: "350px", overflow: "auto" }}>
                 <table className="table table-striped ">
                   <thead>
                     <tr>
                       <th></th>
-                      <th>ID</th>
-                      <th>Title</th>
-                      <th>Owner</th>
+                <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
+                <th ><span className="tawassamYellow">Owner</span></th>
                     </tr>
                   </thead>
                   <tbody>
@@ -175,9 +178,9 @@ export class EditCluster extends Component {
                             value={set.id}
                           />
                         </td>
-                        <td>{set.id}</td>
-                        <td>{set.title}</td>
-                        <td>{set.owner_username}</td>
+                        <td className="tawassamBlue">{set.id}</td>
+                        <td className="tawassamBlue">{set.title}</td>
+                        <td className="tawassamBlue">{set.owner_username}</td>
                       </tr>
                     ))}
                   </tbody>
@@ -185,17 +188,17 @@ export class EditCluster extends Component {
               </div>
             </div>
           </div>
-          <div className="row pt-4">
+          <div className="row pt-2">
             <button
               type="submit"
               form="clusterForm"
-              className="btn btn-lg btn-warning btn-block"
+              className="btn tawassamBlueBG btn-block"
             >
-              Update
+              Edit
             </button>
             <button
               onClick={this.props.onSave}
-              className="btn btn-lg btn-secondary btn-block"
+              className="btn btn-secondary mt-3 btn-block"
             >
               Cancel
             </button>
@@ -205,13 +208,8 @@ export class EditCluster extends Component {
     }
     if (this.state.isPending == true) {
       return (
-        <Fragment>
-          <div className="cssload-loader mt-5">
-            <div className="cssload-inner cssload-one"></div>
-            <div className="cssload-inner cssload-two"></div>
-            <div className="cssload-inner cssload-three"></div>
-          </div>
-        </Fragment>
+        <Loader/>
+
       );
     }
   }

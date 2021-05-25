@@ -22,12 +22,12 @@ export class Header extends Component {
       <Navbar.Collapse className="justify-content-end">
 
         <Navbar.Text style={{fontSize: "1.5rem"}}>
-        <i className="fas fa-user"></i> {user ? <span className="text-info" style={{fontWeight: "bold"}}> {user.username}</span> : ""}
+        <i className="fas fa-user"></i> {user ? <span className="tawassamBlue" style={{fontWeight: "bold"}}> {user.username}</span> : ""}
           </Navbar.Text>
         
 
           <Nav>
-        <Nav.Link onClick={this.props.logout} style={{fontSize: "2rem"}} className="ml-3">               
+        <Nav.Link onClick={this.props.logout} style={{fontSize: "2rem"}} className="ms-3 tawassamYellow">               
         <OverlayTrigger
                 placement="bottom"
                 delay={{ show: 250, hide: 400 }}
@@ -41,34 +41,32 @@ export class Header extends Component {
     );
 
     const guestLinks = (
-
-
           <Navbar.Collapse className="justify-content-end">
-
-            <Nav >  
-            <Nav.Link href="#/login" style={{fontSize: "1.3rem"}}><i className="fas fa-sign-in-alt"></i> Login</Nav.Link>
-            <Nav.Link href="#/register" className="ml-2" style={{fontSize: "1.3rem"}}><i className="fas fa-user-plus" style={{fontSize: "1.2rem"}}></i> Sign Up</Nav.Link>
+            <Nav>  
+            <Nav.Link href="#/login" style={{fontSize: "1.3rem"}} className=""><i className="fas fa-sign-in-alt tawassamYellow"></i> Login</Nav.Link>
+            <Nav.Link href="#/register" className="ms-2" style={{fontSize: "1.3rem"}}><i className="fas fa-user-plus tawassamYellow" style={{fontSize: "1.2rem"}}></i> Sign Up</Nav.Link>
             </Nav>
-            
           </Navbar.Collapse>
     );
 
     return (
-      <Fragment>
-      <Navbar  bg="light" expand="lg" className="mb-5">
-      <Navbar.Brand href="/#" style={{fontSize: "2.5rem"}} className="text-info">Tawassam</Navbar.Brand>
+      <div className="">
+      <Navbar  bg="light" expand="lg" className="">
+      <Navbar.Brand href="/#" style={{fontSize: "2.5rem"}} className="d-inline-block align-top ms-3"><img src={
+                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                } style={{width: "130px"}} /></Navbar.Brand> 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-      <Nav className="mr-auto ml-2" style={{fontSize: "1.8rem"}}>
-      <Nav.Link href="/#" className="ml-2"><i className="fas fa-home"></i> Home</Nav.Link>
+      <Nav className="me-auto ms-2" style={{fontSize: "1.8rem"}}>
+      <Nav.Link href="/#" className="ms-2"><i className="fas fa-home tawassamYellow"></i> Home</Nav.Link>
       {user
         ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-          <Nav.Link href="#/mysets" className="ml-2"><i className="fas fa-layer-group"></i> My Sets</Nav.Link>
+          <Nav.Link href="#/mysets" className="ms-4"><i className="fas fa-layer-group tawassamYellow"></i> My Sets</Nav.Link>
           )
         : "" }
               {user
         ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-          <Nav.Link href="#/myclusters" className="ml-2"><i className="fas fa-sitemap"></i> My Clusters</Nav.Link>
+          <Nav.Link href="#/myclusters" className="ms-4"><i className="fas fa-sitemap tawassamYellow"></i> My Clusters</Nav.Link>
           )
         : "" }
   
@@ -78,7 +76,7 @@ export class Header extends Component {
       </Navbar.Collapse>
     </Navbar>
 
-    </Fragment>
+    </div>
     );
   }
 }

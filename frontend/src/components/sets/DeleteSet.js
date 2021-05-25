@@ -59,7 +59,7 @@ export class DeleteSet extends Component {
   render() {
     const { title, description } = this.state;
     return (
-      <div className="container">
+      <div className="container mt-5 mb-5">
         <Modal
           show={this.state.modalShow}
           aria-labelledby="contained-modal-title-vcenter"
@@ -68,14 +68,14 @@ export class DeleteSet extends Component {
           <Modal.Header closeButton onClick={(e) => this.modalClose(e)}>
             <Modal.Title
               id="contained-modal-title-vcenter"
-              className="text-info text-center"
+              className="tawassamBlue text-center"
             >
               Are you sure you want to remove this image from the set?
             </Modal.Title>
           </Modal.Header>
           <Modal.Footer style={{ justifyContent: "center" }}>
             <Button
-              variant="danger"
+              variant="outline-danger"
               onClick={(e) => {
                 this.modalClose(e);
                 this.onImageRemoveSubmit(e);
@@ -98,16 +98,16 @@ export class DeleteSet extends Component {
         </Modal>
 
         <div className="row">
-          <div className="col"><h1 className="text-info pb-4 text-center">Remove Images</h1></div>
+          <div className="col"><h1 className="tawassamBlue pb-4 text-center">Remove Images</h1></div>
           
         </div>
         <div className="row">
           <div className="col-2"></div>
-          <div className="col-8 " style={{display: "inlineBlock"}}>
-          <Button variant="secondary mb-1" onClick={this.props.doneImage}>Previous Page</Button>
-            <span className="text-secondary text-center ml-5" style={{fontSize: '20px'}}>
+          <div className="col-8 text-left" >
+          <Button variant="secondary mb-1 " onClick={this.props.doneImage}>  <i class="fas fa-arrow-left"></i> Previous Page</Button>
+            <h5 className="text-secondary text-center " style={{fontSize: '20px'}}>
               (Click on the wanted image to remove it)
-            </span>
+            </h5>
             
           </div>
           <div className="col-2"></div>
@@ -153,12 +153,14 @@ export class DeleteSet extends Component {
           <div className="col-2"></div>
         </div>
 
-        <div className="row">
+        <div className="row mt-5">
           <div className="col-2"></div>
           <div className="col-8">
+            <div className="d-grid">
             <Button
-              variant="success"
+              variant="info"
               size="lg"
+              className="tawassamBlueBG"
               onClick={this.props.doneImage}
               block
             >
@@ -166,6 +168,7 @@ export class DeleteSet extends Component {
               <span> </span>
               Done
             </Button>
+            </div>
           </div>
           <div className="col-2"></div>
         </div>

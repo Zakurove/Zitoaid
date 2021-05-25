@@ -7,6 +7,7 @@ import { getClusters, deleteCluster } from "../../actions/clusters.js";
 // import { loadingOn, loadingOff } from "../../actions/loading.js";
 import FormCluster from "./FormCluster.js";
 import DetailsCluster from "./DetailsCluster.js";
+import Loader from "../layout/Loader.js";
 
 export class ListClusters extends Component {
   static propTypes = {
@@ -107,7 +108,7 @@ export class ListClusters extends Component {
 
     // The loading handler
     if (this.state.isReady == false) {
-    setTimeout(() => this.setState({ isReady: true }), 600);
+    setTimeout(() => this.setState({ isReady: true }), 1000);
     }
 
 
@@ -115,19 +116,19 @@ export class ListClusters extends Component {
     if (this.state.isReady) {
       return (
         <div className="container">
-          <h1 className="text-center py-2 text-info">
+          <h1 className="text-center py-2 tawassamBlue">
             {this.state.block} {this.state.subject} Clusters
           </h1>
           {/* <hr /> */}
-          <a className="btn btn-secondary" href={`#/${this.state.blockLink}`}>
-            Previous Page
+          <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}`}>
+          <i class="fas fa-arrow-left"></i> Previous Page
           </a>
 
           {user
             ? this.props.auth.user.profile.role &&
               this.props.auth.user.profile.role == "Instructor" && (
                 <Button
-                  className="btn btn-info ml-1"
+                  className="btn btn-info tawassamBlueBG  ms-3 mt-1"
                   onClick={(e) => {
                     this.setState({
                       isCreating: true,
@@ -138,41 +139,41 @@ export class ListClusters extends Component {
                 </Button>
               )
             : ""}
-          
-          <a className="btn btn-outline-info float-right" href={`#/${this.state.blockLink}`}        
+
+          <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
              onClick={(e) => {
             this.props.goSet();
             event.preventDefault();
           }}
           style={{ fontWeight: "bold" }}
           >
-            <i className="fas fa-layer-group"  style={{ fontSize: "1.3rem" }}></i> Sets
+            <i className="fas fa-layer-group " style={{ fontSize: "1.3rem" }}></i> Sets
           </a>
+          <hr />
           <p></p>
-          <table className="table table-striped">
+          <table className="table table-striped mx-2">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Owner</th>
+              <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
+                <th ><span className="tawassamYellow">Owner</span></th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {this.props.clusters.map((cluster) => (
                 <tr key={cluster.id}>
-                  <td>{cluster.id}</td>
-                  <td>{cluster.title}</td>
-                  <td>{cluster.owner_username}</td>
+                  <td className="tawassamBlue">{cluster.id}</td>
+                  <td className="tawassamBlue"> {cluster.title}</td>
+                  <td className="tawassamBlue">{cluster.owner_username}</td>
                   <td>
                     <a
                       href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters/${cluster.id}`}
-                      className="btn btn-warning"
+                      className="btn tawassamYellowBG"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={(e) => {
                         this.setState({
                           selectedClusterId: cluster.id,
-                          // isViewing: true,
                           selectedCluster: cluster,
                         });
                       }}
@@ -191,13 +192,8 @@ export class ListClusters extends Component {
     if (this.state.isReady == false) {
     return (
 
-    <Fragment>
-<div className="cssload-loader mt-5">
-	<div className="cssload-inner cssload-one"></div>
-	<div className="cssload-inner cssload-two"></div>
-	<div className="cssload-inner cssload-three"></div>
-</div>
-    </Fragment>
+    <Loader/>
+
 
     );
     }

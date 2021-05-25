@@ -46,7 +46,7 @@ export class EditSet extends Component {
        set.append("image", file, file.name);
       });
     this.props.updateSet(set, this.state.set.id);
-    this.props.onSave(e)
+    setTimeout(() =>  this.props.onSave(e), 400);
     this.setState({
       title: "",
       description: "",
@@ -61,15 +61,15 @@ export class EditSet extends Component {
   render() {
     const { title, description, files, setFiles } = this.state;
     return (
-      <div className="container">
+      <div className="container mt-5 mb-5">
         <div className="row">
-        <div className="col"><h1 className="text-info pb-4 text-center">Edit Set</h1></div>
+        <div className="col"><h1 className="tawassamBlue pb-4 text-center">Edit Set</h1></div>
         </div>
         <div className="row">
           <div className="col-6">
             <form onSubmit={this.onSubmit} id="setForm">
               <div className="form-group">
-                <h4>Title:</h4>
+                <h4 className="tawassamYellow">Title:</h4>
                 <input
                   className="form-control"
                   type="text"
@@ -80,7 +80,7 @@ export class EditSet extends Component {
                 />
               </div>
               <div className="form-group">
-                <h4>Explanation:</h4>
+                <h4 className="tawassamYellow mt-3">Explanation:</h4>
                 <textarea
                   className="form-control"
                   type="text"
@@ -91,28 +91,12 @@ export class EditSet extends Component {
                   rows="6"
                 />
               </div>
-              <div className="form-group">
-              <button
-                  type="submit"
-                  className="btn btn-lg btn-warning btn-block"
-                >
-                  Submit
-                </button>
-              <button
-                  
-                  onClick={this.props.onSave}
-                  className="btn btn-lg btn-secondary btn-block"
-                >
-                  Cancel
-                </button>
 
-
-              </div>
             </form>
           </div>
           <div className="col-6">
             <div className="form-group" form="setForm">
-              <h4>Add more images:</h4>
+              <h4 className="tawassamYellow">Add more images:</h4>
               <FilePond
                 name="image"
                 ref={(ref) => (this.pond = ref)}
@@ -150,7 +134,30 @@ export class EditSet extends Component {
               />
             </div>
           </div>
+        
         </div>
+        <div className="form-group">
+                <div className="d-grid">
+              <button
+                  type="submit"
+                  form="setForm"
+                  className="btn mt-5 btn-block tawassamBlueBG"
+                  onClick={this.onSubmit}
+                >
+                  Edit
+                </button>
+                </div>
+                <div className="d-grid">
+              <button
+                  
+                  onClick={this.props.onSave}
+                  className="btn mt-2 btn-secondary btn-block"
+                >
+                  Cancel
+                </button>
+                </div>
+
+              </div>
       </div>
     );
   }

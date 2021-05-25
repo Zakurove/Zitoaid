@@ -27,13 +27,13 @@ export class Register extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const { username, email, password, password2, role } = this.state;
-    if (this.state.role !== "Instructor" && this.state.role !== "Student" ) {
+    if (this.state.role !== "Instructor" && this.state.role !== "Learner" ) {
       this.props.createMessage({ roleNotSelected: "Please select a role" });
     } 
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: "Passwords do not match" });
     } 
-    else if (this.state.role == "Instructor" || this.state.role == "Student" ) {
+    else if (this.state.role == "Instructor" || this.state.role == "Learner" ) {
       const newUser = new FormData();
       newUser.append("username", this.state.username);
       newUser.append("password", this.state.password);
@@ -54,30 +54,32 @@ export class Register extends Component {
     }
     const { username, email, password, password2 } = this.state;
     return (
-      <Fragment>
-      <div className="container ">
+      <div className="" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLoginBG.jpg")`, backgroundSize: 'cover', backgroundRepeat: "no-repeat", backgroundPosition: "right top", paddingBottom: "15rem" }}>                         
+      <hr className="style-five"/>
+      <div className="container pt-5" >
+      <div className="row">
+            <div className="col-md-5 mx-auto pt-5">
+            <img
+              src={
+                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+              }
+              className="img-fluid"
+              alt="Responsive image"
+              style={{ width: "150%" }}
+            />
+            </div>
+          </div>
         <div className="row flex-lg-row-reverse">
-        <div className="col-lg-7 p-0">
 
-<img
-  src={
-    "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/19836.jpg"
-  }
-  className="img-fluid float-right"
-  alt="Responsive image"
-  style={{ width: "150%" }}
-/>
-
-</div>
-        <div className="col-lg-5">           
+        <div className="col-md-5 mx-auto">           
          <form onSubmit={this.onSubmit} className="mt-5">
-            <h3 className="text-info mb-3">Sign Up</h3>
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+            <h3 className="tawassamBlue mb-3 text-center">Sign Up</h3>
+                <div className="input-group form-group mt-3">
+
+                    <span className="input-group-text iconInput">
                       <i className="fas fa-user mx-auto"></i>
                     </span>
-                  </div>
+
                   <input
                     type="text"
                     className="form-control"
@@ -88,12 +90,11 @@ export class Register extends Component {
                   />
                 </div>
 
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+                <div className="input-group form-group mt-3">
+
+                    <span className="input-group-text iconInput">
                       <i className="fas fa-envelope mx-auto"></i>
                     </span>
-                  </div>
                   <input
                     type="email"
                     className="form-control"
@@ -104,12 +105,12 @@ export class Register extends Component {
                   />
                 </div>
 
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+                <div className="input-group form-group mt-3">
+
+                    <span className="input-group-text iconInput">
                       <i className="fas fa-key mx-auto"></i>
                     </span>
-                  </div>
+
                   <input
                     type="password"
                     className="form-control"
@@ -120,12 +121,12 @@ export class Register extends Component {
                   />
                 </div>
 
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+                <div className="input-group form-group mt-3">
+
+                    <span className="input-group-text iconInput">
                       <i className="fas fa-key mx-auto"></i>
                     </span>
-                  </div>
+
                   <input
                     type="password"
                     className="form-control"
@@ -135,12 +136,12 @@ export class Register extends Component {
                     placeholder="Verify password"
                   />
                 </div>
-                <div className="input-group form-group">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+                <div className="input-group form-group mt-3">
+
+                    <span className="input-group-text iconInput">
                       <i className="fas fa-user-tag mx-auto"></i>
                     </span>
-                  </div>
+
 
                   <Form.Control
                     as="select"
@@ -149,24 +150,25 @@ export class Register extends Component {
                     <option disabled selected>
                       Choose your role...
                     </option>
-                    <option>Student</option>
+                    <option>Learner</option>
 
                     <option>Instructor</option>
                   </Form.Control>
                 </div>
 
 
-
+                <div className="d-grid">
                 <button
                   type="submit"
-                  className="btn btn-dark btn-lg btn-block mt-4"
+                  className="btn btn-dark btn-lg  mt-4"
                 >
                   Sign Up
                 </button>
+                </div>
                 <hr/>
-                <div className="">
+                <div className="tawassamBlue">
                 Already have an account?{" "}
-                <Link to="/login" className="text-info" style={{fontWeight: "bold"}}>
+                <Link to="/login" className="tawassamYellow" style={{fontWeight: "bold", textDecoration: "none"}}>
                   Login
                 </Link>
               </div>
@@ -198,7 +200,7 @@ export class Register extends Component {
           </div>
         {/* </div>
       </div> */}
-      </Fragment>
+      </div>
     );
   }
 }

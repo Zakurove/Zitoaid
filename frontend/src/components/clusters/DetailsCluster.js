@@ -12,6 +12,7 @@ import { EditCluster } from "./EditCluster.js";
 // import { DeleteSet } from "./DeleteCluster.js";
 import * as clusterActions from "../../actions/clusters.js";
 import * as setActions from "../../actions/sets.js";
+import Loader from "../layout/Loader.js";
 
 export class DetailsCluster extends Component {
   constructor(props) {
@@ -104,7 +105,7 @@ export class DetailsCluster extends Component {
   }
   //To delete Cluster
   deleteCluster(event) {
-    this.props.setActions.deleteCluster(this.state.cluster.id);
+    this.props.actions.deleteCluster(this.state.cluster.id);
   }
 
   //For knowing if the user is editing or not and acting accordingly
@@ -208,7 +209,7 @@ export class DetailsCluster extends Component {
     set.append("setImage_id", this.state.selectedImageId);
     set.append("editingState", "editing");
     this.props.setActions.editNote(set, this.state.chosenSet.id);
-    this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id)
+    setTimeout(() => this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id), 300);
     setTimeout(() =>
     this.setState({
       noteContent: "",
@@ -216,7 +217,7 @@ export class DetailsCluster extends Component {
       y: "",
       chosenSet: this.props.notedSets,
     })
-    , 300);
+    , 500);
   };
   onDeleteSubmit = (e) => {
     e.preventDefault();
@@ -333,7 +334,7 @@ export class DetailsCluster extends Component {
             createMessage={this.props.createMessage}
             rerenderParent={this.rerenderParent}
             cluster={this.props.cluster}
-            sets={this.props.sets}
+            sets={this.props.sets.filter((set) =>  set.subject == this.props.cluster.subject && set.block == this.props.cluster.block)}
             block={this.props.cluster.block}
             subject={this.props.cluster.subject}
             updateCluster={this.props.actions.updateCluster}
@@ -347,9 +348,9 @@ export class DetailsCluster extends Component {
     // The loading handler
     if (this.state.isReady == false) {
       
-      setTimeout(() => this.setState({ isReady: true, chosenSet: this.props.clusterSets[0] }), 400);
+      setTimeout(() => this.setState({ isReady: true, chosenSet: this.props.clusterSets[0] }), 1000);
       }
-    if (this.state.isReady) {
+    if (this.state.isReady && this.state.chosenSet) {
     //for sets that have changed notes
     // this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id)
     return (
@@ -362,9 +363,9 @@ export class DetailsCluster extends Component {
           <Modal.Header closeButton onClick={(e) => this.modalClose(e)}>
             <Modal.Title
               id="contained-modal-title-vcenter"
-              className="text-info text-center"
+              className="tawassamBlue text-center mx-auto"
             >
-              Add Note
+             Add Note
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -384,15 +385,16 @@ export class DetailsCluster extends Component {
           <Modal.Footer>
             <Button
               type="submit"
+              variant="warning"
               onClick={(e) => this.modalClose(e)}
-              className="btn btn-warning"
+              className="btn tawassamYellowBG"
               form="noteForm"
             >
               Save
             </Button>
             <Button
               onClick={(e) => this.modalClose(e)}
-              className="btn btn-secondary ml-2"
+              className="btn btn-secondary ms-2"
             >
               Cancel
             </Button>
@@ -407,7 +409,7 @@ export class DetailsCluster extends Component {
           <Modal.Header closeButton onClick={(e) => this.modalEditClose(e)}>
             <Modal.Title
               id="contained-modal-title-vcenter"
-              className="text-info text-center"
+              className="tawassamBlue text-center mx-auto"
             >
               Edit Note
             </Modal.Title>
@@ -429,15 +431,16 @@ export class DetailsCluster extends Component {
           <Modal.Footer>
             <Button
               type="submit"
+              variant="wanrning"
               onClick={(e) => this.modalEditClose(e)}
-              className="btn btn-warning"
+              className="btn tawassamBlueBG"
               form="noteForm"
             >
               Save
             </Button>
             <Button
               onClick={(e) => this.modalEditClose(e)}
-              className="btn btn-secondary ml-2"
+              className="btn btn-secondary ms-2"
             >
               Cancel
             </Button>
@@ -458,7 +461,7 @@ export class DetailsCluster extends Component {
           </Modal.Header>
           <Modal.Footer style={{ justifyContent: "center" }}>
             <Button
-              variant="danger"
+              variant="outline-danger"
 
               // To delete the cluster
               onClick={(e) => {
@@ -479,32 +482,33 @@ export class DetailsCluster extends Component {
             </Button>
             <Button
               onClick={(e) => this.deleteModalClose(e)}
-              className="btn btn-secondary ml-2 "
+              className="btn btn-secondary ms-2 "
               style={{ justifyContent: "center" }}
             >
               Cancel
             </Button>
           </Modal.Footer>
         </Modal>
-        <div className="container" key={this.props.cluster.id}>
+        <div className="container mt-5 mb-5" key={this.props.cluster.id}>
           <div className="row">
             <div className="col">
-              <h1 className="text-info text-center my-3">
+              <h1 className="tawassamBlue text-center my-3">
                 {this.props.cluster.title}
               </h1>
-              <div className=" mb-3 mt-4 text-center py-3" style={{  fontSize: "1.1rem", border: "1px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)"}}>
-                <span className="mx-auto  text-center py-3 px-5 "><span className="text-info" style={{fontSize: "1.1rem"}}>Cluster Description: </span>{this.props.cluster.description}</span>
+              <div className=" mb-3 mt-4 px-3 card"  style={{   maxHeight: "300px", overflow: "auto"}}>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Cluster's Description</h5>
+              <p className="  text-center card-text tawassamBlue " >{this.props.cluster.description}</p>
               </div>
             </div>
           </div>
               <hr className="mb-4 mt-2" />
              {/* Current set title */}
-              <div className="row mt-2 mb-2"><div className="col"><h3 className=" text-center text-secondary">Current Set: {this.state.chosenSet.title}</h3></div></div>
+              <div className="row mt-2 mb-2"><div className="col"><h3 className=" text-center tawassamBlue">Current Set: {this.state.chosenSet.title}</h3></div></div>
           {/* Row that contains both slider and explanation */}
-          <div className="row " style={{ height: "770px" }}>
+          <div className="row flex-sm-row-reverse" style={{ height: "770px" }}>
 
             {/* Slider and buttons above it */}
-            <div className="col-sm-8 order-sm-12 mb-4" style={{  padding: "0px" }} >
+            <div className="col-md-8 " style={{  padding: "0px" }} >
               {/* Buttons Row over the slider */}
               <div className="row">
               <div className="col-12 p-0">
@@ -518,7 +522,8 @@ export class DetailsCluster extends Component {
                           this.handleToggleNoteMode(e);
                           this.changeNoteButtonText(e);
                         }}
-                        className="btn btn-info float-right mb-1"
+                        variant="info"
+                        className="btn tawassamBlueBG float-end me-2 mb-1 mx-1"
                         style={{
                           marginLeft: "15px",
                           paddingTop: "4px",
@@ -535,7 +540,8 @@ export class DetailsCluster extends Component {
                     this.changeShowNotesButtonText(e);
                     this.changeNoteDisplay(e);
                   }}
-                  className="btn btn-info float-right mb-1 "
+                  variant="info"
+                  className="btn tawassamBlueBG float-end mb-1 mx-1"
                   style={{
                     
                     paddingTop: "4px",
@@ -551,12 +557,14 @@ export class DetailsCluster extends Component {
                 <div className="col-sm-12 col-md-12 col-lg"> 
                 <Button
                   onClick={this.prev}
-                  className="btn btn-warning fa fa-chevron-circle-left float-left"
+                  variant="warning"
+                  className="ms-3 btn tawassamYellowBG fa fa-chevron-circle-left float-start"
                   style={{ fontSize: "20px" }}
                 ></Button>
                 <Button
                   onClick={this.next}
-                  className="btn btn-warning fa fa-chevron-circle-right ml-1 float-left"
+                  variant="warning"
+                  className="btn tawassamYellowBG fa fa-chevron-circle-right ms-1 float-start"
                   style={{ fontSize: "20px" }}
                 ></Button>
               </div>
@@ -603,7 +611,7 @@ export class DetailsCluster extends Component {
                                 top: note.y + "px",
                                 display: this.state.noteDisplay,
                               }}
-                              className="fas fa-info-circle"
+                              className=" tawassamBlue fas fa-info-circle"
                               id={"note" + note.id}
                             >
                               <UncontrolledPopover
@@ -620,16 +628,16 @@ export class DetailsCluster extends Component {
                                   }}
                                 >
                                   {" "}
-                                  {note.noteContent}{" "}
+                                  <span className="tawassamBlue m-2">{note.noteContent}</span>
                                 </PopoverHeader>
                                 <PopoverBody>
                                   {user
                                     ? this.props.auth.user.username ==
                                         this.state.chosenSet.owner_username && (
                                         <Button
-                                        className="mr-2"
+                                        className="me-2 tawassamBlueBG"
                                           size="sm"
-                                          variant="outline-info"
+                                          variant="info"
                                           onClick={(e) => {
                                            
                                             
@@ -686,12 +694,12 @@ export class DetailsCluster extends Component {
             </div>
             
             {/* Explanation and buttons above it */}
-            <div className="col-sm-4 order-sm-1" style={{  padding: "0px" }}>
+            <div className="col-md-4 " style={{  padding: "0px" }}>
             
             <div className="col-12">
               {this.state.optionsState && (
                 <Button
-                  variant="danger"
+                  variant="outline-danger"
                   size="sm"
                   style={{
                     marginBottom: "5px",
@@ -704,12 +712,13 @@ export class DetailsCluster extends Component {
                 >
                   <i class="far fa-trash-alt"></i>
                   <span> </span>
-                  Delete Set
+                  Delete Cluster
                 </Button>
               )}
               {this.state.optionsState && (
                 <Button
                   variant="info"
+                  className="tawassamBlueBG"
                   size="sm"
                   style={{
                     marginBottom: "5px",
@@ -731,13 +740,13 @@ export class DetailsCluster extends Component {
                   style={{ marginBottom: "3px", marginRight: "3px" }}
                   href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}`}
                 >
-                  Back to List
+                   <i class="fas fa-arrow-left"></i> Back to List
                 </Button>
                 {user
                   ? this.props.auth.user.username ==
                       this.props.cluster.owner_username && (
                       <Button
-                        className=" float-right"
+                        className="tawassamYellowBG float-end me-2"
                         style={{ marginBottom: "3px", marginRight: "3px" }}
                         variant="warning"
                         onClick={this.toggleOptions}
@@ -752,22 +761,27 @@ export class DetailsCluster extends Component {
                   className="collapsible form-group"
                   style={{ display: "none" }}
                 >
-                  <a href="#" className="btn btn-info my-2">
+                  <a href="#" className="btn tawassamBlue my-2">
                     Update Current Image
                   </a>
-                  <a href="#" className="btn btn-info my-2">
+                  <a href="#" className="btn tawassamBlue my-2">
                     Update Title/Description
                   </a>
-                  <a href="#" className="btn btn-info">
+                  <a href="#" className="btn tawassamBlue">
                     Add new image
                   </a>
                 </div>
               </div>
 
-              <div className="col-12" >
+              <div className="col-12 p-2 px-3" >
+                              {/* Set Description */}
+              <div className=" mb-3 py-1 px-3 card mt-3"  style={{  minHeight: "150", maxHeight: "300px", overflow: "auto"}}>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Current Set Description</h5>
+              <p className="  text-start card-text tawassamBlue" >{this.state.chosenSet.description}</p>
+                        </div>
             <h5 className="text-secondary text-center mt-2">Associated Sets:</h5>
             {/* Sets List */}
-            <div style={{ maxHeight: "300px", overflow: "auto"}} className="style-1">
+            <div style={{ maxHeight: "300px", overflow: "auto"}} className="style-1 mb-2">
             <table className="table table-striped " > 
             <thead>
               
@@ -782,8 +796,8 @@ export class DetailsCluster extends Component {
                             href="#"
               >
                 {/* <th></th> */}
-                <th>ID</th>
-                <th>Title</th>
+                <th><span className="tawassamYellow" style={{fontWeight: "weight"}}>ID</span></th>
+                <th><span className="tawassamYellow" style={{fontWeight: "weight"}}>Title</span></th>
                 {/* <th>Owner</th> */}
                  </tr>
             </thead>
@@ -799,18 +813,15 @@ export class DetailsCluster extends Component {
                   
                 }}
                 >
-                  <td>{set.id}</td>
-                  <td>{set.title}</td>
+                  <td >{set.id}</td>
+                  <td >{set.title}</td>
 
                 </tr>
               ))}
             </tbody>
           </table>
              </div>
-              {/* Set Description */}
-              <div className=" mb-3 mt-2 text-left py-3 px-3 style-1" style={{ border: "2px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)", minHeight: "100px"}}>
-              <span className="mx-auto  text-center  "><span className="text-info" >Current Set Description: </span>{this.state.chosenSet.description}</span>
-              </div>
+
 
             </div>
 
@@ -827,13 +838,8 @@ export class DetailsCluster extends Component {
   if (this.state.isReady == false) {
     return (
 
-    <Fragment>
-<div className="cssload-loader mt-5">
-	<div className="cssload-inner cssload-one"></div>
-	<div className="cssload-inner cssload-two"></div>
-	<div className="cssload-inner cssload-three"></div>
-</div>
-    </Fragment>
+    <Loader/>
+
 
     );
     }
@@ -876,6 +882,7 @@ function mapStateToProps(state, ownProps) {
   if (selectedClusterId && clusters.length > 0) {
     cluster = getClusterById(clusters, selectedClusterId);
   }
+  
 
   //Filtering through all sets to get the ones that are associated with this cluster
   let clusterSets = sets.filter((set) =>  cluster.sets.includes(set.id))

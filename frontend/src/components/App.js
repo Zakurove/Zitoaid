@@ -47,7 +47,7 @@ class App extends Component {
             <Alerts />
               <Header />
               
-              <div>
+              <div className="content bg-light p-0">
                 <Switch>
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
@@ -226,7 +226,7 @@ class App extends Component {
 
                 </Switch>
               </div>
-              <Footer />
+              
             </Fragment>
           </Router>
         </AlertProvider>
@@ -235,4 +235,5 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById("app"));
+ReactDOM.render([<App key="1" />, <Footer key="2" />], document.getElementById("app"));
+

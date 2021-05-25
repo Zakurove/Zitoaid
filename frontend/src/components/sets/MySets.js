@@ -71,29 +71,29 @@ export class MySets extends Component {
       this.rendering(user);
     }
     return (
-      <div className="container">
-        <h1 className="text-center py-2 text-info">
+      <div className="container my-5">
+        <h1 className="text-center py-2 tawassamBlue">
           {this.state.username +"'s"} Sets
         </h1>
         <p></p>
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Title</th>
+            <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
               <th />
             </tr>
           </thead>
           <tbody>
             {this.props.sets.map((set) => (
               <tr key={set.id}>
-                <td>{set.id}</td>
-                <td>{set.title}</td>
+                  <td className="tawassamBlue">{set.id}</td>
+                  <td className="tawassamBlue">{set.title}</td>
 
                 <td>
                   <a
                     href= {`#/mysets/${set.id}`}
-                    className="btn btn-warning"
+                    className="btn tawassamYellowBG"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={(e) => {
                       this.setState({

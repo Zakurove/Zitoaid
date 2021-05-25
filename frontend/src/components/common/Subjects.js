@@ -41,123 +41,118 @@ export class Subjects extends Component {
       this.rendering();
     }
     return (
-      <Fragment>
+      <div id="cards_landscape_wrap-2">
         <h1 className="text-center"></h1>
 
-        <div className="container">
-          <h1 className="text-center text-info" >{this.props.block} Block</h1>
+        <div className="container pt-4 ">
+          <h1 className="text-center tawassamBlue" >{this.props.block} Block</h1>
           {/* <hr/> */}
+          <div className="d-flex justify-content-start mt-2" >
           <Button
-            className="btn btn-secondary"
+            className="btn btn-secondary mb-1 "
             href="/#"
           >
-            Previous Page
+           <i class="fas fa-arrow-left"></i> Previous Page
           </Button>
+          </div>
 
-          <div className="row align-items-start pt-2">
-            <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2" >
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/micro.jpg"
-                }
-                className=" img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "300px", width: "290" }}
-              />{" "}
-              <a
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block" 
-                href= {`#/${this.state.block}/microbiology`}
-              >
-                Microbiology
-              </a>
-            </div>
+          <div className="row pt-2" >
 
-            <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2">
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/imaging.jpg"
-                }
-                className=" img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "300px", width: "290" }}
-              />
-              <a
-                href= {`#/${this.state.block}/imaging`}
-                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
-              >
-                Imaging
-              </a>
-            </div>
+          <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4" >
+                    <a href={`#/${this.state.block}/microbiology`}>
+                        <div class="card-flyer mt-1 mb-5">
+                            <div class="text-box">
+                                <div class="image-boxSubjects">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/micro.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Microbiology</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-sm-6 col-md-6 col-lg-4 text-center pb-2">
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/patho.jpg"
-                }
-                className=" img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "300px", width: "290" }}
-              />{" "}
-              <a
-                href= {`#/${this.state.block}/pathology`}
-                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
-              >
-                Pathology
-              </a>
-            </div>
-            <div className="col-sm-6 col-md-6 col-lg-4 mt-2 text-center">
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/histo.jpg"
-                }
-                className=" img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "300px", width: "290" }}
-              />
-              <a
-                href= {`#/${this.state.block}/histology`}
-                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
-              >
-                Histology
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                    <a href={`#/${this.state.block}/imaging`}>
+                        <div class="card-flyer mt-1 mb-5">
+                            <div class="text-box">
+                                <div class="image-boxSubjects">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/imaging.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Imaging</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-6-sm col-md-6 col-lg-4 mt-2 text-center">
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/cyto.jpg"
-                }
-                className=" img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "300px", width: "290" }}
-              />{" "}
-              <a
-                href= {`#/${this.state.block}/cytology`}
-                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
-              >
-                Cytology
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                    <a href={`#/${this.state.block}/pathology`}>
+                        <div class="card-flyer mt-1 mb-5">
+                            <div class="text-box">
+                                <div class="image-boxSubjects">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/patho.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Pathology</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-6-sm col-md-6 col-lg-4 mt-2 text-center">
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/clinical.jpg"
-                }
-                className=" img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "300px", width: "290" }}
-              />
-              <a
-                href= {`#/${this.state.block}/clinical`}
-                className="btn btn-rounded1 mt-2 stretched-link text-center  d-block"
-              >
-                Clinical
-              </a>
-            </div>
+
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                    <a href={`#/${this.state.block}/histology`}>
+                        <div class="card-flyer mt-1 mb-5">
+                            <div class="text-box">
+                                <div class="image-boxSubjects">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/histo.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Histology</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                    <a href={`#/${this.state.block}/cytology`}>
+                        <div class="card-flyer mt-1 mb-5">
+                            <div class="text-box">
+                                <div class="image-boxSubjects">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/cyto.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Cytology</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                    <a href={`#/${this.state.block}/clinical`}>
+                        <div class="card-flyer mt-1 mb-5">
+                            <div class="text-box">
+                                <div class="image-boxSubjects">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/clinical.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Clinical</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+
+
           </div>
         </div>
-      </Fragment>
+      </div>
     );
   }
 }

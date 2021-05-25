@@ -67,29 +67,30 @@ onChangeCheckbox = event => {
 
     const { username, password, isChecked } = this.state;
     return (
-      <Fragment>
-        <div className="container">
+      <div className="" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLoginBG.jpg")`, backgroundSize: 'cover', backgroundRepeat: "no-repeat", backgroundPosition: "right top", paddingBottom: "15rem"  }}>                          
+        <hr className="style-five"/>
+        <div className="container pt-5">
           <div className="row">
-            <div className="col-md-6 ">
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/19771.jpg"
-                }
-                className="img-fluid float-right"
-                alt="Responsive image"
-                style={{ width: "150%" }}
-              />
+            <div className="col-md-5 mx-auto pt-5">
+            <img
+              src={
+                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+              }
+              className="img-fluid"
+              alt="Responsive image"
+              style={{ width: "150%" }}
+            />
             </div>
-            <div className="col-md-6">
+          </div>
+          <div className="row">
+            <div className="col-md-5 mx-auto">
               <form className="mt-5">
-                <h3 className="text-info mb-3">Login</h3>
+                <h3 className="tawassamBlue mb-3 ">Login</h3>
 
                 <div className="input-group form-group mt-4">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+                    <span className="input-group-text iconInput ">
                       <i className="fas fa-user mx-auto"></i>
                     </span>
-                  </div>
                   <input
                     type="text"
                     className="form-control"
@@ -101,11 +102,11 @@ onChangeCheckbox = event => {
                 </div>
 
                 <div className="input-group form-group mt-4">
-                  <div className="input-group-prepend">
-                    <span className="input-group-text">
+
+                    <span className="input-group-text iconInput">
                       <i className="fas fa-key mx-auto"></i>
                     </span>
-                  </div>
+
                   <input
                     type="password"
                     className="form-control"
@@ -116,37 +117,38 @@ onChangeCheckbox = event => {
                   />
                 </div>
 
-                <div className="form-group">
-                  <div className="custom-control custom-checkbox">
+                <div className="form-group pt-2">
+                  <div className="custom-control custom-checkbox mt-2">
                     <input
                       type="checkbox"
-                      className="custom-control-input"
+                      className="form-check-input me-2 "
                       checked={isChecked}
                       onChange={this.onChangeCheckbox}
                       name="lsRememberMe"
                       id="customCheck1"
                     />
                     <label
-                      className="custom-control-label"
+                      className="custom-control-label tawassamBlue"
                       htmlFor="customCheck1"
                     >
                       Remember me
                     </label>
                   </div>
                 </div>
-
+                <div className="d-grid">
                 <button
                   type="button"
                   value="Login"
                   onClick={this.loginSubmit}
-                  className="btn btn-dark btn-lg btn-block mt-4"
+                  className="btn btn-dark btn-lg mt-4"
                 >
                   Sign in
                 </button>
+                </div>
                 <hr/>
-                <div className="">
+                <div className="tawassamBlue">
                 Don't have an account?{" "}
-                <Link to="/register" className="text-info" style={{fontWeight: "bold"}}>
+                <Link to="/register" className="tawassamYellow" style={{fontWeight: "bold", textDecoration: "none"}}>
                   Sign Up
                 </Link>
               </div>
@@ -216,7 +218,7 @@ onChangeCheckbox = event => {
             </div>
           </div>
         </div> */}
-      </Fragment>
+      </div>
     );
   }
 }

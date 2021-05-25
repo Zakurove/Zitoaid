@@ -65,22 +65,22 @@ import { createMessage } from "../../actions/messages";
      render() {
        const {title, description, files, setFiles } = this.state;
        return (
-         <div className="container">
-           <h1 className="text-center py-2 text-info">{this.props.block} {this.props.subject}: create a set</h1>
+         <div className="container mb-5 mt-5" >
+           <h1 className="text-center py-2 tawassamBlue">{this.props.block} {this.props.subject}: Create Set</h1>
            <Button
           className="btn btn-secondary mb-2"
           onClick={this.props.backToList}
           
         >
-          Previous Page
+         <i class="fas fa-arrow-left"></i> Previous Page
         </Button>
-
-          <div className="row pt-4" style={{borderTop: "2px solid #ffc107"}}>
+        <hr/>
+          <div className="row pt-4 mb-2" >
             
             <div className="col-6">
             <form onSubmit={ this.onSubmit} id="setForm">
               <div className="form-group">
-                <h4 className="text-info">Title:</h4>
+                <h4 className="tawassamYellow">Title:</h4>
                 <input
                   className="form-control"
                   type="text"
@@ -91,7 +91,7 @@ import { createMessage } from "../../actions/messages";
                 />
               </div>
               <div className="form-group">
-                <h4 className="text-info">Explanation:</h4>
+                <h4 className="tawassamYellow mt-3">Explanation:</h4>
                 <textarea
                   className="form-control"
                   type="text"
@@ -103,17 +103,12 @@ import { createMessage } from "../../actions/messages";
                 />
               </div>
  
-              <div className="form-group">
-              <button type="submit" className="btn btn-lg btn-warning btn-block">
-                Submit
-              </button>
-            </div>
- 
+
             </form>
             </div>
             <div className = "col-6">
             <div className="form-group" form = "setForm">
-               <h4 className="text-info">Upload set images:</h4> 
+               <h4 className="tawassamYellow text-center">Upload Set Images</h4> 
                 <FilePond
               name="image"
               ref={ref => this.pond = ref}
@@ -135,6 +130,13 @@ import { createMessage } from "../../actions/messages";
               />
               </div>
             </div>
+           
+            <div className="form-group d-grid" form = "setForm">
+              <button type="submit" className="btn btn-lg tawassamBlueBG btn-block mt-5" onClick={this.onSubmit}>
+              Create This Set
+              </button>
+            </div>
+ 
           </div>
           </div>
        )

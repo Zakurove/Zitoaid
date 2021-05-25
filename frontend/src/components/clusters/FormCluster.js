@@ -5,7 +5,7 @@ import { Button, Form } from "react-bootstrap";
 import { addCluster } from '../../actions/clusters.js';
 import { getSets } from '../../actions/sets.js';
 import { createMessage } from "../../actions/messages";
-
+import Loader from "../layout/Loader.js";
  export class FormCluster extends Component {
    
    state = {
@@ -145,21 +145,21 @@ import { createMessage } from "../../actions/messages";
         this.rendering(); 
         return (
          <div className="container">
-           <h1 className="text-center py-2 text-info">{this.props.block} {this.props.subject}: create a cluster</h1>
+           <h1 className="text-center py-2 tawassamBlue">{this.props.block} {this.props.subject}: create a cluster</h1>
            <Button
           className="btn btn-secondary mb-2"
           onClick={this.props.backToList}
           
         >
-          Previous Page
+         <i class="fas fa-arrow-left"></i> Previous Page
         </Button>
-
-          <div className="row pt-4" style={{borderTop: "2px solid #ffc107"}}>
+          <hr/>
+          <div className="row pt-4">
             
             <div className="col-6">
             <form onSubmit={ this.onSubmit} id="clusterForm">
               <div className="form-group">
-                <h4 className="text-info">Title:</h4>
+                <h4 className="tawassamYellow">Title:</h4>
                 <input
                   className="form-control"
                   type="text"
@@ -170,7 +170,7 @@ import { createMessage } from "../../actions/messages";
                 />
               </div>
               <div className="form-group">
-                <h4 className="text-info">Description:</h4>
+                <h4 className="tawassamYellow mt-3">Description:</h4>
                 <textarea
                   className="form-control"
                   type="text"
@@ -187,24 +187,24 @@ import { createMessage } from "../../actions/messages";
             </form>
             </div>
             <div className="col-6" >
-            <h4 className="text-info">Select sets for this cluster:</h4>
+            <h4 className="tawassamYellow">Select sets for this cluster:</h4>
             <div style={{ height: "350px", overflow: "auto" }} className="style-1">
             <table className="table table-striped " > 
             <thead>
               <tr>
                 <th></th>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Owner</th>
+                <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
+                <th ><span className="tawassamYellow">Owner</span></th>
                  </tr>
             </thead>
             <tbody>
               {this.state.sets.map((set) => (
                 <tr key={set.id}>
-                  <td><input key={set.id} onChange={ (e) => this.handleCheckElement(e) }  type="checkbox" checked={set.isChecked} value={set.id}   /></td>
-                  <td>{set.id}</td>
-                  <td>{set.title}</td>
-                  <td>{set.owner_username}</td>
+                  <td className="tawassamBlue"><input key={set.id} onChange={ (e) => this.handleCheckElement(e) }  type="checkbox" checked={set.isChecked} value={set.id}   /></td>
+                  <td className="tawassamBlue">{set.id}</td>
+                  <td className="tawassamBlue">{set.title}</td>
+                  <td className="tawassamBlue"> {set.owner_username}</td>
                   
 
                   {/* <td>
@@ -232,9 +232,11 @@ import { createMessage } from "../../actions/messages";
           </div>
           <div className="row pt-4">     
               {/* <div className="form-group"> */}
-              <button type="submit" form="clusterForm" className="btn btn-outline-info btn-lg btn-block">
-                Create this cluster
+              <div className="d-grid">
+              <button type="submit" form="clusterForm" className="btn tawassamBlueBG">
+                Create This Cluster
               </button>
+              </div>
             {/* </div> */}
             </div>
           </div>
@@ -243,13 +245,8 @@ import { createMessage } from "../../actions/messages";
         if (this.state.isPending == true) {
           return (
       
-          <Fragment>
-      <div className="cssload-loader mt-5">
-        <div className="cssload-inner cssload-one"></div>
-        <div className="cssload-inner cssload-two"></div>
-        <div className="cssload-inner cssload-three"></div>
-      </div>
-          </Fragment>
+          <Loader/>
+
       
           );
           }

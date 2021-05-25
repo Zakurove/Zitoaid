@@ -7,6 +7,7 @@ import { getSets, deleteSet } from "../../actions/sets.js";
 // import { loadingOn, loadingOff } from "../../actions/loading.js";
 import FormSet from "./FormSet.js";
 import DetailsSet from "./DetailsSet.js";
+import Loader from "../layout/Loader.js";
 
 export class ListSets extends Component {
   static propTypes = {
@@ -126,27 +127,27 @@ export class ListSets extends Component {
 
     // The loading handler
     if (this.state.isReady == false) {
-    setTimeout(() => this.setState({ isReady: true }), 600);
+    setTimeout(() => this.setState({ isReady: true }), 1000);
     }
 
 
     //The List component
     if (this.state.isReady) {
       return (
-        <div className="container">
-          <h1 className="text-center py-2 text-info">
+        <div className="container my-5">
+          <h1 className="text-center py-2 tawassamBlue">
             {this.state.block} {this.state.subject} Sets
           </h1>
           {/* <hr /> */}
-          <a className="btn btn-secondary" href={`#/${this.state.blockLink}`}>
-            Previous Page
+          <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}`}>
+          <i class="fas fa-arrow-left"></i> Previous Page
           </a>
 
           {user
             ? this.props.auth.user.profile.role &&
               this.props.auth.user.profile.role == "Instructor" && (
                 <Button
-                  className="btn btn-info ml-1"
+                  className="btn btn-info tawassamBlueBG  ms-3 mt-1"
                   onClick={(e) => {
                     this.setState({
                       isCreating: true,
@@ -158,35 +159,36 @@ export class ListSets extends Component {
               )
             : ""}
 
-          <a className="btn btn-outline-info float-right" href={`#/${this.state.blockLink}`}        
+          <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
              onClick={(e) => {
             this.props.goCluster();
             event.preventDefault();
           }}
           style={{ fontWeight: "bold" }}
           >
-            <i className="fas fa-sitemap" style={{ fontSize: "1.3rem" }}></i> Clusters
+            <i className="fas fa-sitemap " style={{ fontSize: "1.3rem" }}></i> Clusters
           </a>
+          <hr />
           <p></p>
-          <table className="table table-striped">
+          <table className="table table-striped mx-2">
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Owner</th>
+                <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
+                <th ><span className="tawassamYellow">Owner</span></th>
                 <th />
               </tr>
             </thead>
             <tbody>
               {this.props.sets.map((set) => (
                 <tr key={set.id}>
-                  <td>{set.id}</td>
-                  <td>{set.title}</td>
-                  <td>{set.owner_username}</td>
+                  <td className="tawassamBlue">{set.id}</td>
+                  <td className="tawassamBlue">{set.title}</td>
+                  <td className="tawassamBlue">{set.owner_username}</td>
                   <td>
                     <a
                       href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets/${set.id}`}
-                      className="btn btn-warning"
+                      className="btn tawassamYellowBG"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={(e) => {
                         this.setState({
@@ -210,13 +212,7 @@ export class ListSets extends Component {
     if (this.state.isReady == false) {
     return (
 
-    <Fragment>
-<div className="cssload-loader mt-5">
-	<div className="cssload-inner cssload-one"></div>
-	<div className="cssload-inner cssload-two"></div>
-	<div className="cssload-inner cssload-three"></div>
-</div>
-    </Fragment>
+    <Loader/>
 
     );
     }

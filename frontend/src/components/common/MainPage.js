@@ -12,223 +12,202 @@ export class MainPage extends Component {
   }
   render() {
     return (
-      <div>
-        {/* <div className="jumbotron">
-          <h1 className="display-4 text-info">Welcome to Tawassam!</h1>
-          <p className="text-info">
-            This is your distentation for learning and teaching visual materials
-            in health care!
-          </p>
-        </div> */}
-{/* style={{fontSize: "56px"}} */}
-
+      <div className="pt-5">
       {/* Main row for header of this page */}
-      <div className="row flex-lg-row-reverse">
+      <div className="container">
+      <div className="row d-flex justify-content-around flex-lg-row-reverse mb-5" >
 
-        
+
 
           {/* For Image */}
-          <div className=" col-lg-7 ">
-      <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/19876.jpg"
-                }
-                className="img-fluid float-right"
-                alt="Responsive image"
-                style={{ width: "150%" }}
-              />
+          <div className=" col-lg-5 d-flex justify-content-around ">
+              <img src={
+                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                } style={{width: "100%"}} className=" img-fluid float-right" />
               </div>
       
-      
-
-        {/* For text content */}
-      <div className="col-lg-4  jumbotron bg-light " style={{marginTop: "100px"}}>
-          <h1 className="display-4 text-info mb-4 pl-2" >Welcome to <span style={{fontWeight: "bold", color: "#06D6D6"}}>Tawassam</span></h1>
-          {/* <p className="text-info" style={{fontSize: "1.5rem"}}>
-            This is your distentation for learning and teaching visual materials
-            in health care!
-          </p> */}
-          <ul className="fa-ul">
-
-          
-          <li className="mt-4">
-          <span class="fa-li"><i class="fas fa-laptop text-secondary" style={{fontSize: "1.7rem", marginTop: "0.8rem"}}></i></span>
-          <p className="text-info ml-2" style={{fontSize: "1.3rem", fontWeight: "bold"}}>
-          <span style={{color: "#06D6D6"}}>Tawassam</span> is a platform that aims to facilitate learning visual materials for healthcare students.
-          </p>
-          </li> 
-
-          <li className="mt-4">
-          <span class="fa-li"><i class="fas fa-chalkboard-teacher text-secondary" style={{fontSize: "1.7rem", marginTop: "1.1rem"}}></i></span>
-          <p className="text-info ml-2" style={{fontSize: "1.3rem", fontWeight: "bold"}}>
-          <span style={{color: "#06D6D6"}}>Instructors</span> can create sets by uploading images, explanations, as well as adding notes.        
-          </p>
-          </li>
-
-          <li className="mt-4"> 
-          <span class="fa-li"><i class="fas fa-users text-secondary" style={{fontSize: "1.7rem" , marginTop: "0.6rem"}}></i> </span>
-            <p className="text-info ml-2" style={{fontSize: "1.3rem", fontWeight: "bold"}}>
-            <span style={{color: "#06D6D6"}}>Students</span> can study all available sets, including our own library.
-            </p>
-            </li>
-
-            </ul>
-
-            {/* <button className="text-info" style={{fontSize: "1.5rem"}}>
-            Go to Blocks
         
-            </button> */}
+                {/* For text content */}
+      <div className="col-lg-5 bg-light ps-5 pt-5 mt-3" >
+          <h1 className=" tawassamYellow mb-4 pl-2" >El Psy Kongro!</h1>
+          <h4 className="tawassamBlue">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras facilisis vulputate nunc, quis sagittis sem gravida non. Vivamus sodales turpis eget orci dignissim aliquam.</h4>
 
           </div>
 
+      
+          </div>
+          </div>
 
-          <div className="col-1"></div>
+          {/* Features Row */}
+          
+            <div className="row d-flex justify-content-around px-5" style={{backgroundColor: "#e9eef7", paddingTop: "5rem"}}>
+
+            <div className="col px-5 d-grid">
+              <div className="tawassamBlueBG text-center mx-auto d-flex justify-content-around mb-2" style={{borderRadius:"100%", height: "4.5rem", width: "4.5rem"}}>
+            <i class="fas fa-layer-group text-center text-white my-auto" style={{fontSize: "1.75rem"}}></i>
+            </div>
+            <h3 className="tawassamYellow text-center">Sets</h3>
+            <p className="text-center text-secondary mb-0">A platform that aims to facilitate learning visual materials for healthcare specialists.</p>
+            </div>
+
+            <div className="col px-5 d-grid">
+            <div className="tawassamBlueBG text-center mx-auto d-flex justify-content-around mb-2" style={{borderRadius:"100%", height: "4.5rem", width: "4.5rem"}}>
+            <i class="fas fa-sitemap text-center text-white my-auto" style={{fontSize: "1.75rem"}}></i>
+            </div>
+            <h3 className="tawassamYellow text-center ">Clusters</h3>
+            <p className="text-center text-secondary mb-0">A platform that aims to facilitate learning visual materials for healthcare specialists.</p>
+            </div>
+
+            <div className="col px-5 d-grid">
+            <div className="tawassamBlueBG text-center mx-auto d-flex justify-content-around mb-2" style={{borderRadius:"100%", height: "4.5rem", width: "4.5rem"}}>
+            <i class="fas fa-chalkboard-teacher text-center text-white my-auto" style={{fontSize: "1.75rem"}}></i>
+            </div>
+            <h3 className="tawassamYellow text-center">Creators</h3>
+            <p className="text-center text-secondary mb-0"> Can create sets by adding images, explanations, notes with the ability to associate the sets with clusters.</p>
+            </div>
+
+            <div className="col px-5 d-grid">
+            <div className="tawassamBlueBG text-center mx-auto d-flex justify-content-around mb-2" style={{borderRadius:"100%", height: "4.5rem", width: "4.5rem"}}>
+            <i class="fas fa-users text-center text-white my-auto" style={{fontSize: "1.75rem"}}></i>
+            </div>
+            <h3 className="tawassamYellow text-center">Learners</h3>
+             <p className="text-center text-secondary mb-0">Can view all available visual material in the collborative library of sets and clusters which is structured accodring to top academic standards.</p>
+            </div>
+
           </div>
 
         {/* Blocks Row */}
-        <hr></hr>
-        {/* ml-5 mt-5 mr-5 */}
-        <div className="mx-auto" style={{maxWidth: "1500px"}}>
-        <div className="container-fluid mt-5" >
-          <div className="row align-items-start">
+        <div className="mx-auto bg-dark" id="cards_landscape_wrap-2">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 50 1440 150">
+  <path fill="#e9eef7" fill-opacity="1" d="M0,96L120,106.7C240,117,480,139,720,138.7C960,139,1200,117,1320,106.7L1440,96L1440,0L1320,0C1200,0,960,0,720,0C480,0,240,0,120,0L0,0Z"></path>
+</svg>
+        <div className="container-fluid mt-5 px-5" style={{paddingBottom: "9rem"}} >
+          <div className="row">
 
-            {/* Cardio */}
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3  text-center mb-5" >
-              {/* <div className="mx-auto" style={{width:"300px"}}> */}
-
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Cardio3.jpg"
-                }
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />{" "}
-              <a
-                className="btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto "
-                style={{  maxWidth: "300px" }}
-                href="/#/cardiovascular"
-              >
-                Cardiovascular
-              </a>
-            </div>
-             {/* </div> */}
+          <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/cardiovascular">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/CardioTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Cardiovascular</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5" >
-              <img
-                src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/MSK2.jpg"
-                }
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />{" "}
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto"
-                href="/#/musculoskeletal"
-              >
-                Musculoskeletal
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/musculoskeletal">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/MSKTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Musculoskeletal</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5" >
-              <img
-                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Resp.jpg"}
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />{" "}
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto"
-                href="/#/respiratory"
-              >
-                Respiratory
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/respiratory">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/RespTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Respiratory</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5" >
-              <img
-                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Hema.jpg"}
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto"
-                href="/#/hemOnc"
-              >
-                Hematology/Oncology
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/hemOnc">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/HemOncTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Hematology/Oncology</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+        
+        
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/neurology">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/NeuroTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Neurology</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5" >
-              <img
-                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Neuro.jpg"}
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto"
-                href="/#/neurology"
-              >
-                Neurology
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/endocrine">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/EndoTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Endocrine</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5">
-              <img
-                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Endo2.jpg"}
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto"
-                href="/#/endocrine"
-              >
-                Endocrine
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/gastrointestinal">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GastroTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Gastrointestinal</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5">
-              <img
-                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Gastro.jpg"}
-                className="img-fluid blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-              />
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto"
-                href="/#/gastrointestinal"
-              >
-                Gastrointestinal
-              </a>
-            </div>
+                <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+                    <a href="/#/genitourinary">
+                        <div class="card-flyer">
+                            <div class="text-box">
+                                <div class="image-box">
+                                    <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GenitoTawassam3.jpg" alt="" />
+                                </div>
+                                <div class="text-container">                                    
+                                    <h6>Genitourinary</h6> 
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
 
-            <div className="col-12 col-sm-6 col-md-6 col-lg-4 col-xl-3 text-center mb-5 ">
-              <img
-                src={"https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/Genito.jpg"}
-                className="img-fluid mr-4 ml-4 blocksBorder"
-                alt="Responsive image"
-                style={{ height: "390px", width: "300px" }}
-                
-              />
-              <a
-              style={{  maxWidth: "300px" }}
-                className=" btn btn-rounded1 mt-2 stretched-link text-center d-block mx-auto "
-                href="/#/genitourinary"
-              >
-                Genitourinary
-              </a>
-            </div>
+
+
           </div>
         </div>
         </div>

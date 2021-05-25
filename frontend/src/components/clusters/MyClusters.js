@@ -72,28 +72,28 @@ export class MyClusters extends Component {
     }
     return (
       <div className="container">
-        <h1 className="text-center py-2 text-info">
+        <h1 className="text-center py-2 tawassamBlue">
           {this.state.username +"'s"} Clusters
         </h1>
         <p></p>
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>ID</th>
-              <th>Title</th>
+            <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
               <th />
             </tr>
           </thead>
           <tbody>
             {this.props.clusters.map((cluster) => (
               <tr key={cluster.id}>
-                <td>{cluster.id}</td>
-                <td>{cluster.title}</td>
+                  <td className="tawassamBlue">{cluster.id}</td>
+                  <td className="tawassamBlue"> {cluster.title}</td>
 
                 <td>
                   <a
                     href= {`#/myclusters/${cluster.id}`}
-                    className="btn btn-warning"
+                    className="btn tawassamYellowBG"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={(e) => {
                       this.setState({

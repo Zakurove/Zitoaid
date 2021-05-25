@@ -11,6 +11,7 @@ import { Carousel } from "react-responsive-carousel";
 import { EditSet } from "./EditSet.js";
 import { DeleteSet } from "./DeleteSet.js";
 import * as setActions from "../../actions/sets.js";
+import Loader from "../layout/Loader.js";
 
 export class DetailsSet extends Component {
   constructor(props) {
@@ -329,6 +330,11 @@ export class DetailsSet extends Component {
         </Fragment>
       );
     }
+        // The loading handler
+        if (this.state.isReady == false) {
+      
+          setTimeout(() => this.setState({ isReady: true }), 1000);
+          }
     return (
       <Fragment>
         <Modal
@@ -339,7 +345,7 @@ export class DetailsSet extends Component {
           <Modal.Header closeButton onClick={(e) => this.modalClose(e)}>
             <Modal.Title
               id="contained-modal-title-vcenter"
-              className="text-info text-center"
+              className="tawassamBlue text-center mx-auto"
             >
               Add Note
             </Modal.Title>
@@ -362,14 +368,15 @@ export class DetailsSet extends Component {
             <Button
               type="submit"
               onClick={(e) => this.modalClose(e)}
-              className="btn btn-warning"
+              variant="warning"
+              className="btn tawassamYellowBG"
               form="noteForm"
             >
               Save
             </Button>
             <Button
               onClick={(e) => this.modalClose(e)}
-              className="btn btn-secondary ml-2"
+              className="btn btn-secondary ms-2"
             >
               Cancel
             </Button>
@@ -384,7 +391,7 @@ export class DetailsSet extends Component {
           <Modal.Header closeButton onClick={(e) => this.modalEditClose(e)}>
             <Modal.Title
               id="contained-modal-title-vcenter"
-              className="text-info text-center"
+              className="tawassamBlue text-center mx-auto"
             >
               Edit Note
             </Modal.Title>
@@ -407,14 +414,15 @@ export class DetailsSet extends Component {
             <Button
               type="submit"
               onClick={(e) => this.modalEditClose(e)}
-              className="btn btn-warning"
+              className="btn tawssamYellowBG"
               form="noteForm"
+              variant="warning"
             >
               Save
             </Button>
             <Button
               onClick={(e) => this.modalEditClose(e)}
-              className="btn btn-secondary ml-2"
+              className="btn btn-secondary ms-2"
             >
               Cancel
             </Button>
@@ -456,41 +464,59 @@ export class DetailsSet extends Component {
             </Button>
             <Button
               onClick={(e) => this.deleteModalClose(e)}
-              className="btn btn-secondary ml-2 "
+              className="btn btn-secondary ms-2 "
               style={{ justifyContent: "center" }}
             >
               Cancel
             </Button>
           </Modal.Footer>
         </Modal>
-        <div className="container" key={this.props.set.id}>
-          <div className="row">
-            <div className="col">
-              <h1 className="text-info text-center my-3">
+        <div className="container mt-5" key={this.props.set.id} style={{marginBottom: "20rem"}}>
+
+              <h1 className="tawassamBlue text-center mb-5 mt-3">
                 {this.props.set.title}
               </h1>
-            </div>
-          </div>
+
 
           {/* Row that contains both slider and explanation */}
-          <div className="row " style={{ height: "770px" }}>
+          <div className="row flex-sm-row-reverse" style={{ height: "770px" }}>
 
             {/* Slider and buttons above it */}
-            <div className="col-sm-8 order-sm-12 mb-4" style={{  padding: "0px" }} >
+            <div className="col-md-8  mb-4" style={{  padding: "0px" }} >
               {/* Buttons Row over the slider */}
               <div className="row">
               <div className="col-12 p-0">
                 {/* <div className="col-8" style={{ padding: "1px" }}> */}
                 <div className="col-sm-12 col-md-12 col-lg">
 
-
+                {user
+                  ? this.props.auth.user.username ==
+                      this.state.set.owner_username && (
+                      <Button
+                        onClick={(e) => {
+                          this.handleToggleNoteMode(e);
+                          this.changeNoteButtonText(e);
+                        }}
+                        variant='info'
+                        className="btn tawassamBlueBG float-end mb-1 me-2 mx-1"
+                        style={{
+                          marginLeft: "15px",
+                          paddingTop: "4px",
+                          paddingBottom: "4px",
+                        }}
+                      >
+                        {this.state.noteButtonText}
+                      </Button>
+                    )
+                  : ""}
                 <Button
                   onClick={(e) => {
                     this.handleShowNotesMode(e);
                     this.changeShowNotesButtonText(e);
                     this.changeNoteDisplay(e);
                   }}
-                  className="btn btn-info float-right mb-1 "
+                  variant='info'
+                  className="btn tawassamBlueBG float-end mb-1 mx-1"
                   style={{
                     
                     paddingTop: "4px",
@@ -506,12 +532,14 @@ export class DetailsSet extends Component {
                 <div className="col-sm-12 col-md-12 col-lg"> 
                 <Button
                   onClick={this.prev}
-                  className="btn btn-warning fa fa-chevron-circle-left float-left"
+                  variant='warning'
+                  className="btn tawassamYellowBG fa fa-chevron-circle-left float-start ms-2"
                   style={{ fontSize: "20px" }}
                 ></Button>
                 <Button
                   onClick={this.next}
-                  className="btn btn-warning fa fa-chevron-circle-right ml-1 float-left"
+                  variant='warning'
+                  className="btn tawassamYellowBG fa fa-chevron-circle-right ms-1 float-start"
                   style={{ fontSize: "20px" }}
                 ></Button>
               </div>
@@ -551,14 +579,14 @@ export class DetailsSet extends Component {
                               style={{
                                 zIndex: "3",
                                 fontSize: "20px",
-                                color: "white",
+                                
                                 pointerEvents: "all",
                                 position: "absolute",
                                 left: note.x + "px",
                                 top: note.y + "px",
                                 display: this.state.noteDisplay,
                               }}
-                              className="fas fa-info-circle"
+                              className="fas fa-info-circle tawassamBlue"
                               id={"note" + note.id}
                             >
                               <UncontrolledPopover
@@ -575,16 +603,16 @@ export class DetailsSet extends Component {
                                   }}
                                 >
                                   {" "}
-                                  {note.noteContent}{" "}
+                                  <span className="tawassamBlue m-2">{note.noteContent}</span>
                                 </PopoverHeader>
                                 <PopoverBody>
                                   {user
                                     ? this.props.auth.user.username ==
                                         this.props.set.owner_username && (
                                         <Button
-                                        className="mr-2"
+                                        className="me-2 tawassamBlueBG"
                                           size="sm"
-                                          variant="outline-info"
+                                          variant="info"
                                           onClick={(e) => {
                                             this.setState({
                                               noteContent: note.noteContent,
@@ -610,7 +638,7 @@ export class DetailsSet extends Component {
                                             this.onDeleteSubmit(e);
                                           }}
                                         >
-                                          Delete
+                                          Remove
                                         </Button>
                                       )
                                     : ""}
@@ -637,13 +665,14 @@ export class DetailsSet extends Component {
             </div>
             
             {/* Explanation and buttons above it */}
-            <div className="col-sm-4 order-sm-1" style={{  padding: "0px" }}>
+            <div className="col-md-4 " style={{  padding: "0px" }}>
             
             <div className="col-12">
               {this.state.optionsState && (
                 <Button
-                  variant="danger"
+                  className="btn btn-outline-danger"
                   size="sm"
+                  variant="outline-danger"
                   style={{
                     marginBottom: "5px",
                     marginRight: "2px",
@@ -660,8 +689,9 @@ export class DetailsSet extends Component {
               )}
               {this.state.optionsState && (
                 <Button
-                  variant="warning"
+                  className="tawassamBlueBG"
                   size="sm"
+                  variant='info'
                   style={{
                     marginBottom: "5px",
                     marginRight: "2px",
@@ -676,8 +706,9 @@ export class DetailsSet extends Component {
               )}
               {this.state.optionsState && (
                 <Button
-                  variant="info"
+                 className="tawassamBlueBG"
                   size="sm"
+                  variant='info'
                   style={{
                     marginBottom: "5px",
                     marginRight: "2px",
@@ -694,19 +725,19 @@ export class DetailsSet extends Component {
           
               <div className="col-12">
                 <Button
-                  className="btn btn-secondary "
+                  className="btn ms-2 btn-secondary "
                   style={{ marginBottom: "3px", marginRight: "3px" }}
                   href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
                 >
-                  Back to sets list
+                  <i class="fas fa-arrow-left"></i> Back to sets list
                 </Button>
                 {user
                   ? this.props.auth.user.username ==
                       this.props.set.owner_username && (
                       <Button
-                        className=" float-right"
+                        className=" float-end tawassamYellowBG me-3"
                         style={{ marginBottom: "3px", marginRight: "3px" }}
-                        variant="warning"
+                        variant='warning'
                         onClick={this.toggleOptions}
                       >
                         <i class="fas fa-cog"></i>
@@ -719,32 +750,23 @@ export class DetailsSet extends Component {
                   className="collapsible form-group"
                   style={{ display: "none" }}
                 >
-                  <a href="#" className="btn btn-info my-2">
+                  <a href="#" className="btn tawassamBlueBG my-2">
                     Update Current Image
                   </a>
-                  <a href="#" className="btn btn-info my-2">
+                  <a href="#" className="btn tawassamBlueBG my-2">
                     Update Title/Description
                   </a>
-                  <a href="#" className="btn btn-info">
+                  <a href="#" className="btn tawassamBlueBG">
                     Add new image
                   </a>
                 </div>
               </div>
 
-              <div className="col-12">
-                {/* <div
-                  className=" p-3 pt-4 bg-dark border border-info border-4 rounded" id="style-1"
-                  style={{ height: "400px", overflow: "auto" }}
-                >
-                  <p
-                    className="font-weight-bolder text-info text-justify "
-                    style={{ fontSize: "20px" }}
-                  >
-                    {this.props.set.description}
-                  </p>
-                </div> */}
-                <div className=" mb-3 mt-2 text-left py-3 px-3 style-1"  style={{ border: "2px solid #17a2b8", borderRadius: "13px", background: "rgb(235, 236, 237)", minHeight: "130px", maxHeight: "200px", overflow: "auto"}}>
-              <p className="mx-auto  text-center" style={{ fontSize: "1.2rem"}}><span className="text-info" >Set Description: </span>{this.props.set.description}</p>
+              <div className="col-12 p-2">
+
+                <div className=" mb-3 py-1 px-3 card"  style={{  minHeight: "150", maxHeight: "300px", overflow: "auto"}}>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Set's Description</h5>
+              <p className="  text-start card-text tawassamBlue" >{this.props.set.description}</p>
               </div>
               </div>
             </div>
@@ -754,6 +776,14 @@ export class DetailsSet extends Component {
         <div></div>
       </Fragment>
     );
+    if (this.state.isReady == false) {
+      return (
+  
+      <Loader/>
+  
+  
+      );
+      }
   }
 }
 
