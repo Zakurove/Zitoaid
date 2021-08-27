@@ -1,9 +1,97 @@
 from rest_framework import serializers
-from .models import Set, SetImage, SetNotes, Cluster
+from .models import Set, SetImage, SetNotes, Cluster, PracticeDescInput, PracticeDescSession
 import logging
 import json
 import sys
 import re
+
+
+
+#PracticeDescSession
+class PracticeDescSessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        ordering = ['-id']
+        model = PracticeDescSession
+        fields = ('id', 'date','block', 'owner_username', 'owner', 'sets', 'practiceDescInputs' )
+        extra_kwargs = {'sets': {'required': False}}
+        extra_kwargs = {'practiceDescInputs': {'required': False}}
+  
+    def create(self, validated_data):
+        #PracticeDescInput
+        creator = self.context['request'].user
+        practiceDescSession = PracticeDescSession.objects.create(block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+        #Get the sets array from frotnend
+        setsArray =self.context.get('view').request.data.get('setsArray')
+        #To split set ids
+        setsArray = setsArray.split(',')
+        practiceDescSession.sets.set(setsArray)
+        # #Get the inputs array from frotnend
+        # inputsArray =self.context.get('view').request.data.get('inputsArray')
+        # #To split input ids
+        # inputsArray = inputsArray.split(',')
+        # practiceDescSession.practiceDescInputs.set(inputsArray)
+        #RETURN
+        return practiceDescSession
+
+    # def update(self, instance, validated_data):
+    #     #CLUSTER
+    #     cluster = instance
+    #     instance.title = validated_data['title']
+    #     instance.description = validated_data['description']
+    #     setsArray =self.context.get('view').request.data.get('setsArray')
+    #     setsArray = setsArray.split(',')
+    #     print(setsArray)
+
+    #     instance.sets.set(setsArray)
+
+    #     #Saving and returning
+
+    #     instance.save()
+    #     return instance
+
+
+#PracticeDescInput
+class PracticeDescInputSerializer(serializers.ModelSerializer):
+    practiceDescSessions = PracticeDescSessionSerializer ( read_only=True, many=True)
+    class Meta:
+        ordering = ['-id']
+        model = PracticeDescInput
+        fields = ('id', 'description','block', 'owner_username', 'owner', 'sets', 'practiceDescSessions' )
+        extra_kwargs = {'sets': {'required': False}}
+        extra_kwargs = {'practiceDescSessions': {'required': False}}
+  
+    def create(self, validated_data):
+        #PracticeDescInput
+        creator = self.context['request'].user
+        practiceDescInput = PracticeDescInput.objects.create(description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+
+        setID =self.context.get('view').request.data.get('setId')
+        setID = setID.split(',')
+
+        practiceDescInput.sets.set(setID)
+
+        sessionID =self.context.get('view').request.data.get('sessionId')
+        sessionID = sessionID.split(',')
+        practiceDescInput.practiceDescSessions.set(sessionID)
+        #RETURN
+        return practiceDescInput
+
+    # def update(self, instance, validated_data):
+    #     #CLUSTER
+    #     cluster = instance
+    #     instance.title = validated_data['title']
+    #     instance.description = validated_data['description']
+    #     setsArray =self.context.get('view').request.data.get('setsArray')
+    #     setsArray = setsArray.split(',')
+    #     print(setsArray)
+
+    #     instance.sets.set(setsArray)
+
+    #     #Saving and returning
+
+    #     instance.save()
+    #     return instance
+
 
 
 #Cluster

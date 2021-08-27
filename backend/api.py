@@ -1,8 +1,8 @@
-from .models import Set, Cluster
+from .models import Set, Cluster, PracticeDescSession, PracticeDescInput
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, renderers
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import SetSerializer, ClusterSerializer
+from .serializers import SetSerializer, ClusterSerializer, PracticeDescSessionSerializer, PracticeDescInputSerializer
 from rest_framework.permissions import IsAdminUser, SAFE_METHODS
 
 
@@ -47,14 +47,31 @@ class ClusterViewSet(viewsets.ModelViewSet):
 # Set
 class SetViewSet(viewsets.ModelViewSet):
     queryset = Set.objects.all()
-    # permission_classes = [
-    #     # permissions.IsAuthenticated,
-    #     # IsAdminUserOrReadOnly
-    #     IsInstructor,
-    #     IsOwnerOrReadOnly
-    # ]
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        # IsAdminUserOrReadOnly
+        IsInstructor,
+        IsOwnerOrReadOnly
+    ]
     parser_classes = (MultiPartParser, )
     serializer_class = SetSerializer
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
+# PracticeDescSession
+class PracticeDescSessionViewSet(viewsets.ModelViewSet):
+    queryset = PracticeDescSession.objects.all()
+    parser_classes = (MultiPartParser, )
+    serializer_class = PracticeDescSessionSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+# PracticeDescInput
+class PracticeDescInputViewSet(viewsets.ModelViewSet):
+    queryset = PracticeDescInput.objects.all()
+    parser_classes = (MultiPartParser, )
+    serializer_class = PracticeDescInputSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)

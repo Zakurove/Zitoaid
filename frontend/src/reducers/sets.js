@@ -1,4 +1,4 @@
-import { GET_SETS, DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET, GET_MYSETS, GET_ALLSETS, GET_SETS_BY_ID } from '../actions/types.js'
+import { GET_SETS, GETBLOCK_SETS,DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET, GET_MYSETS, GET_ALLSETS, GET_SETS_BY_ID } from '../actions/types.js'
 
 const initialState = {
   sets: []
@@ -12,6 +12,12 @@ export default function(state = initialState, action) {
         sets: action.payload.filter((set) =>  set.subject == action.subject && set.block == action.block),
         //  &&
       }
+      case GETBLOCK_SETS:
+        return {
+          ...state,
+          sets: action.payload.filter((set) =>  set.block == action.block),
+          //  &&
+        }
       case GET_SETS_BY_ID:
         return {
           ...state,

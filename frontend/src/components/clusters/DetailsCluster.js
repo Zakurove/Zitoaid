@@ -89,10 +89,8 @@ export class DetailsCluster extends Component {
   //------------------------------------------------------------------------------
   //                                     EDIT & DELETE
   saveCluster(event) {
-    this.forceUpdate();
-        
-    setTimeout(() => this.setState({ isEditing: false, clusterSets: this.props.sets.filter((set) =>  this.props.cluster.sets.includes(set.id)) }), 500);
-    setTimeout(() =>  window.location.reload(), 300);
+    setTimeout(() => this.setState({  clusterSets: this.props.sets.filter((set) =>  this.props.cluster.sets.includes(set.id)) }), 300);
+    setTimeout(() => this.setState({ isEditing: false }), 500);
     this.setState({ optionsState: false });
 
 
@@ -471,7 +469,7 @@ export class DetailsCluster extends Component {
               }}
 
               // To go back to previous page after deleteing the cluster
-              href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}`}
+              href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}/clusters`}
 
               style={{ justifyContent: "center" }}
               form="noteForm"
@@ -497,13 +495,13 @@ export class DetailsCluster extends Component {
               </h1>
               <div className=" mb-3 mt-4 px-3 card"  style={{   maxHeight: "300px", overflow: "auto"}}>
                   <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Cluster's Description</h5>
-              <p className="  text-center card-text tawassamBlue " >{this.props.cluster.description}</p>
+              <p className="  text-center card-text  " style={{color: "#10a1b6", fontSize: "1.5rem"}} >{this.props.cluster.description}</p>
               </div>
             </div>
           </div>
               <hr className="mb-4 mt-2" />
              {/* Current set title */}
-              <div className="row mt-2 mb-2"><div className="col"><h3 className=" text-center tawassamBlue">Current Set: {this.state.chosenSet.title}</h3></div></div>
+              <div className="row mt-2 mb-2"><div className="col"><h4 className=" text-center tawassamDarkBlue">Current Set: {this.state.chosenSet.title}</h4></div></div>
           {/* Row that contains both slider and explanation */}
           <div className="row flex-sm-row-reverse" style={{ height: "770px" }}>
 
@@ -611,11 +609,11 @@ export class DetailsCluster extends Component {
                                 top: note.y + "px",
                                 display: this.state.noteDisplay,
                               }}
-                              className=" tawassamBlue fas fa-info-circle"
+                              className="fas fa-info-circle note-logo"
                               id={"note" + note.id}
                             >
                               <UncontrolledPopover
-                                trigger="legacy"
+                                trigger="hover"
                                 placement="bottom"
                                 target={"note" + note.id}
                               >
@@ -630,10 +628,11 @@ export class DetailsCluster extends Component {
                                   {" "}
                                   <span className="tawassamBlue m-2">{note.noteContent}</span>
                                 </PopoverHeader>
-                                <PopoverBody>
+                                
                                   {user
                                     ? this.props.auth.user.username ==
                                         this.state.chosenSet.owner_username && (
+                                          <PopoverBody>
                                         <Button
                                         className="me-2 tawassamBlueBG"
                                           size="sm"
@@ -652,11 +651,6 @@ export class DetailsCluster extends Component {
                                         >
                                           Edit
                                         </Button>
-                                      )
-                                    : ""}
-                                  {user
-                                    ? this.props.auth.user.username ==
-                                        this.state.chosenSet.owner_username && (
                                         <Button
                                           size="sm"
                                           variant="outline-danger"
@@ -669,9 +663,10 @@ export class DetailsCluster extends Component {
                                         >
                                           Delete
                                         </Button>
+                                        </PopoverBody>
                                       )
                                     : ""}
-                                </PopoverBody>
+                                
                               </UncontrolledPopover>
                             </div>
                           </Fragment>
@@ -738,7 +733,7 @@ export class DetailsCluster extends Component {
                 <Button
                   className="btn btn-secondary "
                   style={{ marginBottom: "3px", marginRight: "3px" }}
-                  href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}`}
+                  href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}/clusters`}
                 >
                    <i class="fas fa-arrow-left"></i> Back to List
                 </Button>
@@ -774,11 +769,7 @@ export class DetailsCluster extends Component {
               </div>
 
               <div className="col-12 p-2 px-3" >
-                              {/* Set Description */}
-              <div className=" mb-3 py-1 px-3 card mt-3"  style={{  minHeight: "150", maxHeight: "300px", overflow: "auto"}}>
-                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Current Set Description</h5>
-              <p className="  text-start card-text tawassamBlue" >{this.state.chosenSet.description}</p>
-                        </div>
+
             <h5 className="text-secondary text-center mt-2">Associated Sets:</h5>
             {/* Sets List */}
             <div style={{ maxHeight: "300px", overflow: "auto"}} className="style-1 mb-2">
@@ -796,8 +787,8 @@ export class DetailsCluster extends Component {
                             href="#"
               >
                 {/* <th></th> */}
-                <th><span className="tawassamYellow" style={{fontWeight: "weight"}}>ID</span></th>
-                <th><span className="tawassamYellow" style={{fontWeight: "weight"}}>Title</span></th>
+                <th><span className="tawassamYellow">ID</span></th>
+                <th><span className="tawassamYellow">Title</span></th>
                 {/* <th>Owner</th> */}
                  </tr>
             </thead>
@@ -813,8 +804,8 @@ export class DetailsCluster extends Component {
                   
                 }}
                 >
-                  <td >{set.id}</td>
-                  <td >{set.title}</td>
+                  <td style={{color: "#10a1b6"}}>{set.id}</td>
+                  <td style={{color: "#10a1b6"}}>{set.title}</td>
 
                 </tr>
               ))}
@@ -822,7 +813,11 @@ export class DetailsCluster extends Component {
           </table>
              </div>
 
-
+                              {/* Set Description */}
+                              <div className=" mb-3 py-1 px-3 card mt-3"  style={{  minHeight: "250", maxHeight: "500px", overflow: "auto"}}>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Current Set Description</h5>
+              <p className="  text-start card-text " style={{color: "#10a1b6", fontSize: "1.5rem"}}>{this.state.chosenSet.description}</p>
+                        </div>
             </div>
 
             
@@ -875,7 +870,8 @@ function mapStateToProps(state, ownProps) {
     id: "",
     sets: [],
   };
-
+  let clusterSets = 
+    [{id: "", title: "This Cluster Has No Sets", description: "This Cluster Has No Sets", images: [], owner_username: "three"},];
 
   //Filtering through all clusters to get this one
   let selectedClusterId = ownProps.match.params.id;
@@ -883,9 +879,10 @@ function mapStateToProps(state, ownProps) {
     cluster = getClusterById(clusters, selectedClusterId);
   }
   
-
+  if (cluster.sets.length > 0) {
   //Filtering through all sets to get the ones that are associated with this cluster
-  let clusterSets = sets.filter((set) =>  cluster.sets.includes(set.id))
+   clusterSets = sets.filter((set) =>  cluster.sets.includes(set.id))
+  }
 
 //returning
   return { cluster: cluster, auth: auth, clusterSets: clusterSets, sets: sets, notedSets: notedSets };

@@ -35,7 +35,7 @@ export default function(state = initialState, action) {
             if (cluster.id !== action.payload.id) {
               return cluster;
             } else {
-              return { ...cluster, title: action.payload.title, description: action.payload.description, setsArray: action.payload.setsArray };
+              return { ...cluster, title: action.payload.title, description: action.payload.description, sets: action.setsArray };
 
             }
           })

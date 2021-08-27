@@ -453,7 +453,7 @@ export class DetailsSet extends Component {
               }}
 
               // To go back to previous page after deleteing the set
-              href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
+              href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}/sets`}
 
               style={{ justifyContent: "center" }}
               form="noteForm"
@@ -586,11 +586,11 @@ export class DetailsSet extends Component {
                                 top: note.y + "px",
                                 display: this.state.noteDisplay,
                               }}
-                              className="fas fa-info-circle tawassamBlue"
+                              className="fas fa-info-circle note-logo" 
                               id={"note" + note.id}
                             >
                               <UncontrolledPopover
-                                trigger="legacy"
+                                trigger="hover"
                                 placement="bottom"
                                 target={"note" + note.id}
                               >
@@ -605,11 +605,12 @@ export class DetailsSet extends Component {
                                   {" "}
                                   <span className="tawassamBlue m-2">{note.noteContent}</span>
                                 </PopoverHeader>
-                                <PopoverBody>
+                                
                                   {user
                                     ? this.props.auth.user.username ==
                                         this.props.set.owner_username && (
-                                        <Button
+                                          <PopoverBody>
+                                          <Button
                                         className="me-2 tawassamBlueBG"
                                           size="sm"
                                           variant="info"
@@ -623,11 +624,6 @@ export class DetailsSet extends Component {
                                         >
                                           Edit
                                         </Button>
-                                      )
-                                    : ""}
-                                  {user
-                                    ? this.props.auth.user.username ==
-                                        this.props.set.owner_username && (
                                         <Button
                                           size="sm"
                                           variant="outline-danger"
@@ -640,9 +636,10 @@ export class DetailsSet extends Component {
                                         >
                                           Remove
                                         </Button>
+                                         </PopoverBody>
                                       )
                                     : ""}
-                                </PopoverBody>
+                               
                               </UncontrolledPopover>
                             </div>
                           </Fragment>
@@ -689,9 +686,9 @@ export class DetailsSet extends Component {
               )}
               {this.state.optionsState && (
                 <Button
-                  className="tawassamBlueBG"
+                  className=""
                   size="sm"
-                  variant='info'
+                  variant='outline-danger'
                   style={{
                     marginBottom: "5px",
                     marginRight: "2px",
@@ -727,7 +724,7 @@ export class DetailsSet extends Component {
                 <Button
                   className="btn ms-2 btn-secondary "
                   style={{ marginBottom: "3px", marginRight: "3px" }}
-                  href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}`}
+                  href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}/sets`}
                 >
                   <i class="fas fa-arrow-left"></i> Back to sets list
                 </Button>
@@ -764,9 +761,9 @@ export class DetailsSet extends Component {
 
               <div className="col-12 p-2">
 
-                <div className=" mb-3 py-1 px-3 card"  style={{  minHeight: "150", maxHeight: "300px", overflow: "auto"}}>
-                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Set's Description</h5>
-              <p className="  text-start card-text tawassamBlue" >{this.props.set.description}</p>
+                <div className=" mb-3 py-1 px-3 card"  style={{  minHeight: "150", maxHeight: "500px", overflow: "auto"}}>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Set Description</h5>
+              <p className="  text-start card-text" style={{color: "#10a1b6", fontSize: "1.5rem"}} >{this.props.set.description}</p>
               </div>
               </div>
             </div>

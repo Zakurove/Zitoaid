@@ -72,7 +72,7 @@ export class ListClusters extends Component {
   }
   backToList(event) {
     this.setState({ isCreating: false, isViewing: false, isUpdating: true, isReady: false });
-    this.props.getClusters(this.props.block, this.props.subject);
+    
   }
   render() {
 
@@ -108,21 +108,28 @@ export class ListClusters extends Component {
 
     // The loading handler
     if (this.state.isReady == false) {
-    setTimeout(() => this.setState({ isReady: true }), 1000);
+      setTimeout(() => this.props.getClusters(this.props.block, this.props.subject), 1000);
+    setTimeout(() => this.setState({ isReady: true }), 1500);
     }
 
 
     //The List component
     if (this.state.isReady) {
       return (
-        <div className="container">
+        <div className="container my-5">
           <h1 className="text-center py-2 tawassamBlue">
             {this.state.block} {this.state.subject} Clusters
           </h1>
           {/* <hr /> */}
-          <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}`}>
+          {/* <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}/${this.state.subjectLink}`}>
           <i class="fas fa-arrow-left"></i> Previous Page
-          </a>
+          </a> */}
+          <Button
+            className="btn btn-secondary mb-1 "
+            href={`#/${this.state.blockLink}/${this.state.subjectLink}`}
+          >
+           <i class="fas fa-arrow-left"></i> Previous Page
+          </Button>
 
           {user
             ? this.props.auth.user.profile.role &&
@@ -139,16 +146,29 @@ export class ListClusters extends Component {
                 </Button>
               )
             : ""}
+          <Button
+            className="btn btn-warning ms-3 mb-1 "
+            href={`#/${this.state.blockLink}/practice`}
+            style={{fontSize: "1.2rem"}}
+          >
+           <i className="fas fa-keyboard" style={{fontSize: "1.3rem"}}></i> Practice Block
+          </Button>
 
-          <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
-             onClick={(e) => {
-            this.props.goSet();
-            event.preventDefault();
-          }}
+
+          <Button
+            className="btn btn-secondary tawassamBlueBG float-end mt-1 "
+            href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets`}
+            style={{fontSize: "1.2rem"}}
+            
+          >
+           <i className="fas fa-layer-group " style={{ fontSize: "1.3rem" }}></i> Sets
+          </Button>
+          {/* <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
+            href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets`}
           style={{ fontWeight: "bold" }}
           >
             <i className="fas fa-layer-group " style={{ fontSize: "1.3rem" }}></i> Sets
-          </a>
+          </a> */}
           <hr />
           <p></p>
           <table className="table table-striped mx-2">
@@ -163,9 +183,9 @@ export class ListClusters extends Component {
             <tbody>
               {this.props.clusters.map((cluster) => (
                 <tr key={cluster.id}>
-                  <td className="tawassamBlue">{cluster.id}</td>
-                  <td className="tawassamBlue"> {cluster.title}</td>
-                  <td className="tawassamBlue">{cluster.owner_username}</td>
+                  <td className="" style={{color: "#10a1b6"}}>{cluster.id}</td>
+                  <td className="" style={{color: "#10a1b6"}}> {cluster.title}</td>
+                  <td className="" style={{color: "#10a1b6"}}>{cluster.owner_username}</td>
                   <td>
                     <a
                       href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters/${cluster.id}`}

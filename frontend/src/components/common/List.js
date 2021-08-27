@@ -10,6 +10,8 @@ export class List extends Component {
     this.state = {
       isSet: false,
       isCluster: false,
+      blockLink: "",
+      isUpdating: true,
     };
     this.goSet = this.goSet.bind(this);
     this.goCluster = this.goCluster.bind(this);
@@ -22,29 +24,48 @@ export class List extends Component {
     this.setState({ isSet: false, isCluster: true });
   }
   render() {
-    if (this.state.isSet) {
-      return (
-        <Fragment>
-          <ListSets
-            block={this.props.block}
-            subject={this.props.subject}
-            goCluster={this.goCluster}
-          />
-        </Fragment>
-      );
+    if (this.state.isUpdating == true) {
+      if (this.props.block == "Hematology/Oncology") {
+        this.setState({
+          blockLink: "hemOnc",
+        });
+      }
+      if (this.props.block !== "Hematology/Oncology") {
+        const blockLink = this.props.block.toLowerCase();
+        this.setState({
+          blockLink: blockLink,
+        });
+      }
+      const subjectLink = this.props.subject.toLowerCase();
+      this.setState({
+        subjectLink: subjectLink,
+        isUpdating: false,
+      });
+
     }
-    if (this.state.isCluster) {
-      return (
-        <Fragment>
-          <ListClusters
-            block={this.props.block}
-            subject={this.props.subject}
-            goCluster={this.goCluster}
-            goSet={this.goSet}
-          />
-        </Fragment>
-      );
-    }
+    // if (this.state.isSet) {
+    //   return (
+    //     <Fragment>
+    //       <ListSets
+    //         block={this.props.block}
+    //         subject={this.props.subject}
+    //         goCluster={this.goCluster}
+    //       />
+    //     </Fragment>
+    //   );
+    // }
+    // if (this.state.isCluster) {
+    //   return (
+    //     <Fragment>
+    //       <ListClusters
+    //         block={this.props.block}
+    //         subject={this.props.subject}
+    //         goCluster={this.goCluster}
+    //         goSet={this.goSet}
+    //       />
+    //     </Fragment>
+    //   );
+    // }
 
     return (
       <div id="cards_landscape_wrap-2">
@@ -66,11 +87,7 @@ export class List extends Component {
                 </Button>
               </div>
               <a
-                href={`#/${this.state.block}/imaging`}
-                onClick={(e) => {
-                  this.goSet();
-                  event.preventDefault();
-                }}
+                href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets`}
               >
                 <div class="card-flyer mt-1 mb-5">
                   <div class="text-box">
@@ -79,6 +96,7 @@ export class List extends Component {
                     </div>
                     <div class="text-container">
                       <h6>Sets</h6>
+                      <p className=" mt-2 mb-2" style={{fontSize: "1.3rem",color: "#10a1b6"}}>Specialized collection of materials that focus on one specific feature.</p>
                     </div>
                   </div>
                 </div>
@@ -86,11 +104,8 @@ export class List extends Component {
             </div>
             <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
               <a
-                href={`#/${this.state.block}/imaging`}
-                onClick={(e) => {
-                  this.goCluster();
-                  event.preventDefault();
-                }}
+                href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters`}
+                
               >
                 <div class="card-flyer mt-1 mb-5" id="cluster-list">
                   <div class="text-box">
@@ -99,6 +114,7 @@ export class List extends Component {
                     </div>
                     <div class="text-container">
                       <h6>Clusters</h6>
+                      <p className="mt-2 mb-2" style={{fontSize: "1.3rem", color: "#10a1b6"}}>Group of related sets joining under one general umbrella.</p>
                     </div>
                   </div>
                 </div>

@@ -54,3 +54,31 @@ class Cluster(models.Model):
 
     def save(self, *args, **kwargs):
         super(Cluster, self).save(*args, **kwargs)
+
+#PracticeDescInput
+class PracticeDescInput(models.Model):
+    date = models.DateField(auto_now_add=True, null=True)
+    description = models.TextField(blank=True, null=True)
+    block = models.CharField(blank=True, null=True, max_length=20)
+    owner_username = models.CharField(max_length=30, null=True)
+    owner = models.ForeignKey(
+        User, related_name="practiceDescInput", on_delete=models.CASCADE, null=True)
+    #Many to many relationship between sets and PracticeDescInput
+    sets = models.ManyToManyField(Set, related_name='practiceDescInput', blank=True)
+
+    def save(self, *args, **kwargs):
+        super(PracticeDescInput, self).save(*args, **kwargs)
+
+#PracticeDescSession
+class PracticeDescSession(models.Model):
+    date = models.DateField(auto_now_add=True, null=True)
+    block = models.CharField(blank=True, null=True, max_length=20)
+    owner_username = models.CharField(max_length=30, null=True)
+    owner = models.ForeignKey(
+        User, related_name="practiceDescSession", on_delete=models.CASCADE, null=True)
+    #Many to many relationship between sets and Practice session
+    sets = models.ManyToManyField(Set, related_name='practiceDescSession', blank=True)
+    practiceDescInputs = models.ManyToManyField(PracticeDescInput, related_name='practiceDescSessions', blank=True)
+
+    def save(self, *args, **kwargs):
+        super(PracticeDescSession, self).save(*args, **kwargs)

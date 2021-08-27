@@ -54,7 +54,16 @@ export class Subjects extends Component {
           >
            <i class="fas fa-arrow-left"></i> Previous Page
           </Button>
+          <Button
+            className="btn btn-warning ms-3 mb-1 "
+            href={`#/${this.state.block}/practice`}
+            style={{fontSize: "1.2rem"}}
+          >
+           <i className="fas fa-keyboard" style={{fontSize: "1.3rem"}}></i> Practice Block
+          </Button>
+
           </div>
+
 
           <div className="row pt-2" >
 

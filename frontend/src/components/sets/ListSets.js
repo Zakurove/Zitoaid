@@ -50,23 +50,6 @@ export class ListSets extends Component {
         isUpdating: false,
       });
 
-      // setTimeout(
-      //   () => this.setState({ isUpdating: false }),
-      //   3000
-      // );
-
-      //   setTimeout(
-      //     function() {
-      //         this.setState({ isUpdating: false });
-
-      //     }
-      //     .bind(this),
-      //     3000
-      // );
-
-      // setTimeout(() => {
-
-      // })
       this.props.getSets(this.state.block, this.state.subject);
     }
 
@@ -88,7 +71,7 @@ export class ListSets extends Component {
   }
   backToList(event) {
     this.setState({ isCreating: false, isViewing: false, isUpdating: true, isReady: false });
-    this.props.getSets(this.props.block, this.props.subject);
+    // this.props.getSets(this.props.block, this.props.subject);
   }
   render() {
         // // The loading handler
@@ -127,7 +110,8 @@ export class ListSets extends Component {
 
     // The loading handler
     if (this.state.isReady == false) {
-    setTimeout(() => this.setState({ isReady: true }), 1000);
+      setTimeout(() => this.props.getSets(this.props.block, this.props.subject), 1000);
+    setTimeout(() => this.setState({ isReady: true }), 1500);
     }
 
 
@@ -139,14 +123,20 @@ export class ListSets extends Component {
             {this.state.block} {this.state.subject} Sets
           </h1>
           {/* <hr /> */}
-          <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}`}>
+          {/* <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}/${this.state.subjectLink}`}>
           <i class="fas fa-arrow-left"></i> Previous Page
-          </a>
-
+          </a> */}
+          <Button
+            className="btn btn-secondary mb-1 "
+            href={`#/${this.state.blockLink}/${this.state.subjectLink}`}
+          >
+           <i class="fas fa-arrow-left"></i> Previous Page
+          </Button>
           {user
             ? this.props.auth.user.profile.role &&
               this.props.auth.user.profile.role == "Instructor" && (
                 <Button
+                variant="info"
                   className="btn btn-info tawassamBlueBG  ms-3 mt-1"
                   onClick={(e) => {
                     this.setState({
@@ -158,16 +148,29 @@ export class ListSets extends Component {
                 </Button>
               )
             : ""}
+          <Button
+            className="btn btn-warning ms-3 mb-1 "
+            href={`#/${this.state.blockLink}/practice`}
+            style={{fontSize: "1.2rem"}}
+          >
+           <i className="fas fa-keyboard" style={{fontSize: "1.3rem"}}></i> Practice Block
+          </Button>
 
-          <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
-             onClick={(e) => {
-            this.props.goCluster();
-            event.preventDefault();
-          }}
+          <Button
+            className="btn btn-secondary tawassamBlueBG float-end mt-1 "
+            href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters`}
+            style={{fontSize: "1.2rem"}}
+
+          >
+           <i className="fas fa-sitemap " style={{ fontSize: "1.3rem" }}></i> Clusters
+          </Button>
+
+          {/* <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
+          href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters`}
           style={{ fontWeight: "bold" }}
           >
             <i className="fas fa-sitemap " style={{ fontSize: "1.3rem" }}></i> Clusters
-          </a>
+          </a> */}
           <hr />
           <p></p>
           <table className="table table-striped mx-2">
@@ -182,9 +185,9 @@ export class ListSets extends Component {
             <tbody>
               {this.props.sets.map((set) => (
                 <tr key={set.id}>
-                  <td className="tawassamBlue">{set.id}</td>
-                  <td className="tawassamBlue">{set.title}</td>
-                  <td className="tawassamBlue">{set.owner_username}</td>
+                  <td className="" style={{color: "#10a1b6"}}>{set.id}</td>
+                  <td className="" style={{color: "#10a1b6"}}>{set.title}</td>
+                  <td className="" style={{color: "#10a1b6"}}>{set.owner_username}</td>
                   <td>
                     <a
                       href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets/${set.id}`}

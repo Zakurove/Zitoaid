@@ -93,7 +93,7 @@ export class EditCluster extends Component {
     cluster.append("title", this.state.title);
     cluster.append("description", this.state.description);
     cluster.append("setsArray", setsArray)
-    setTimeout(() =>  this.props.updateCluster(cluster, this.state.cluster.id), 300);
+    setTimeout(() =>  this.props.updateCluster(cluster, this.state.cluster.id, setsArray), 300);
     setTimeout(() =>  this.props.onSave(e), 400);
     
     this.setState({

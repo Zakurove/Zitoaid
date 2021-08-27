@@ -57,7 +57,7 @@ export const addCluster = cluster => (dispatch, getState) => {
 };
 
 //Update Clusters
-export const updateCluster = (cluster, id) => (dispatch, getState) => {
+export const updateCluster = (cluster, id, setsArray) => (dispatch, getState) => {
   axios
     .put(`/api/clusters/${id}/`, cluster, tokenConfig(getState), {
       headers: {
@@ -68,7 +68,8 @@ export const updateCluster = (cluster, id) => (dispatch, getState) => {
       dispatch(createMessage({info: "Cluster Edited"}))
       dispatch({
         type: UPDATE_CLUSTER,
-        payload: res.data
+        payload: res.data,
+        setsArray: setsArray
       });
     }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };

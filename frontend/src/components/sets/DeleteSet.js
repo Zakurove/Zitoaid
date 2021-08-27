@@ -114,7 +114,7 @@ export class DeleteSet extends Component {
         </div>
         <div className="row">
           <div className="col-2"></div>
-          <div className="slide-container col-8">
+          <div className="slide-container col-8 " style={{cursor: "pointer", }} >
             <Carousel
               selectedItem={this.state.currentSlide}
               onChange={this.updateCurrentSlide}

@@ -7,6 +7,7 @@ html,
 body {
   height: 100%;
   font-family: sans-serif;
+  
 }
 
 body {
@@ -15,9 +16,9 @@ body {
 }
 
 #app {
-  display: flex;
-  flex-direction: column;
-  height:100%;
+  display: flex !important;
+  flex-direction: column !important;
+  height:100% !important;
 }
 
 .content {
@@ -26,14 +27,24 @@ body {
 }
 
 .footer {
-  flex-shrink: 0;
-  text-align: center;
-  background-color: tomato;
+  flex-shrink: 0 !important;
+  text-align: center !important;
   color: white;
 }
 
   /* !!!!!FooterEnd!!!!!!!! */
-
+  td {
+	  font-size: 1.2rem;
+  }
+  .note-logo {
+	  color: #10a1b6 !important;
+	  font-size: 30px !important;
+	  opacity: 0.6 !important;
+  }
+  .tawassamDarkBlue {
+	color: #10a1b6 !important;
+	font-weight: bold;
+}
 .tawassamBlue {
 	color: #4ecdc4 !important;
 	font-weight: bold;
@@ -43,7 +54,15 @@ body {
 	color: #fff;
 	background-color: #4ecdc4 !important;
 }
-.tawassamBlueBG:hover {
+a.tawassamBlueBG:hover {
+	color: #fff;
+	background-color: #1daaa1 !important;
+}
+button.tawassamBlueBG:hover {
+	color: #fff;
+	background-color: #1daaa1 !important;
+}
+Button.tawassamBlueBG:hover {
 	color: #fff;
 	background-color: #1daaa1 !important;
 }
@@ -62,6 +81,35 @@ body {
 	background-color:  #f1c556 !important;
 	font-weight: bold;
 }
+
+
+/* Scroll down arrow anchor START */
+.arrow {
+	text-align: center;
+	margin: 8% 0;
+  }
+  .bounce {
+	-moz-animation: bounce 5s infinite;
+	-webkit-animation: bounce 5s infinite;
+	animation: bounce 5s infinite;
+  }
+  
+  @keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {
+	  transform: translateY(0);
+	}
+	40% {
+	  transform: translateY(-30px);
+	}
+	60% {
+	  transform: translateY(-15px);
+	}
+  }
+  
+/* Scroll down arrow anchor END */
+
+  
+
 .border-edgy {
 	border-bottom-left-radius: 100px;
 	border-bottom-right-radius: 100px;
