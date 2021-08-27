@@ -60,6 +60,11 @@ export class Header extends Component {
       <Nav className="me-auto ms-2" style={{fontSize: "1.8rem"}}>
       <Nav.Link href="/#" className="ms-2"><i className="fas fa-home tawassamYellow"></i> Home</Nav.Link>
       {user
+        ? this.props.auth.user && (
+          <Nav.Link href="#/mypractice" className="ms-4"><i className="fas fa-keyboard tawassamYellow"></i> Practice</Nav.Link>
+          )
+        : "" }
+      {user
         ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
           <Nav.Link href="#/mysets" className="ms-4"><i className="fas fa-layer-group tawassamYellow"></i> My Sets</Nav.Link>
           )

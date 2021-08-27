@@ -25,10 +25,12 @@ import PrivateRoute from "./common/PrivateRoute.js";
 import MainPage from "./common/MainPage.js";
 import Subjects from "./common/Subjects.js";
 import List from "./common/List.js";
+
 import PracticeList from "./practice/PracticeList.js";
 import  PracticeDescriptionForm  from "./practice/PracticeDescriptionForm";
 import DetailsPracticeDescription  from "./practice/DetailsPracticeDescription";
 import ResultsPracticeDescription  from "./practice/ResultsPracticeDescription";
+import MyPractice from "./practice/MyPractice.js";
 
 import MySets from "./sets/MySets.js";
 import DetailsSet from "./sets/DetailsSet.js";
@@ -349,6 +351,7 @@ class App extends Component {
                   <Route exact path="/genitourinary/clinical/clusters" render={(props) => <ListClusters {...props} block={`Genitourinary`} subject={`Clinical`}/>} />
                   <Route exact path="/genitourinary/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Genitourinary`} subject={`Clinical`}/>} />
 
+                  <Route exact path="/mypractice" component={MyPractice} />
 
                   <Route exact path="/sets/details/sets/:id" component={DetailsSet} />
                   <Route exact path="/mysets" component={MySets} />
