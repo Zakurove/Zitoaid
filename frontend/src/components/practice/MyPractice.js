@@ -251,6 +251,7 @@ export class MyPractice extends Component {
           {this.state.username +"'s"} Previous Sessions
         </h4>
         <p></p>
+        <div style={{ maxHeight: "600px", overflow: "auto"}} className="mb-5">
         <table className="table table-striped">
           <thead>
             <tr>
@@ -284,6 +285,7 @@ export class MyPractice extends Component {
             ))}
           </tbody>
         </table>
+       </div>
         </div>
       </div>
     );

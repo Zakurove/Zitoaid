@@ -135,7 +135,7 @@ export class ListClusters extends Component {
             ? this.props.auth.user.profile.role &&
               this.props.auth.user.profile.role == "Instructor" && (
                 <Button
-                  className="btn btn-info tawassamBlueBG  ms-3 mt-1"
+                  className="btn btn-info tawassamBlueBG  ms-3 mb-1"
                   onClick={(e) => {
                     this.setState({
                       isCreating: true,
@@ -171,6 +171,7 @@ export class ListClusters extends Component {
           </a> */}
           <hr />
           <p></p>
+          <div style={{ maxHeight: "600px", overflow: "auto"}} className="mb-5">
           <table className="table table-striped mx-2">
             <thead>
               <tr>
@@ -205,6 +206,7 @@ export class ListClusters extends Component {
               ))}
             </tbody>
           </table>
+          </div>
         </div>
       );
     }
