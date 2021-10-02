@@ -5,6 +5,8 @@ npm-debug.log
 .DS_Store
 media
 Tawassam/Tawassam/settings.py
+Tawassam/backend/migrations
+migrations
 Tawassam/settings.py
 settings.py
 settings
