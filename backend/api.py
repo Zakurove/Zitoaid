@@ -61,6 +61,9 @@ class SetViewSet(viewsets.ModelViewSet):
 # PracticeDescSession
 class PracticeDescSessionViewSet(viewsets.ModelViewSet):
     queryset = PracticeDescSession.objects.all()
+    permission_classes = [
+	IsOwnerOrReadOnly
+    ]
     parser_classes = (MultiPartParser, )
     serializer_class = PracticeDescSessionSerializer
 

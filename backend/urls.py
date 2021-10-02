@@ -9,8 +9,8 @@ router = DefaultRouter()
 #Set
 router.register('api/sets', SetViewSet, 'set')
 router.register('api/clusters', ClusterViewSet, 'cluster')
-router.register('api/practiceDescInputs', PracticeDescInputViewSet, 'practiceDescInput')
 router.register('api/practiceDescSessions', PracticeDescSessionViewSet, 'practiceDescSession')
+router.register('api/practiceDescInputs', PracticeDescInputViewSet, 'practiceDescInput')
 urlpatterns = [
     path('', include(router.urls)),
 ] 

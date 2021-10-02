@@ -59,7 +59,7 @@ class Cluster(models.Model):
 class PracticeDescInput(models.Model):
     date = models.DateField(auto_now_add=True, null=True)
     description = models.TextField(blank=True, null=True)
-    block = models.CharField(blank=True, null=True, max_length=20)
+    block = models.CharField(blank=True, null=True, max_length=21)
     owner_username = models.CharField(max_length=30, null=True)
     owner = models.ForeignKey(
         User, related_name="practiceDescInput", on_delete=models.CASCADE, null=True)
@@ -72,7 +72,7 @@ class PracticeDescInput(models.Model):
 #PracticeDescSession
 class PracticeDescSession(models.Model):
     date = models.DateField(auto_now_add=True, null=True)
-    block = models.CharField(blank=True, null=True, max_length=20)
+    block = models.CharField(blank=True, null=True, max_length=22)
     owner_username = models.CharField(max_length=30, null=True)
     owner = models.ForeignKey(
         User, related_name="practiceDescSession", on_delete=models.CASCADE, null=True)
