@@ -10,4 +10,9 @@ migrations
 Tawassam/settings.py
 settings.py
 settings
-
+*.log
+*.pot
+*.pyc
+__pycache__
+db.sqlite3
+media

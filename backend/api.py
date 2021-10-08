@@ -35,7 +35,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class ClusterViewSet(viewsets.ModelViewSet):
     queryset = Cluster.objects.all()
     permission_classes = [
-        # IsInstructor,
+        IsInstructor,
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
@@ -50,7 +50,7 @@ class SetViewSet(viewsets.ModelViewSet):
     permission_classes = [
         # permissions.IsAuthenticated,
         # IsAdminUserOrReadOnly
-        # IsInstructor,
+        IsInstructor,
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
