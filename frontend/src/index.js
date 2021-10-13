@@ -1,7 +1,57 @@
-import React from "react";
-import { render } from "react-dom";
+import React, { Component, Fragment, useEffect } from "react";
+import ReactDOM from "react-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect, useLocation} from 'react-router-dom';
 import App from './components/App';
-// import App from './components/layout/Footer';
+import Footer from './components/layout/Footer';
+import AlertTemplate from 'react-alert-template-basic';
+import Alerts from "./components/layout/Alerts.js";
+//Redux Stuff
+import { Provider } from "react-redux";
+import store from "./store";
+import { loadUser } from './actions/auth.js';
+import { Provider as AlertProvider } from 'react-alert';
+//Analytics Stuff
+import Analytics from 'analytics'
+import googleAnalytics from '@analytics/google-analytics'
+import { AnalyticsProvider } from 'use-analytics'
+import usePageTracking from "./components/layout/usePageTracking";
 
+//Alert OPTIONS
+const alertOptions = {
+    timeout: 3000,
+    position: 'top center'
+  }
 
-// ReactDOM.render([<App key="1" className="" />, <Footer key="2" />], document.getElementById("app"));
+  const myPlugin =         {
+                    name: 'Testing analysis',
+                    page: ({payload}) => {
+                        console.log("page view fired", payload)
+                    }
+                }
+//Analytics OPTIONS
+  const analytics = Analytics({
+    app: 'tawassam',
+    plugins: [
+        myPlugin,
+      googleAnalytics({
+        trackingId: 'UA-187572377-1'
+      })
+    ]
+  })
+
+ReactDOM.render([
+    
+    <Provider store={store}>
+    <AlertProvider template={ AlertTemplate } {...alertOptions}>
+    <AnalyticsProvider instance={analytics}>
+    <Router>
+    <Fragment>
+    <Alerts />
+    <App key="1" className="" />
+    </Fragment>
+     </Router>
+     </AnalyticsProvider>
+    </AlertProvider>
+   </Provider>
+    
+    , <Footer key="2" />], document.getElementById("app"));

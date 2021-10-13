@@ -14,21 +14,21 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import include, path, re_path
 from django.conf.urls import url
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.conf import settings
 
-from django.urls import path
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('frontend.urls')),
-    path('', include('backend.urls')),
+    path('', include('backend.urls')), 
     path('', include('accounts.urls')),
     url(r'^fp/', include('django_drf_filepond.urls')),
+    path('', include('frontend.urls')),
+    
 
 ]
 # + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

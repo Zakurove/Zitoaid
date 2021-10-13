@@ -1,9 +1,12 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect, Routes, useLocation } from 'react-router-dom';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
-
+import { useAnalytics } from 'use-analytics'
+import { createBrowserHistory } from 'history';
+import ReactGA from 'react-ga';
+import usePageTracking from "./layout/usePageTracking";
 //Alert OPTIONS
 const alertOptions = {
   timeout: 3000,
@@ -41,27 +44,26 @@ import DetailsCluster from "./clusters/DetailsCluster.js";
 import ListClusters from "./clusters/ListClusters.js";
 
 
-class App extends Component {
-  componentDidMount() {
-    store.dispatch(loadUser());
-  }
-  render() {
+
+export default function App() {
+
+   let location = useLocation()
+   const analytics = useAnalytics()
+  useEffect(() => {
+    analytics.page()
+  }, [location])
+
     return (
-      <Provider store={store}>
-        <AlertProvider template={ AlertTemplate }
-        {...alertOptions}>
-          <Router>
-            <Fragment>
-            <Alerts />
+            <div>
+            {/* <Alerts /> */}
             <Route path="/" render={(props) => (props.location.pathname !=="/login" && props.location.pathname !=="/register" ) && 
               <Header />}> 
-              </Route>  
-              
+              </Route>   
               <div className="content bg-light p-0">
                 <Switch>
-                  <Route exact path="/register" component={Register} />
-                  <Route exact path="/login" component={Login} />
-                  <PrivateRoute exact path="/" component={MainPage} />
+                  <Route  path="/register" component={Register} />
+                  <Route  path="/login" component={Login} />
+                  <Route exact path="/" component={MainPage} />
 
                   <Route exact path="/cardiovascular" render={(props) => <Subjects {...props} block={`Cardiovascular`} />} />
                   <Route exact path="/cardiovascular/practice" render={(props) => <PracticeList {...props} block={`Cardiovascular`} />} />
@@ -362,15 +364,10 @@ class App extends Component {
                   <Route exact path="/myclusters/:id" render={(props) => <DetailsCluster {...props} block={`.`} subject={`.`}/>} />
 
                 </Switch>
-              </div>
-              
-            </Fragment>
-          </Router>
-        </AlertProvider>
-      </Provider>
+              </div> 
+            </div>
     );
   }
-}
 
-ReactDOM.render([<App key="1" />, <Footer key="2" />], document.getElementById("app"));
+// ReactDOM.render([<App key="1" />, <Footer key="2" />], document.getElementById("app"));
 

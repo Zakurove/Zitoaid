@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 import Subjects from "./Subjects.js";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import ReactGA from 'react-ga';
 
 export class MainPage extends Component {
   constructor(props) {
@@ -10,6 +11,9 @@ export class MainPage extends Component {
       block: null,
     };
   }
+  // componentDidMount() {
+  //   ReactGA.pageview(window.location.pathname);
+  // }
   render() {
     return (
       <div className="pt-5">
@@ -174,7 +178,7 @@ export class MainPage extends Component {
           >
             <div className="row">
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <a href="/#/cardiovascular">
+                <a href="/cardiovascular">
                   <div class="card-flyer">
                     <div class="text-box">
                       <div class="image-box">

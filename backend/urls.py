@@ -12,6 +12,6 @@ router.register('api/clusters', ClusterViewSet, 'cluster')
 router.register('api/practiceDescSessions', PracticeDescSessionViewSet, 'practiceDescSession')
 router.register('api/practiceDescInputs', PracticeDescInputViewSet, 'practiceDescInput')
 urlpatterns = [
-    path('', include(router.urls)),
+    path('/', include(router.urls)),
 ] 
 urlpatterns += static( settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
