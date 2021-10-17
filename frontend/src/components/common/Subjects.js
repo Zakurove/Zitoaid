@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
-import ReactGA from 'react-ga';
+
 
 export class Subjects extends Component {
   constructor(props) {
@@ -29,9 +29,6 @@ export class Subjects extends Component {
         this.setState({
           block: blockLink,
         });
-        ReactGA.initialize('UA-179977978-1')
-        ReactGA.pageview = (this.props.location.pathname)
-        console.log(window.location.pathname, "Hmmm",window.location.href, "nooo", this.props.location.pathname )
       }
       this.setState({
         isUpdating: false,
@@ -40,12 +37,7 @@ export class Subjects extends Component {
   }
 
   componentDidMount() {
-  // ReactGA.initialize('UA-179977978-1')
-  // ReactGA.pageview = (this.props.location.pathname)
-  // console.log(window.location.pathname, "Hmmm",window.location.href, "nooo", this.props.location.pathname )
-    // useEffect(() => {
 
-    // });
   }
   render() {
     {

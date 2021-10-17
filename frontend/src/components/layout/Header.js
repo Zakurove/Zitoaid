@@ -43,8 +43,8 @@ export class Header extends Component {
     const guestLinks = (
           <Navbar.Collapse className="justify-content-end">
             <Nav>  
-            <Nav.Link href="/login" style={{fontSize: "1.3rem"}} className=""><i className="fas fa-sign-in-alt tawassamYellow"></i> Login</Nav.Link>
-            <Nav.Link href="/register" className="ms-2" style={{fontSize: "1.3rem"}}><i className="fas fa-user-plus tawassamYellow" style={{fontSize: "1.2rem"}}></i> Sign Up</Nav.Link>
+            <Nav.Link href="#/login" style={{fontSize: "1.3rem"}} className=""><i className="fas fa-sign-in-alt tawassamYellow"></i> Login</Nav.Link>
+            <Nav.Link href="#/register" className="ms-2" style={{fontSize: "1.3rem"}}><i className="fas fa-user-plus tawassamYellow" style={{fontSize: "1.2rem"}}></i> Sign Up</Nav.Link>
             </Nav>
           </Navbar.Collapse>
     );
@@ -52,26 +52,26 @@ export class Header extends Component {
     return (
       <div className="">
       <Navbar  bg="light" expand="lg" className="">
-      <Navbar.Brand href="/" style={{fontSize: "2.5rem"}} className="d-inline-block align-top ms-3"><img src={
+      <Navbar.Brand href="/#" style={{fontSize: "2.5rem"}} className="d-inline-block align-top ms-3"><img src={
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
                 } style={{width: "130px"}} /></Navbar.Brand> 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
       <Nav className="me-auto ms-2" style={{fontSize: "1.8rem"}}>
-      <Nav.Link href="/" className="ms-2"><i className="fas fa-home tawassamYellow"></i> Home</Nav.Link>
+      <Nav.Link href="/#" className="ms-2"><i className="fas fa-home tawassamYellow"></i> Home</Nav.Link>
       {user
         ? this.props.auth.user && (
-          <Nav.Link href="/mypractice" className="ms-4"><i className="fas fa-keyboard tawassamYellow"></i> Practice</Nav.Link>
+          <Nav.Link href="#/mypractice" className="ms-4"><i className="fas fa-keyboard tawassamYellow"></i> Practice</Nav.Link>
           )
         : "" }
       {user
         ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-          <Nav.Link href="/mysets" className="ms-4"><i className="fas fa-layer-group tawassamYellow"></i> My Sets</Nav.Link>
+          <Nav.Link href="#/mysets" className="ms-4"><i className="fas fa-layer-group tawassamYellow"></i> My Sets</Nav.Link>
           )
         : "" }
               {user
         ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
-          <Nav.Link href="/myclusters" className="ms-4"><i className="fas fa-sitemap tawassamYellow"></i> My Clusters</Nav.Link>
+          <Nav.Link href="#/myclusters" className="ms-4"><i className="fas fa-sitemap tawassamYellow"></i> My Clusters</Nav.Link>
           )
         : "" }
   

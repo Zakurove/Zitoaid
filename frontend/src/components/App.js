@@ -1,12 +1,12 @@
 import React, { Component, Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch, Redirect, Routes, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect, Routes, useLocation } from 'react-router-dom';
 import { Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from 'react-alert-template-basic';
 import { useAnalytics } from 'use-analytics'
 import { createBrowserHistory } from 'history';
-import ReactGA from 'react-ga';
-import usePageTracking from "./layout/usePageTracking";
+import ReactGA from "react-ga";
+
 //Alert OPTIONS
 const alertOptions = {
   timeout: 3000,
@@ -46,16 +46,15 @@ import ListClusters from "./clusters/ListClusters.js";
 
 
 export default function App() {
-
    let location = useLocation()
+   store.dispatch(loadUser());
    const analytics = useAnalytics()
   useEffect(() => {
     analytics.page()
   }, [location])
 
     return (
-            <div>
-            {/* <Alerts /> */}
+      <Fragment>
             <Route path="/" render={(props) => (props.location.pathname !=="/login" && props.location.pathname !=="/register" ) && 
               <Header />}> 
               </Route>   
@@ -365,7 +364,9 @@ export default function App() {
 
                 </Switch>
               </div> 
-            </div>
+              </Fragment>
+
+            
     );
   }
 

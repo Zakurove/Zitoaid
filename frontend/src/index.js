@@ -1,6 +1,6 @@
 import React, { Component, Fragment, useEffect } from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router, Route, Switch, Redirect, useLocation} from 'react-router-dom';
+import { HashRouter as Router, Route, Switch, Redirect, useLocation} from 'react-router-dom';
 import App from './components/App';
 import Footer from './components/layout/Footer';
 import AlertTemplate from 'react-alert-template-basic';
@@ -22,19 +22,13 @@ const alertOptions = {
     position: 'top center'
   }
 
-  const myPlugin =         {
-                    name: 'Testing analysis',
-                    page: ({payload}) => {
-                        console.log("page view fired", payload)
-                    }
-                }
+
 //Analytics OPTIONS
   const analytics = Analytics({
     app: 'tawassam',
     plugins: [
-        myPlugin,
       googleAnalytics({
-        trackingId: 'UA-187572377-1'
+        trackingId: 'UA-187572377-1',
       })
     ]
   })

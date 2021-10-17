@@ -178,7 +178,7 @@ export class MainPage extends Component {
           >
             <div className="row">
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <a href="/cardiovascular">
+                <a href="/#/cardiovascular">
                   <div class="card-flyer">
                     <div class="text-box">
                       <div class="image-box">

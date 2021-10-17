@@ -24,10 +24,11 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('frontend.urls')),
     path('', include('backend.urls')), 
     path('', include('accounts.urls')),
     url(r'^fp/', include('django_drf_filepond.urls')),
-    path('', include('frontend.urls')),
+    
     
 
 ]
