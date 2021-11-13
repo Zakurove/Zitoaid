@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Set, SetImage, SetNotes, Cluster, PracticeDescInput, PracticeDescSession
+from .models import Set, SetImage, SetNotes, Cluster, PracticeDescInput, PracticeDescSession, EmailList
 import logging
 import json
 import sys
@@ -48,6 +48,21 @@ class PracticeDescSessionSerializer(serializers.ModelSerializer):
 
     #     instance.save()
     #     return instance
+
+
+#EmailList
+class EmailListSerializer(serializers.ModelSerializer):
+    class Meta:
+        ordering = ['-id']
+        model = EmailList
+        fields = ('id', 'email','currentBlock')
+
+    def create(self, validated_data):
+        #EmailList
+        emailList = EmailList.objects.create(email=validated_data.get('email', 'no-email'),currentBlock=validated_data.get('currentBlock', 'no-block'))
+        #RETURN
+        return emailList
+
 
 
 #PracticeDescInput

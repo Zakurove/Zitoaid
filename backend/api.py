@@ -1,8 +1,8 @@
-from .models import Set, Cluster, PracticeDescSession, PracticeDescInput
+from .models import Set, Cluster, PracticeDescSession, PracticeDescInput, EmailList
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, renderers
 from rest_framework.parsers import MultiPartParser, FormParser
-from .serializers import SetSerializer, ClusterSerializer, PracticeDescSessionSerializer, PracticeDescInputSerializer
+from .serializers import SetSerializer, ClusterSerializer, PracticeDescSessionSerializer, PracticeDescInputSerializer, EmailListSerializer
 from rest_framework.permissions import IsAdminUser, SAFE_METHODS
 
 
@@ -75,6 +75,15 @@ class PracticeDescInputViewSet(viewsets.ModelViewSet):
     queryset = PracticeDescInput.objects.all()
     parser_classes = (MultiPartParser, )
     serializer_class = PracticeDescInputSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+# EmailList
+class EmailListViewSet(viewsets.ModelViewSet):
+    queryset = EmailList.objects.all()
+    parser_classes = (MultiPartParser, )
+    serializer_class = EmailListSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

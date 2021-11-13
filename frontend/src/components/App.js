@@ -28,6 +28,7 @@ import PrivateRoute from "./common/PrivateRoute.js";
 import MainPage from "./common/MainPage.js";
 import Subjects from "./common/Subjects.js";
 import List from "./common/List.js";
+import WelcomePage from "./common/WelcomePage.js";
 
 import PracticeList from "./practice/PracticeList.js";
 import  PracticeDescriptionForm  from "./practice/PracticeDescriptionForm";
@@ -55,14 +56,15 @@ export default function App() {
 
     return (
       <Fragment>
-            <Route path="/" render={(props) => (props.location.pathname !=="/login" && props.location.pathname !=="/register" ) && 
+            <Route path="/" render={(props) => (props.location.pathname !=="/login" && props.location.pathname !=="/register" && props.location.pathname !=="/welcome" ) && 
               <Header />}> 
               </Route>   
               <div className="content bg-light p-0">
                 <Switch>
                   <Route  path="/register" component={Register} />
                   <Route  path="/login" component={Login} />
-                  <Route exact path="/" component={MainPage} />
+                  <Route  path="/welcome" component={WelcomePage} />
+                  <PrivateRoute exact path="/" component={MainPage} />
 
                   <Route exact path="/cardiovascular" render={(props) => <Subjects {...props} block={`Cardiovascular`} />} />
                   <Route exact path="/cardiovascular/practice" render={(props) => <PracticeList {...props} block={`Cardiovascular`} />} />

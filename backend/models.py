@@ -82,3 +82,11 @@ class PracticeDescSession(models.Model):
 
     def save(self, *args, **kwargs):
         super(PracticeDescSession, self).save(*args, **kwargs)
+
+#EmailList
+class EmailList(models.Model):
+    email = models.CharField(max_length=200)
+    currentBlock = models.CharField(blank=True, null=True, max_length=20)
+
+    def save(self, *args, **kwargs):
+        super(EmailList, self).save(*args, **kwargs)
