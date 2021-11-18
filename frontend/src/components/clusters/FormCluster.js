@@ -233,7 +233,7 @@ import Loader from "../layout/Loader.js";
           <div className="row pt-4">     
               {/* <div className="form-group"> */}
               <div className="d-grid">
-              <button type="submit" form="clusterForm" className="btn tawassamBlueBG">
+              <button type="submit" form="clusterForm" className="btn tawassamBlueBG mb-5">
                 Create This Cluster
               </button>
               </div>

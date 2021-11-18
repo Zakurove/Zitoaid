@@ -12,6 +12,7 @@ export const SHOW_SET = 'SHOW_SET';
 
 //Clusters
 export const GET_CLUSTERS = 'GET_CLUSTERS';
+export const GETBLOCK_CLUSTERS = 'GETBLOCK_CLUSTERS';
 export const GET_ALLCLUSTERS = 'GET_ALLCLUSTERS';
 export const GET_MYCLUSTERS = 'GET_MYCLUSTERS';
 export const DELETE_CLUSTER = 'DELETE_CLUSTER';

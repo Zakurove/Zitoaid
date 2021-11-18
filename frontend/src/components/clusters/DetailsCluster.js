@@ -469,7 +469,7 @@ export class DetailsCluster extends Component {
               }}
 
               // To go back to previous page after deleteing the cluster
-              href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}/clusters`}
+              href={`#/${this.props.cluster.block.toLowerCase()}/clusters`}
 
               style={{ justifyContent: "center" }}
               form="noteForm"
@@ -733,7 +733,7 @@ export class DetailsCluster extends Component {
                 <Button
                   className="btn btn-secondary "
                   style={{ marginBottom: "3px", marginRight: "3px" }}
-                  href={`#/${this.props.cluster.block.toLowerCase()}/${this.props.cluster.subject.toLowerCase()}/clusters`}
+                  href={`#/${this.props.cluster.block.toLowerCase()}/clusters`}
                 >
                    <i class="fas fa-arrow-left"></i> Back to List
                 </Button>

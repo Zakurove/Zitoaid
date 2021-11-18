@@ -1,4 +1,4 @@
-import { GET_CLUSTERS, DELETE_CLUSTER, ADD_CLUSTER, SHOW_CLUSTER, UPDATE_CLUSTER, REPLACE_CLUSTER, GET_MYCLUSTERS, GET_ALLCLUSTERS } from '../actions/types.js'
+import { GET_CLUSTERS, GETBLOCK_CLUSTERS, DELETE_CLUSTER, ADD_CLUSTER, SHOW_CLUSTER, UPDATE_CLUSTER, REPLACE_CLUSTER, GET_MYCLUSTERS, GET_ALLCLUSTERS } from '../actions/types.js'
 
 const initialState = {
   clusters: []
@@ -12,6 +12,12 @@ export default function(state = initialState, action) {
         clusters: action.payload.filter((cluster) =>  cluster.subject == action.subject && cluster.block == action.block),
         //  &&
       }
+      case GETBLOCK_CLUSTERS:
+        return {
+          ...state,
+          clusters: action.payload.filter((cluster) =>  cluster.block == action.block),
+          //  &&
+        }
       case GET_MYCLUSTERS:
         return {
           ...state,

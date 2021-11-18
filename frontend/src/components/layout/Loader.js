@@ -11,7 +11,7 @@ export class Loader extends Component {
               src=
                 "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
               
-              className="img-fluid mt-5"
+              className="img-fluid mt-5 mb-4"
               alt="Responsive image"
               style={{width: "150%"}}
             />

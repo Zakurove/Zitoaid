@@ -36,9 +36,9 @@ export class List extends Component {
           blockLink: blockLink,
         });
       }
-      const subjectLink = this.props.subject.toLowerCase();
+      // const subjectLink = this.props.subject.toLowerCase();
       this.setState({
-        subjectLink: subjectLink,
+        // subjectLink: subjectLink,
         isUpdating: false,
       });
 
@@ -73,7 +73,7 @@ export class List extends Component {
 
         <div className="container pt-4">
           <h1 className="text-center tawassamBlue">
-            {this.props.block} {this.props.subject}
+            {this.props.block}
           </h1>
 
           <div className="row d-flex justify-content-around mt-2 pt-2 px-5 mb-5">
@@ -87,7 +87,7 @@ export class List extends Component {
                 </Button>
               </div>
               <a
-                href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets`}
+                href={`#/${this.state.blockLink}/sets`}
               >
                 <div class="card-flyer mt-1 mb-5">
                   <div class="text-box">
@@ -104,7 +104,7 @@ export class List extends Component {
             </div>
             <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
               <a
-                href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters`}
+                href={`#/${this.state.blockLink}/clusters`}
                 
               >
                 <div class="card-flyer mt-1 mb-5" id="cluster-list">

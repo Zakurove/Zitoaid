@@ -132,7 +132,7 @@ import { createMessage } from "../../actions/messages";
             </div>
            
             <div className="form-group d-grid" form = "setForm">
-              <button type="submit" className="btn btn-lg tawassamBlueBG btn-block mt-5" onClick={this.onSubmit}>
+              <button type="submit" className="btn btn-lg tawassamBlueBG btn-block mt-5 mb-5" onClick={this.onSubmit}>
               Create This Set
               </button>
             </div>

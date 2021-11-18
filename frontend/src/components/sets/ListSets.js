@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { getSets, deleteSet } from "../../actions/sets.js";
+import { getBlockSets, deleteSet } from "../../actions/sets.js";
 // import { loadingOn, loadingOff } from "../../actions/loading.js";
 import FormSet from "./FormSet.js";
 import DetailsSet from "./DetailsSet.js";
@@ -22,17 +22,30 @@ export class ListSets extends Component {
       isReady: false,
       isViewing: false,
       block: this.props.block,
-      subject: this.props.subject,
+      selectedView: this.props.block,
+      subject: null,
       selectedSetId: null,
       selectedSet: null,
       blockLink: null,
       subjectLink: null,
+      sets: null
     };
     this.backToList = this.backToList.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+  handleChange(event) {
+    this.setState({value: event.target.value, selectedView: event.target.value});
+    if (event.target.value == this.props.block) {
+      this.setState({sets: this.props.sets})
+    } else {
+      this.setState({subject:event.target.value,  sets: this.props.sets.filter((set) =>  set.subject == event.target.value )})
+    }
   }
   //Before render, to fetch info about this list regarding subject and block
   rendering() {
     if (this.state.isUpdating == true) {
+      // this.props.getBlockSets(this.state.block);
+
       if (this.props.block == "Hematology/Oncology") {
         this.setState({
           blockLink: "hemOnc",
@@ -44,13 +57,12 @@ export class ListSets extends Component {
           blockLink: blockLink,
         });
       }
-      const subjectLink = this.props.subject.toLowerCase();
+      if (this.props.sets){
       this.setState({
-        subjectLink: subjectLink,
         isUpdating: false,
       });
+    }
 
-      this.props.getSets(this.state.block, this.state.subject);
     }
 
     this.backToList = this.backToList.bind(this);
@@ -59,19 +71,19 @@ export class ListSets extends Component {
   static propTypes = {
     //This is the first "set" from the func down below
     sets: PropTypes.array.isRequired,
-    getSets: PropTypes.func.isRequired,
+    getBlockSets: PropTypes.func.isRequired,
     deleteSet: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     block: PropTypes.string.isRequired,
-    subject: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
-    this.props.getSets(this.props.block, this.props.subject);
+    this.props.getBlockSets(this.props.block);
+    // this.setState({sets: this.props.sets})
   }
   backToList(event) {
     this.setState({ isCreating: false, isViewing: false, isUpdating: true, isReady: false });
-    // this.props.getSets(this.props.block, this.props.subject);
+    this.props.getBlockSets(this.props.block);
   }
   render() {
         // // The loading handler
@@ -110,8 +122,14 @@ export class ListSets extends Component {
 
     // The loading handler
     if (this.state.isReady == false) {
-      setTimeout(() => this.props.getSets(this.props.block, this.props.subject), 1000);
-    setTimeout(() => this.setState({ isReady: true }), 1500);
+      setTimeout(() => this.props.getBlockSets(this.props.block), 1000);
+
+      if ( this.state.selectedView == this.props.block) {
+        setTimeout(() => this.setState({ isReady: true, sets: this.props.sets }), 1500);
+      } else {
+        setTimeout(() => this.setState({ isReady: true, subject: this.state.selectedView,  sets: this.props.sets.filter((set) =>  set.subject == this.state.selectedView )}), 1500);
+      }
+
     }
 
 
@@ -119,22 +137,182 @@ export class ListSets extends Component {
     if (this.state.isReady) {
       return (
         <div className="container my-5">
-          <h1 className="text-center py-2 tawassamBlue">
-            {this.state.block} {this.state.subject} Sets
-          </h1>
-          {/* <hr /> */}
-          {/* <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}/${this.state.subjectLink}`}>
-          <i class="fas fa-arrow-left"></i> Previous Page
-          </a> */}
+                  <div id="cards_landscape_wrap-2" className="mb-5">
+          <h1 className="text-center pt-2 mb-4 tawassamBlue" style={{fontSize: "3rem"}}>
+          {this.state.block} Sets
+        </h1>
+        
+            {/* DropList */}
+            <div className="mx-auto px-3" >
+        <select className="form-select form-select-lg text-center" value={this.state.selectedView} onChange={this.handleChange}>
+          <option value={this.state.block} selected>All</option>
+          <option value="Microbiology">Microbiology </option>
+          <option value="Imaging">Imaging</option>
+          <option value="Pathology">Pathology</option>
+          <option value="Histology">Histology</option>
+          <option value="Cytology">Cytology</option>
+          <option value="Clinical">Clinical</option>
+        </select>
+        </div>
+        
+
+                {/* Subjects and blocks */}
+                <div className="row mb-5 mt-5 d-flex justify-content-center">
+        { this.state.selectedView == "Cardiovascular" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/CardioTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+        )}
+        { this.state.selectedView == "Musculoskeletal" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/MSKTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+        )}
+{ this.state.selectedView == "Respiratory" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/RespTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+)}
+{ this.state.selectedView == "Hematology/Oncology" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/HemOncTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+)}
+{ this.state.selectedView == "Neurology" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/NeuroTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+)}
+{ this.state.selectedView == "Endocrine" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/EndoTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+)}
+{ this.state.selectedView == "Gastrointestinal" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+            src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GastroTawassam3.jpg"
+            alt="Responsive image"
+            className="img-fluid"
+            style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+          />
+          </div>
+)}
+{this.state.selectedView == "Genitourinary" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                  <img
+                src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GenitoTawassam3.jpg"
+                alt="Responsive image"
+                className="img-fluid"
+                style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+              />
+              </div>
+)}
+{this.state.selectedView == "Microbiology" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+                src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/micro.jpg"
+                alt="Responsive image"
+                className="img-fluid"
+                style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+              />
+    </div>
+)}
+{this.state.selectedView == "Imaging" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+                src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/imaging.jpg"
+                alt="Responsive image"
+                className="img-fluid"
+                style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+              />
+    </div>
+)}
+{this.state.selectedView == "Pathology" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+                src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/patho.jpg"
+                alt="Responsive image"
+                className="img-fluid"
+                style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+              />
+    </div>
+)}
+{this.state.selectedView == "Histology" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+                src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/histo.jpg"
+                alt="Responsive image"
+                className="img-fluid"
+                style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+              />
+    </div>
+)}
+{this.state.selectedView == "Cytology" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+              <img
+                src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/cyto.jpg"
+                alt="Responsive image"
+                className="img-fluid"
+                style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+              />
+    </div>
+)}
+{this.state.selectedView == "Clinical" && (
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/clinical.jpg"
+                          alt="Responsive image"
+                          className="img-fluid"
+                          style={{borderRadius: "3rem", border: "4px solid #00D0C5",}}
+                        />
+              </div>
+)}
+            </div>
+
+
+
+
+        </div>
           <Button
             className="btn btn-secondary mb-1 "
-            href={`#/${this.state.blockLink}/${this.state.subjectLink}`}
+            href={`#/${this.state.blockLink}`}
           >
            <i class="fas fa-arrow-left"></i> Previous Page
           </Button>
           {user
             ? this.props.auth.user.profile.role &&
-              this.props.auth.user.profile.role == "Instructor" && (
+              this.props.auth.user.profile.role == "Instructor" && this.state.selectedView !== this.props.block && (
                 <Button
                 variant="info"
                   className="btn btn-info tawassamBlueBG  ms-3 mb-1"
@@ -158,19 +336,13 @@ export class ListSets extends Component {
 
           <Button
             className="btn btn-secondary tawassamBlueBG float-end mt-1 "
-            href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters`}
+            href={`#/${this.state.blockLink}/clusters`}
             style={{fontSize: "1.2rem"}}
 
           >
            <i className="fas fa-sitemap " style={{ fontSize: "1.3rem" }}></i> Clusters
           </Button>
 
-          {/* <a className="btn btn-info tawassamBlueBG float-end mt-1" href={`#/${this.state.blockLink}`}        
-          href={`#/${this.state.blockLink}/${this.state.subjectLink}/clusters`}
-          style={{ fontWeight: "bold" }}
-          >
-            <i className="fas fa-sitemap " style={{ fontSize: "1.3rem" }}></i> Clusters
-          </a> */}
           <hr />
           <p></p>
           <div style={{ maxHeight: "600px", overflow: "auto"}} className="mb-5">
@@ -184,14 +356,14 @@ export class ListSets extends Component {
               </tr>
             </thead>
             <tbody>
-              {this.props.sets.map((set) => (
+              {this.state.sets.map((set) => (
                 <tr key={set.id}>
                   <td className="" style={{color: "#10a1b6"}}>{set.id}</td>
                   <td className="" style={{color: "#10a1b6"}}>{set.title}</td>
                   <td className="" style={{color: "#10a1b6"}}>{set.owner_username}</td>
                   <td>
                     <a
-                      href={`#/${this.state.blockLink}/${this.state.subjectLink}/sets/${set.id}`}
+                      href={`#/${this.state.blockLink}/sets/${set.id}`}
                       className="btn tawassamYellowBG"
                       style={{ whiteSpace: "nowrap" }}
                       onClick={(e) => {
@@ -231,4 +403,4 @@ const mapStateToProps = (state) => ({
   loadingState: state.loadingState,
 });
 
-export default connect(mapStateToProps, { getSets, deleteSet })(ListSets);
+export default connect(mapStateToProps, { getBlockSets, deleteSet })(ListSets);

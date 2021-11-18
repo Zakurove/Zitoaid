@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createMessage, returnErrors } from './messages';
 import { tokenConfig } from './auth'
-import { GET_CLUSTERS, DELETE_CLUSTER, ADD_CLUSTER, SHOW_CLUSTER, UPDATE_CLUSTER, REPLACE_CLUSTER, GET_MYCLUSTERS, GET_ALLCLUSTERS} from './types';
+import { GET_CLUSTERS, GETBLOCK_CLUSTERS, DELETE_CLUSTER, ADD_CLUSTER, SHOW_CLUSTER, UPDATE_CLUSTER, REPLACE_CLUSTER, GET_MYCLUSTERS, GET_ALLCLUSTERS} from './types';
 
 //Choose Block
 
@@ -17,6 +17,18 @@ export const getClusters = (block, subject) => (dispatch, getState) => {
       });
     }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
 };
+//GET Block CLuster
+export const getBlockClusters = (block) => (dispatch, getState) => {
+  axios.get('/api/clusters/', tokenConfig(getState))
+    .then(res => {
+      dispatch({
+        type: GETBLOCK_CLUSTERS,
+        payload: res.data,
+        block: block
+      });
+    }).catch(err => dispatch(returnErrors(err.response.data, err.response.status)));
+};
+
 //GET My Clusters
 export const getMyClusters = (user) => (dispatch, getState) => {
   axios.get('/api/clusters/', tokenConfig(getState))

@@ -25,7 +25,7 @@ export const addEmailList = emailList => (dispatch, getState) => {
       }
     })
     .then(res => {
-      dispatch(createMessage({success: "Thank you for showing interest. We'll contact you soon!"}))
+      dispatch(createMessage({success: "Information successfully submitted."}))
       dispatch({
         type: ADD_EMAILLIST,
         payload: res.data

@@ -66,17 +66,23 @@ export default function App() {
                   <Route  path="/welcome" component={WelcomePage} />
                   <PrivateRoute exact path="/" component={MainPage} />
 
-                  <Route exact path="/cardiovascular" render={(props) => <Subjects {...props} block={`Cardiovascular`} />} />
+                  {/* <Route exact path="/cardiovascular" render={(props) => <Subjects {...props} block={`Cardiovascular`} />} /> */}
                   <Route exact path="/cardiovascular/practice" render={(props) => <PracticeList {...props} block={`Cardiovascular`} />} />
                   <Route exact path="/cardiovascular/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Cardiovascular`} />} />
                   <Route exact path="/cardiovascular/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Cardiovascular`}/>} />
                   <Route exact path="/cardiovascular/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Cardiovascular`}/>} />
-                  <Route exact path="/cardiovascular/microbiology" render={(props) => <List {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} />
+                  <Route exact path="/cardiovascular" render={(props) => <List {...props} block={`Cardiovascular`}/>} />
+                  <Route exact path="/cardiovascular/sets" render={(props) => <ListSets {...props} block={`Cardiovascular`} />} />
+                  <Route exact path="/cardiovascular/sets/:id" render={(props) => <DetailsSet {...props} block={`Cardiovascular`} />} />
+                  <Route exact path="/cardiovascular/clusters" render={(props) => <ListClusters {...props} block={`Cardiovascular`} />} />
+                  <Route exact path="/cardiovascular/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Cardiovascular`} />} />
+
+                  {/* <Route exact path="/cardiovascular/microbiology" render={(props) => <List {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} />
                   <Route exact path="/cardiovascular/microbiology/sets" render={(props) => <ListSets {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} />
                   <Route exact path="/cardiovascular/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} />
                   <Route exact path="/cardiovascular/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} />
-                  <Route exact path="/cardiovascular/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} />
-                  <Route exact path="/cardiovascular/imaging" render={(props) => <List {...props} block={`Cardiovascular`} subject={`Imaging`}/>} />
+                  <Route exact path="/cardiovascular/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Cardiovascular`} subject={`Microbiology`}/>} /> */}
+                  {/* <Route exact path="/cardiovascular/imaging" render={(props) => <List {...props} block={`Cardiovascular`} subject={`Imaging`}/>} />
                   <Route exact path="/cardiovascular/imaging/sets" render={(props) => <ListSets {...props} block={`Cardiovascular`} subject={`Imaging`}/>} />
                   <Route exact path="/cardiovascular/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Cardiovascular`} subject={`Imaging`}/>} />
                   <Route exact path="/cardiovascular/imaging/clusters" render={(props) => <ListClusters {...props} block={`Cardiovascular`} subject={`Imaging`}/>} />
@@ -100,19 +106,19 @@ export default function App() {
                   <Route exact path="/cardiovascular/clinical/sets" render={(props) => <ListSets {...props} block={`Cardiovascular`} subject={`Clinical`}/>} />
                   <Route exact path="/cardiovascular/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Cardiovascular`} subject={`Clinical`}/>} />
                   <Route exact path="/cardiovascular/clinical/clusters" render={(props) => <ListClusters {...props} block={`Cardiovascular`} subject={`Clinical`}/>} />
-                  <Route exact path="/cardiovascular/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Cardiovascular`} subject={`Clinical`}/>} />
+                  <Route exact path="/cardiovascular/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Cardiovascular`} subject={`Clinical`}/>} /> */}
 
-                  <Route exact path="/musculoskeletal" render={(props) => <Subjects {...props} block={`Musculoskeletal`} />} />
+                  {/* <Route exact path="/musculoskeletal" render={(props) => <Subjects {...props} block={`Musculoskeletal`} />} /> */}
                   <Route exact path="/musculoskeletal/practice" render={(props) => <PracticeList {...props} block={`Musculoskeletal`} />} />
                   <Route exact path="/musculoskeletal/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Musculoskeletal`} />} />
                   <Route exact path="/musculoskeletal/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Musculoskeletal`}/>} />
                   <Route exact path="/musculoskeletal/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Musculoskeletal`}/>} />
-                  <Route exact path="/musculoskeletal/microbiology" render={(props) => <List {...props} block={`Musculoskeletal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/musculoskeletal/microbiology/sets" render={(props) => <ListSets {...props} block={`Musculoskeletal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/musculoskeletal/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Musculoskeletal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/musculoskeletal/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Musculoskeletal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/musculoskeletal/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Musculoskeletal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/musculoskeletal/imaging" render={(props) => <List {...props} block={`Musculoskeletal`} subject={`Imaging`}/>} />
+                  <Route exact path="/musculoskeletal" render={(props) => <List {...props} block={`Musculoskeletal`} />} />
+                  <Route exact path="/musculoskeletal/sets" render={(props) => <ListSets {...props} block={`Musculoskeletal`} />} />
+                  <Route exact path="/musculoskeletal/sets/:id" render={(props) => <DetailsSet {...props} block={`Musculoskeletal`} />} />
+                  <Route exact path="/musculoskeletal/clusters" render={(props) => <ListClusters {...props} block={`Musculoskeletal`} />} />
+                  <Route exact path="/musculoskeletal/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Musculoskeletal`} />} />
+                  {/* <Route exact path="/musculoskeletal/imaging" render={(props) => <List {...props} block={`Musculoskeletal`} subject={`Imaging`}/>} />
                   <Route exact path="/musculoskeletal/imaging/sets" render={(props) => <ListSets {...props} block={`Musculoskeletal`} subject={`Imaging`}/>} />
                   <Route exact path="/musculoskeletal/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Musculoskeletal`} subject={`Imaging`}/>} />
                   <Route exact path="/musculoskeletal/imaging/clusters" render={(props) => <ListClusters {...props} block={`Musculoskeletal`} subject={`Imaging`}/>} />
@@ -136,19 +142,19 @@ export default function App() {
                   <Route exact path="/musculoskeletal/clinical/sets" render={(props) => <ListSets {...props} block={`Musculoskeletal`} subject={`Clinical`}/>} />
                   <Route exact path="/musculoskeletal/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Musculoskeletal`} subject={`Clinical`}/>} />
                   <Route exact path="/musculoskeletal/clinical/clusters" render={(props) => <ListClusters {...props} block={`Musculoskeletal`} subject={`Clinical`}/>} />
-                  <Route exact path="/musculoskeletal/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Musculoskeletal`} subject={`Clinical`}/>} />
+                  <Route exact path="/musculoskeletal/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Musculoskeletal`} subject={`Clinical`}/>} /> */}
 
-                  <Route exact path="/respiratory" render={(props) => <Subjects {...props} block={`Respiratory`} />} />
+                  {/* <Route exact path="/respiratory" render={(props) => <Subjects {...props} block={`Respiratory`} />} /> */}
                   <Route exact path="/respiratory/practice" render={(props) => <PracticeList {...props} block={`Respiratory`} />} />
                   <Route exact path="/respiratory/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Respiratory`} />} />
                   <Route exact path="/respiratory/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Respiratory`}/>} />
                   <Route exact path="/respiratory/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Respiratory`}/>} />
-                  <Route exact path="/respiratory/microbiology" render={(props) => <List {...props} block={`Respiratory`} subject={`Microbiology`}/>} />
-                  <Route exact path="/respiratory/microbiology/sets" render={(props) => <ListSets {...props} block={`Respiratory`} subject={`Microbiology`}/>} />
-                  <Route exact path="/respiratory/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Respiratory`} subject={`Microbiology`}/>} />
-                  <Route exact path="/respiratory/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Respiratory`} subject={`Microbiology`}/>} />
-                  <Route exact path="/respiratory/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Respiratory`} subject={`Microbiology`}/>} />
-                  <Route exact path="/respiratory/imaging" render={(props) => <List {...props} block={`Respiratory`} subject={`Imaging`}/>} />
+                  <Route exact path="/respiratory" render={(props) => <List {...props} block={`Respiratory`} />} />
+                  <Route exact path="/respiratory/sets" render={(props) => <ListSets {...props} block={`Respiratory`}/>} />
+                  <Route exact path="/respiratory/sets/:id" render={(props) => <DetailsSet {...props} block={`Respiratory`} />} />
+                  <Route exact path="/respiratory/clusters" render={(props) => <ListClusters {...props} block={`Respiratory`} />} />
+                  <Route exact path="/respiratory/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Respiratory`} />} />
+                  {/* <Route exact path="/respiratory/imaging" render={(props) => <List {...props} block={`Respiratory`} subject={`Imaging`}/>} />
                   <Route exact path="/respiratory/imaging/sets" render={(props) => <ListSets {...props} block={`Respiratory`} subject={`Imaging`}/>} />
                   <Route exact path="/respiratory/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Respiratory`} subject={`Imaging`}/>} />
                   <Route exact path="/respiratory/imaging/clusters" render={(props) => <ListClusters {...props} block={`Respiratory`} subject={`Imaging`}/>} />
@@ -172,19 +178,19 @@ export default function App() {
                   <Route exact path="/respiratory/clinical/sets" render={(props) => <ListSets {...props} block={`Respiratory`} subject={`Clinical`}/>} />
                   <Route exact path="/respiratory/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Respiratory`} subject={`Clinical`}/>} />
                   <Route exact path="/respiratory/clinical/clusters" render={(props) => <ListClusters {...props} block={`Respiratory`} subject={`Clinical`}/>} />
-                  <Route exact path="/respiratory/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Respiratory`} subject={`Clinical`}/>} />
+                  <Route exact path="/respiratory/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Respiratory`} subject={`Clinical`}/>} /> */}
 
-                  <Route exact path="/hemOnc" render={(props) => <Subjects {...props} block={`Hematology/Oncology`} />} />
+                  {/* <Route exact path="/hemOnc" render={(props) => <Subjects {...props} block={`Hematology/Oncology`} />} /> */}
                   <Route exact path="/hemOnc/practice" render={(props) => <PracticeList {...props} block={`Hematology/Oncology`} />} />
                   <Route exact path="/hemOnc/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Hematology/Oncology`} />} />
                   <Route exact path="/hemOnc/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Hematology/Oncology`}/>} />
                   <Route exact path="/hemOnc/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Hematology/Oncology`}/>} />
-                  <Route exact path="/hemOnc/microbiology" render={(props) => <List {...props} block={`Hematology/Oncology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/hemOnc/microbiology/sets" render={(props) => <ListSets {...props} block={`Hematology/Oncology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/hemOnc/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Hematology/Oncology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/hemOnc/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Hematology/Oncology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/hemOnc/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Hematology/Oncology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/hemOnc/imaging" render={(props) => <List {...props} block={`Hematology/Oncology`} subject={`Imaging`}/>} />
+                  <Route exact path="/hemOnc" render={(props) => <List {...props} block={`Hematology/Oncology`} />} />
+                  <Route exact path="/hemOnc/sets" render={(props) => <ListSets {...props} block={`Hematology/Oncology`} />} />
+                  <Route exact path="/hemOnc/sets/:id" render={(props) => <DetailsSet {...props} block={`Hematology/Oncology`} />} />
+                  <Route exact path="/hemOnc/clusters" render={(props) => <ListClusters {...props} block={`Hematology/Oncology`} />} />
+                  <Route exact path="/hemOnc/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Hematology/Oncology`} />} />
+                  {/* <Route exact path="/hemOnc/imaging" render={(props) => <List {...props} block={`Hematology/Oncology`} subject={`Imaging`}/>} />
                   <Route exact path="/hemOnc/imaging/sets" render={(props) => <ListSets {...props} block={`Hematology/Oncology`} subject={`Imaging`}/>} />
                   <Route exact path="/hemOnc/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Hematology/Oncology`} subject={`Imaging`}/>} />
                   <Route exact path="/hemOnc/imaging/clusters" render={(props) => <ListClusters {...props} block={`Hematology/Oncology`} subject={`Imaging`}/>} />
@@ -208,19 +214,19 @@ export default function App() {
                   <Route exact path="/hemOnc/clinical/sets" render={(props) => <ListSets {...props} block={`Hematology/Oncology`} subject={`Clinical`}/>} />
                   <Route exact path="/hemOnc/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Hematology/Oncology`} subject={`Clinical`}/>} />
                   <Route exact path="/hemOnc/clinical/clusters" render={(props) => <ListClusters {...props} block={`Hematology/Oncology`} subject={`Clinical`}/>} />
-                  <Route exact path="/hemOnc/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Hematology/Oncology`} subject={`Clinical`}/>} />
+                  <Route exact path="/hemOnc/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Hematology/Oncology`} subject={`Clinical`}/>} /> */}
 
-                  <Route exact path="/neurology" render={(props) => <Subjects {...props} block={`Neurology`} />} />
+                  {/* <Route exact path="/neurology" render={(props) => <Subjects {...props} block={`Neurology`} />} /> */}
                   <Route exact path="/neurology/practice" render={(props) => <PracticeList {...props} block={`Neurology`} />} />
                   <Route exact path="/neurology/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Neurology`} />} />
                   <Route exact path="/neurology/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Neurology`}/>} />
                   <Route exact path="/neurology/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Neurology`}/>} />
-                  <Route exact path="/neurology/microbiology" render={(props) => <List {...props} block={`Neurology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/neurology/microbiology/sets" render={(props) => <ListSets {...props} block={`Neurology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/neurology/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Neurology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/neurology/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Neurology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/neurology/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Neurology`} subject={`Microbiology`}/>} />
-                  <Route exact path="/neurology/imaging" render={(props) => <List {...props} block={`Neurology`} subject={`Imaging`}/>} />
+                  <Route exact path="/neurology" render={(props) => <List {...props} block={`Neurology`} />} />
+                  <Route exact path="/neurology/sets" render={(props) => <ListSets {...props} block={`Neurology`} />} />
+                  <Route exact path="/neurology/sets/:id" render={(props) => <DetailsSet {...props} block={`Neurology`} />} />
+                  <Route exact path="/neurology/clusters" render={(props) => <ListClusters {...props} block={`Neurology`}/>} />
+                  <Route exact path="/neurology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Neurology`} />} />
+                  {/* <Route exact path="/neurology/imaging" render={(props) => <List {...props} block={`Neurology`} subject={`Imaging`}/>} />
                   <Route exact path="/neurology/imaging/sets" render={(props) => <ListSets {...props} block={`Neurology`} subject={`Imaging`}/>} />
                   <Route exact path="/neurology/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Neurology`} subject={`Imaging`}/>} />
                   <Route exact path="/neurology/imaging/clusters" render={(props) => <ListClusters {...props} block={`Neurology`} subject={`Imaging`}/>} />
@@ -244,19 +250,19 @@ export default function App() {
                   <Route exact path="/neurology/clinical/sets" render={(props) => <ListSets {...props} block={`Neurology`} subject={`Clinical`}/>} />
                   <Route exact path="/neurology/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Neurology`} subject={`Clinical`}/>} />
                   <Route exact path="/neurology/clinical/clusters" render={(props) => <ListClusters {...props} block={`Neurology`} subject={`Clinical`}/>} />
-                  <Route exact path="/neurology/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Neurology`} subject={`Clinical`}/>} />
+                  <Route exact path="/neurology/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Neurology`} subject={`Clinical`}/>} /> */}
 
-                  <Route exact path="/endocrine" render={(props) => <Subjects {...props} block={`Endocrine`} />} />
+                  {/* <Route exact path="/endocrine" render={(props) => <Subjects {...props} block={`Endocrine`} />} /> */}
                   <Route exact path="/endocrine/practice" render={(props) => <PracticeList {...props} block={`Endocrine`} />} />
                   <Route exact path="/endocrine/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Endocrine`} />} />
                   <Route exact path="/endocrine/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Endocrine`}/>} />
                   <Route exact path="/endocrine/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Endocrine`}/>} />
-                  <Route exact path="/endocrine/microbiology" render={(props) => <List {...props} block={`Endocrine`} subject={`Microbiology`}/>} />
-                  <Route exact path="/endocrine/microbiology/sets" render={(props) => <ListSets {...props} block={`Endocrine`} subject={`Microbiology`}/>} />
-                  <Route exact path="/endocrine/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Endocrine`} subject={`Microbiology`}/>} />
-                  <Route exact path="/endocrine/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Endocrine`} subject={`Microbiology`}/>} />
-                  <Route exact path="/endocrine/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Endocrine`} subject={`Microbiology`}/>} />
-                  <Route exact path="/endocrine/imaging" render={(props) => <List {...props} block={`Endocrine`} subject={`Imaging`}/>} />
+                  <Route exact path="/endocrine" render={(props) => <List {...props} block={`Endocrine`} />} />
+                  <Route exact path="/endocrine/sets" render={(props) => <ListSets {...props} block={`Endocrine`} />} />
+                  <Route exact path="/endocrine/sets/:id" render={(props) => <DetailsSet {...props} block={`Endocrine`} />} />
+                  <Route exact path="/endocrine/clusters" render={(props) => <ListClusters {...props} block={`Endocrine`} />} />
+                  <Route exact path="/endocrine/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Endocrine`} />} />
+                  {/* <Route exact path="/endocrine/imaging" render={(props) => <List {...props} block={`Endocrine`} subject={`Imaging`}/>} />
                   <Route exact path="/endocrine/imaging/sets" render={(props) => <ListSets {...props} block={`Endocrine`} subject={`Imaging`}/>} />
                   <Route exact path="/endocrine/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Endocrine`} subject={`Imaging`}/>} />
                   <Route exact path="/endocrine/imaging/clusters" render={(props) => <ListClusters {...props} block={`Endocrine`} subject={`Imaging`}/>} />
@@ -280,19 +286,19 @@ export default function App() {
                   <Route exact path="/endocrine/clinical/sets" render={(props) => <ListSets {...props} block={`Endocrine`} subject={`Clinical`}/>} />
                   <Route exact path="/endocrine/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Endocrine`} subject={`Clinical`}/>} />
                   <Route exact path="/endocrine/clinical/clusters" render={(props) => <ListClusters {...props} block={`Endocrine`} subject={`Clinical`}/>} />
-                  <Route exact path="/endocrine/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Endocrine`} subject={`Clinical`}/>} />
+                  <Route exact path="/endocrine/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Endocrine`} subject={`Clinical`}/>} /> */}
 
-                  <Route exact path="/gastrointestinal" render={(props) => <Subjects {...props} block={`Gastrointestinal`} />} />
+                  {/* <Route exact path="/gastrointestinal" render={(props) => <Subjects {...props} block={`Gastrointestinal`} />} /> */}
                   <Route exact path="/gastrointestinal/practice" render={(props) => <PracticeList {...props} block={`Gastrointestinal`} />} />
                   <Route exact path="/gastrointestinal/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Gastrointestinal`} />} />
                   <Route exact path="/gastrointestinal/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Gastrointestinal`}/>} />
                   <Route exact path="/gastrointestinal/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Gastrointestinal`}/>} />
-                  <Route exact path="/gastrointestinal/microbiology" render={(props) => <List {...props} block={`Gastrointestinal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/gastrointestinal/microbiology/sets" render={(props) => <ListSets {...props} block={`Gastrointestinal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/gastrointestinal/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Gastrointestinal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/gastrointestinal/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Gastrointestinal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/gastrointestinal/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Gastrointestinal`} subject={`Microbiology`}/>} />
-                  <Route exact path="/gastrointestinal/imaging" render={(props) => <List {...props} block={`Gastrointestinal`} subject={`Imaging`}/>} />
+                  <Route exact path="/gastrointestinal" render={(props) => <List {...props} block={`Gastrointestinal`} />} />
+                  <Route exact path="/gastrointestinal/sets" render={(props) => <ListSets {...props} block={`Gastrointestinal`} />} />
+                  <Route exact path="/gastrointestinal/sets/:id" render={(props) => <DetailsSet {...props} block={`Gastrointestinal`} />} />
+                  <Route exact path="/gastrointestinal/clusters" render={(props) => <ListClusters {...props} block={`Gastrointestinal`} />} />
+                  <Route exact path="/gastrointestinal/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Gastrointestinal`} />} />
+                  {/* <Route exact path="/gastrointestinal/imaging" render={(props) => <List {...props} block={`Gastrointestinal`} subject={`Imaging`}/>} />
                   <Route exact path="/gastrointestinal/imaging/sets" render={(props) => <ListSets {...props} block={`Gastrointestinal`} subject={`Imaging`}/>} />
                   <Route exact path="/gastrointestinal/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Gastrointestinal`} subject={`Imaging`}/>} />
                   <Route exact path="/gastrointestinal/imaging/clusters" render={(props) => <ListClusters {...props} block={`Gastrointestinal`} subject={`Imaging`}/>} />
@@ -316,19 +322,19 @@ export default function App() {
                   <Route exact path="/gastrointestinal/clinical/sets" render={(props) => <ListSets {...props} block={`Gastrointestinal`} subject={`Clinical`}/>} />
                   <Route exact path="/gastrointestinal/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Gastrointestinal`} subject={`Clinical`}/>} />
                   <Route exact path="/gastrointestinal/clinical/clusters" render={(props) => <ListClusters {...props} block={`Gastrointestinal`} subject={`Clinical`}/>} />
-                  <Route exact path="/gastrointestinal/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Gastrointestinal`} subject={`Clinical`}/>} />
-
-                  <Route exact path="/genitourinary" render={(props) => <Subjects {...props} block={`Genitourinary`} />} />
+                  <Route exact path="/gastrointestinal/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Gastrointestinal`} subject={`Clinical`}/>} /> */}
+{/* 
+                  <Route exact path="/genitourinary" render={(props) => <Subjects {...props} block={`Genitourinary`} />} /> */}
                   <Route exact path="/genitourinary/practice" render={(props) => <PracticeList {...props} block={`Genitourinary`} />} />
                   <Route exact path="/genitourinary/practice/description" render={(props) => <PracticeDescriptionForm {...props} block={`Genitourinary`} />} />
                   <Route exact path="/genitourinary/practice/description/:id" render={(props) => <DetailsPracticeDescription {...props} block={`Genitourinary`}/>} />
                   <Route exact path="/genitourinary/practice/description/results/:id" render={(props) => <ResultsPracticeDescription {...props} block={`Genitourinary`}/>} />
-                  <Route exact path="/genitourinary/microbiology" render={(props) => <List {...props} block={`Genitourinary`} subject={`Microbiology`}/>} />
-                  <Route exact path="/genitourinary/microbiology/sets" render={(props) => <ListSets {...props} block={`Genitourinary`} subject={`Microbiology`}/>} />
-                  <Route exact path="/genitourinary/microbiology/sets/:id" render={(props) => <DetailsSet {...props} block={`Genitourinary`} subject={`Microbiology`}/>} />
-                  <Route exact path="/genitourinary/microbiology/clusters" render={(props) => <ListClusters {...props} block={`Genitourinary`} subject={`Microbiology`}/>} />
-                  <Route exact path="/genitourinary/microbiology/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Genitourinary`} subject={`Microbiology`}/>} />
-                  <Route exact path="/genitourinary/imaging" render={(props) => <List {...props} block={`Genitourinary`} subject={`Imaging`}/>} />
+                  <Route exact path="/genitourinary" render={(props) => <List {...props} block={`Genitourinary`} />} />
+                  <Route exact path="/genitourinary/sets" render={(props) => <ListSets {...props} block={`Genitourinary`} />} />
+                  <Route exact path="/genitourinary/sets/:id" render={(props) => <DetailsSet {...props} block={`Genitourinary`} />} />
+                  <Route exact path="/genitourinary/clusters" render={(props) => <ListClusters {...props} block={`Genitourinary`}/>} />
+                  <Route exact path="/genitourinary/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Genitourinary`}/>} />
+                  {/* <Route exact path="/genitourinary/imaging" render={(props) => <List {...props} block={`Genitourinary`} subject={`Imaging`}/>} />
                   <Route exact path="/genitourinary/imaging/sets" render={(props) => <ListSets {...props} block={`Genitourinary`} subject={`Imaging`}/>} />
                   <Route exact path="/genitourinary/imaging/sets/:id" render={(props) => <DetailsSet {...props} block={`Genitourinary`} subject={`Imaging`}/>} />
                   <Route exact path="/genitourinary/imaging/clusters" render={(props) => <ListClusters {...props} block={`Genitourinary`} subject={`Imaging`}/>} />
@@ -352,7 +358,7 @@ export default function App() {
                   <Route exact path="/genitourinary/clinical/sets" render={(props) => <ListSets {...props} block={`Genitourinary`} subject={`Clinical`}/>} />
                   <Route exact path="/genitourinary/clinical/sets/:id" render={(props) => <DetailsSet {...props} block={`Genitourinary`} subject={`Clinical`}/>} />
                   <Route exact path="/genitourinary/clinical/clusters" render={(props) => <ListClusters {...props} block={`Genitourinary`} subject={`Clinical`}/>} />
-                  <Route exact path="/genitourinary/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Genitourinary`} subject={`Clinical`}/>} />
+                  <Route exact path="/genitourinary/clinical/clusters/:id" render={(props) => <DetailsCluster {...props} block={`Genitourinary`} subject={`Clinical`}/>} /> */}
 
                   <Route exact path="/mypractice" component={MyPractice} />
 

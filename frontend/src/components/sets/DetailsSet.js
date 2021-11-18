@@ -453,7 +453,7 @@ export class DetailsSet extends Component {
               }}
 
               // To go back to previous page after deleteing the set
-              href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}/sets`}
+              href={`#/${this.props.set.block.toLowerCase()}/sets`}
 
               style={{ justifyContent: "center" }}
               form="noteForm"
@@ -724,7 +724,7 @@ export class DetailsSet extends Component {
                 <Button
                   className="btn ms-2 btn-secondary "
                   style={{ marginBottom: "3px", marginRight: "3px" }}
-                  href={`#/${this.props.set.block.toLowerCase()}/${this.props.set.subject.toLowerCase()}/sets`}
+                  href={`#/${this.props.set.block.toLowerCase()}/sets`}
                 >
                   <i class="fas fa-arrow-left"></i> Back to sets list
                 </Button>
