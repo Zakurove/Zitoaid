@@ -31,8 +31,8 @@ export class MySets extends Component {
         isUpdating: false,
       });
     }
-        this.setState({username: user.username})
-      this.props.getMySets(user.username);
+        this.setState({username: user.name})
+      this.props.getMySets(user.id);
     }
   }
 
@@ -81,6 +81,7 @@ export class MySets extends Component {
             <tr>
             <th><span className="tawassamYellow">ID</span></th>
                 <th><span className="tawassamYellow">Title</span></th>
+                <th><span className="tawassamYellow">Block</span></th>
               <th />
             </tr>
           </thead>
@@ -89,6 +90,7 @@ export class MySets extends Component {
               <tr key={set.id}>
                   <td className="tawassamBlue">{set.id}</td>
                   <td className="tawassamBlue">{set.title}</td>
+                  <td className="tawassamBlue">{set.block}</td>
 
                 <td>
                   <a

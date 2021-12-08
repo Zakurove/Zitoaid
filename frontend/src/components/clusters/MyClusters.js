@@ -31,8 +31,8 @@ export class MyClusters extends Component {
         isUpdating: false,
       });
     }
-        this.setState({username: user.username})
-      this.props.getMyClusters(user.username);
+        this.setState({username: user.name})
+      this.props.getMyClusters(user.id);
     }
   }
 
@@ -81,6 +81,7 @@ export class MyClusters extends Component {
             <tr>
             <th><span className="tawassamYellow">ID</span></th>
                 <th><span className="tawassamYellow">Title</span></th>
+                <th><span className="tawassamYellow">Block</span></th>
               <th />
             </tr>
           </thead>
@@ -89,6 +90,7 @@ export class MyClusters extends Component {
               <tr key={cluster.id}>
                   <td className="tawassamBlue">{cluster.id}</td>
                   <td className="tawassamBlue"> {cluster.title}</td>
+                  <td className="tawassamBlue"> {cluster.block}</td>
 
                 <td>
                   <a

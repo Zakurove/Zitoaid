@@ -15,7 +15,7 @@ export default function(state = initialState, action) {
       case GET_MYPRACTICEDESCSESSIONS:
         return {
           ...state,
-          practiceDescSessions: action.payload.filter((practiceDescSession) =>  practiceDescSession.owner_username == action.user ),
+          practiceDescSessions: action.payload.filter((practiceDescSession) =>  practiceDescSession.owner == action.user ),
         }
         case GET_ALLPRACTICEDESCSESSIONS:
           return {

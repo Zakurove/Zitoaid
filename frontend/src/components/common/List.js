@@ -77,11 +77,11 @@ export class List extends Component {
           </h1>
 
           <div className="row d-flex justify-content-around mt-2 pt-2 px-5 mb-5">
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-5">
               <div className="d-flex justify-content-start mb-3">
                 <Button
                   className="btn btn-secondary"
-                  href={`/#/${this.props.block}`}
+                  href={`/#/`}
                 >
                   <i class="fas fa-arrow-left"></i> Previous Page
                 </Button>
@@ -91,7 +91,7 @@ export class List extends Component {
               >
                 <div class="card-flyer mt-1 mb-5">
                   <div class="text-box">
-                    <div class="image-boxSubjects p-5">
+                    <div class="image-boxSubjects justify-content-center d-flex p-5">
                       <i className="fas fa-layer-group mb-2 tawassamBlue" />
                     </div>
                     <div class="text-container">
@@ -102,14 +102,14 @@ export class List extends Component {
                 </div>
               </a>
             </div>
-            <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
+            <div className="col-xs-12 col-sm-12 col-md-6 col-lg-5">
               <a
                 href={`#/${this.state.blockLink}/clusters`}
                 
               >
                 <div class="card-flyer mt-1 mb-5" id="cluster-list">
                   <div class="text-box">
-                    <div class="image-boxSubjects p-5">
+                    <div class="image-boxSubjects justify-content-center d-flex p-5">
                       <i className="fas fa-sitemap mb-2 tawassamBlue" />
                     </div>
                     <div class="text-container">

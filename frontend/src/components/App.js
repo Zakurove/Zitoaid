@@ -56,7 +56,7 @@ export default function App() {
 
     return (
       <Fragment>
-            <Route path="/" render={(props) => (props.location.pathname !=="/login" && props.location.pathname !=="/register" && props.location.pathname !=="/welcome" ) && 
+            <Route path="/" render={(props) => (props.location.pathname !=="/login" && props.location.pathname !=="/register" ) && 
               <Header />}> 
               </Route>   
               <div className="content bg-light p-0">

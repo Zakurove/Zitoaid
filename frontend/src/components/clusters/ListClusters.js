@@ -133,7 +133,7 @@ export class ListClusters extends Component {
       return (
         <div className="container my-5">
           <div id="cards_landscape_wrap-2" className="mb-5">
-          <h1 className="text-center pt-2 mb-4 tawassamBlue" style={{fontSize: "3rem"}}>
+          <h1 className="text-center mb-4 tawassamBlue" style={{fontSize: "3rem"}}>
           {this.state.block} Clusters
         </h1>
         
@@ -152,7 +152,7 @@ export class ListClusters extends Component {
         
 
                 {/* Subjects and blocks */}
-                <div className="row mb-5 mt-5 d-flex justify-content-center">
+                <div className="row mb-4 mt-5 d-flex justify-content-center">
         { this.state.selectedView == "Cardiovascular" && (
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-4">
               <img
@@ -302,14 +302,14 @@ export class ListClusters extends Component {
 
           <Button
             className="btn btn-secondary mb-1 "
-            href={`#/${this.state.blockLink}`}
+            href={`#/`}
           >
            <i class="fas fa-arrow-left"></i> Previous Page
           </Button>
 
           {user
-            ? this.props.auth.user.profile.role &&
-              this.props.auth.user.profile.role == "Instructor" && this.state.selectedView !== this.props.block && (
+            ? this.props.auth.user.role &&
+              this.props.auth.user.role == "Educator" && this.state.selectedView !== this.props.block && (
                 <Button
                   className="btn btn-info tawassamBlueBG  ms-3 mb-1"
                   onClick={(e) => {
@@ -322,17 +322,17 @@ export class ListClusters extends Component {
                 </Button>
               )
             : ""}
-          <Button
+          {/* <Button
             className="btn btn-warning ms-3 mb-1 "
             href={`#/${this.state.blockLink}/practice`}
             style={{fontSize: "1.2rem"}}
           >
            <i className="fas fa-keyboard" style={{fontSize: "1.3rem"}}></i> Practice Block
-          </Button>
+          </Button> */}
 
 
           <Button
-            className="btn btn-secondary tawassamBlueBG float-end mt-1 "
+            className="btn btn-info tawassamBlueBG float-end mt-1 "
             href={`#/${this.state.blockLink}/sets`}
             style={{fontSize: "1.2rem"}}
             
@@ -353,6 +353,7 @@ export class ListClusters extends Component {
               <tr>
               <th><span className="tawassamYellow">ID</span></th>
                 <th><span className="tawassamYellow">Title</span></th>
+                <th><span className="tawassamYellow">Subject</span></th>
                 <th ><span className="tawassamYellow">Owner</span></th>
                 <th />
               </tr>
@@ -362,6 +363,7 @@ export class ListClusters extends Component {
                 <tr key={cluster.id}>
                   <td className="" style={{color: "#10a1b6"}}>{cluster.id}</td>
                   <td className="" style={{color: "#10a1b6"}}> {cluster.title}</td>
+                  <td className="" style={{color: "#10a1b6"}}> {cluster.subject}</td>
                   <td className="" style={{color: "#10a1b6"}}>{cluster.owner_username}</td>
                   <td>
                     <a

@@ -12,11 +12,12 @@ import "../../../static/css/user.css";
 export class Register extends Component {
   // eslint-disable-line react/prefer-stateless-function
   state = {
-    username: "",
+    name: "",
     email: "",
     password: "",
     role: null,
     password2: "",
+    institution: null,
   };
 
   static propTypes = {
@@ -26,25 +27,29 @@ export class Register extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password, password2, role } = this.state;
-    if (this.state.role !== "Instructor" && this.state.role !== "Learner" ) {
-      this.props.createMessage({ roleNotSelected: "Please select a role" });
+    const { name, email, password, password2, role, institution } = this.state;
+    // if (this.state.role !== "Instructor" && this.state.role !== "Learner" ) {
+    //   this.props.createMessage({ roleNotSelected: "Please select a role" });
+    // } 
+    if (!this.state.institution) {
+      this.props.createMessage({ roleNotSelected: "Please select your insistution" });
     } 
     if (password !== password2) {
       this.props.createMessage({ passwordNotMatch: "Passwords do not match" });
     } 
-    else if (this.state.role == "Instructor" || this.state.role == "Learner" ) {
+    else {
       const newUser = new FormData();
-      newUser.append("username", this.state.username);
+      newUser.append("name", this.state.name);
       newUser.append("password", this.state.password);
       newUser.append("email", this.state.email);
-      newUser.append("role", this.state.role);
+      newUser.append("role", "Learner");
+      newUser.append("institution", this.state.institution);
 
       this.props.register(newUser);
     }
   };
   yourChangeHandler(event) {
-    this.setState({ role: event.target.value });
+    this.setState({ institution: event.target.value });
   }
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
@@ -52,7 +57,7 @@ export class Register extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
     }
-    const { username, email, password, password2 } = this.state;
+    const { name, email, password, password2 } = this.state;
     return (
       <div className="" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLoginBG.jpg")`, backgroundSize: 'cover', backgroundRepeat: "no-repeat", backgroundPosition: "right top", paddingBottom: "15rem" }}>                         
       <hr className="style-five"/>
@@ -77,24 +82,9 @@ export class Register extends Component {
                 <div className="input-group form-group mt-3">
 
                     <span className="input-group-text iconInput">
-                      <i className="fas fa-user mx-auto"></i>
-                    </span>
-
-                  <input
-                    type="text"
-                    className="form-control"
-                    name="username"
-                    onChange={this.onChange}
-                    value={username}
-                    placeholder="Username"
-                  />
-                </div>
-
-                <div className="input-group form-group mt-3">
-
-                    <span className="input-group-text iconInput">
                       <i className="fas fa-envelope mx-auto"></i>
                     </span>
+
                   <input
                     type="email"
                     className="form-control"
@@ -102,6 +92,21 @@ export class Register extends Component {
                     onChange={this.onChange}
                     value={email}
                     placeholder="Email"
+                  />
+                </div>
+
+                <div className="input-group form-group mt-3">
+
+                    <span className="input-group-text iconInput">
+                      <i className="fas fa-user mx-auto"></i>
+                    </span>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="name"
+                    onChange={this.onChange}
+                    value={name}
+                    placeholder="Full Name"
                   />
                 </div>
 
@@ -148,11 +153,45 @@ export class Register extends Component {
                     onChange={this.yourChangeHandler.bind(this)}
                   >
                     <option disabled selected>
-                      Choose your role...
+                      Institution...
                     </option>
-                    <option>Learner</option>
+                    <option>King Saud bin Abdulaziz University for Health Sciences</option>
+                    <option>Al-Imam Muhammad ibn Saudi Islamic University</option>
+                    <option>Alfaisal University</option>
+                    <option>King Saud University</option>
+                    <option>Majmaah University</option>
+                    <option>King Abdulaziz University</option>
+                    <option>King Faisal University</option>
+                    <option>Imam Abdulrahman bin Faisal University</option>
+                    <option>King Khalid University</option>
+                    <option>Umm Al-Qura University</option>
+                    <option>Taibah University</option>
+                    <option>Taif University</option>
+                    <option>Qassim University</option>
+                    <option>Prince Sattam bin Abdulaziz University</option>
+                    <option>Unaizah College of Medicine</option>
+                    <option>Al-Baha University</option>
+                    <option>University of Hail</option>
+                    <option>University of Tabuk</option>
+                    <option>Najran University</option>
+                    <option>Northern Borders University</option>
+                    <option>Al Jouf University</option>
+                    <option>Jazan University</option>
+                    <option>Medical College in Dawadmi</option>
+                    <option>Shaqra University</option>
+                    <option>Ibn Sina National College for Medical Studies</option>
+                    <option>Batterjee Medical College</option>
+                    <option>Al Farabi College</option>
+                    <option>Riyadh Colleges of Dentistry and Pharacy</option>
+                    <option>Sulaiman Al Rajhi Colleges</option>
+                    <option>Inaya Medical College</option>
+                    <option>Al-Ghada International Health Sciences Colleges</option>
+                    <option>Buraydah Colleges</option>
+                    <option>Al Maarefa Colleges</option>
+                    <option>Princess Nora bint Abdul Rahman University</option>
+                    <option>Other</option>
 
-                    <option>Instructor</option>
+
                   </Form.Control>
                 </div>
 

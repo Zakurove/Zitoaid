@@ -513,8 +513,8 @@ export class DetailsCluster extends Component {
                 {/* <div className="col-8" style={{ padding: "1px" }}> */}
                 <div className="col-sm-12 col-md-12 col-lg">
                 {user
-                  ? this.props.auth.user.username ==
-                      this.state.chosenSet.owner_username && (
+                  ? this.props.auth.user.id ==
+                      this.state.chosenSet.owner && (
                       <Button
                         onClick={(e) => {
                           this.handleToggleNoteMode(e);
@@ -630,8 +630,8 @@ export class DetailsCluster extends Component {
                                 </PopoverHeader>
                                 
                                   {user
-                                    ? this.props.auth.user.username ==
-                                        this.state.chosenSet.owner_username && (
+                                    ? this.props.auth.user.id ==
+                                        this.state.chosenSet.owner && (
                                           <PopoverBody>
                                         <Button
                                         className="me-2 tawassamBlueBG"
@@ -738,8 +738,8 @@ export class DetailsCluster extends Component {
                    <i class="fas fa-arrow-left"></i> Back to List
                 </Button>
                 {user
-                  ? this.props.auth.user.username ==
-                      this.props.cluster.owner_username && (
+                  ? this.props.auth.user.id ==
+                      this.props.cluster.owner && (
                       <Button
                         className="tawassamYellowBG float-end me-2"
                         style={{ marginBottom: "3px", marginRight: "3px" }}
@@ -871,7 +871,7 @@ function mapStateToProps(state, ownProps) {
     sets: [],
   };
   let clusterSets = 
-    [{id: "", title: "This Cluster Has No Sets", description: "This Cluster Has No Sets", images: [], owner_username: "three"},];
+    [{id: "", title: "This Cluster Has No Sets", description: "This Cluster Has No Sets", images: [], owner_username: "three", owner: null},];
 
   //Filtering through all clusters to get this one
   let selectedClusterId = ownProps.match.params.id;

@@ -22,7 +22,7 @@ export class Header extends Component {
       <Navbar.Collapse className="justify-content-end">
 
         <Navbar.Text style={{fontSize: "1.5rem"}}>
-        <i className="fas fa-user"></i> {user ? <span className="tawassamBlue" style={{fontWeight: "bold"}}> {user.username}</span> : ""}
+        <i className="fas fa-user"></i> {user ? <span className="tawassamBlue" style={{fontWeight: "bold"}}> {user.name}</span> : ""}
           </Navbar.Text>
         
 
@@ -65,12 +65,12 @@ export class Header extends Component {
           )
         : "" }
       {user
-        ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
+        ? this.props.auth.user.role && this.props.auth.user.role == "Educator" && (
           <Nav.Link href="#/mysets" className="ms-4"><i className="fas fa-layer-group tawassamYellow"></i> My Sets</Nav.Link>
           )
         : "" }
               {user
-        ? this.props.auth.user.profile.role && this.props.auth.user.profile.role == "Instructor" && (
+        ? this.props.auth.user.role && this.props.auth.user.role == "Educator" && (
           <Nav.Link href="#/myclusters" className="ms-4"><i className="fas fa-sitemap tawassamYellow"></i> My Clusters</Nav.Link>
           )
         : "" }

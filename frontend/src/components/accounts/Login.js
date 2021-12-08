@@ -10,7 +10,7 @@ import "../../../static/css/user.css";
 export class Login extends Component {
   // eslint-disable-line react/prefer-stateless-function
   state = {
-    username: "",
+    email: "",
     password: "",
     isChecked: false,
   };
@@ -21,10 +21,10 @@ export class Login extends Component {
   };
 
   componentDidMount() {
-    if (localStorage.checkbox && localStorage.username !== "") {
+    if (localStorage.checkbox && localStorage.email !== "") {
         this.setState({
             isChecked: true,
-            username: localStorage.username,
+            email: localStorage.email,
             password: localStorage.password
         })
     }
@@ -44,17 +44,17 @@ onChangeCheckbox = event => {
 
   onSubmit = (e) => {
     e.preventDefault();
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(this.state.email, this.state.password);
   };
 
   loginSubmit = () => {
-    const { username, password, isChecked } = this.state
-    if (isChecked && username !== "") {
-        localStorage.username = username
+    const { email, password, isChecked } = this.state
+    if (isChecked && email !== "") {
+        localStorage.email = email
         localStorage.password = password
         localStorage.checkbox = isChecked
     }
-    this.props.login(this.state.username, this.state.password);
+    this.props.login(this.state.email, this.state.password);
 }
 
 
@@ -65,7 +65,7 @@ onChangeCheckbox = event => {
       return <Redirect to="/" />;
     }
 
-    const { username, password, isChecked } = this.state;
+    const { email, password, isChecked } = this.state;
     return (
       <div className="" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLoginBG.jpg")`, backgroundSize: 'cover', backgroundRepeat: "no-repeat", backgroundPosition: "right top", paddingBottom: "15rem"  }}>                          
         <hr className="style-five"/>
@@ -89,15 +89,15 @@ onChangeCheckbox = event => {
 
                 <div className="input-group form-group mt-4">
                     <span className="input-group-text iconInput ">
-                      <i className="fas fa-user mx-auto"></i>
+                      <i className="fas fa-envelope mx-auto"></i>
                     </span>
                   <input
-                    type="text"
+                    type="email"
                     className="form-control"
-                    name="username"
+                    name="email"
                     onChange={this.onChangeValue}
-                    value={username}
-                    placeholder="Username"
+                    value={email}
+                    placeholder="Email"
                   />
                 </div>
 

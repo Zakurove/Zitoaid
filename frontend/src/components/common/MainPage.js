@@ -1,20 +1,48 @@
 import React, { Component, Fragment } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 import Subjects from "./Subjects.js";
 import AnchorLink from "react-anchor-link-smooth-scroll";
+import { SlideCountdown } from "react-fancy-countdown";
+import { addEmailList } from "../../actions/emailLists";
+import { createMessage } from "../../actions/messages";
 import ReactGA from 'react-ga';
 
 export class MainPage extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    email: "",
+    currentBlock: "",
+    isChecked: false,
+    submitted: false,
+    block: null,
 
-    this.state = {
-      block: null,
-    };
-  }
-  // componentDidMount() {
-  //   ReactGA.pageview(window.location.pathname);
-  // }
+  };
+
+  static propTypes = {
+    addEmailList: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
+
+  onSubmit = (e) => {
+    e.preventDefault();
+    if (this.state.email.trim() == "") {
+      this.props.createMessage({ titleEmpty: "Please fill in the email" });
+    } 
+    else if (this.state.email.trim() !== "") {
+    const email = new FormData();
+    email.append('email', this.state.email)
+    email.append('currentBlock', this.state.currentBlock);
+    this.props.addEmailList(email);
+    this.setState({submitted: true})
+  };
+}
+
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+
+
   render() {
+    const { email, currentBlock } = this.state;
     return (
       <div className="pt-5">
         {/* Main row for header of this page */}
@@ -27,12 +55,12 @@ export class MainPage extends Component {
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
                 }
                 style={{ width: "100%" }}
-                className=" img-fluid float-right"
+                className=" img-fluid float-right py-5 my-4"
               />
             </div>
 
             {/* For text content */}
-            <div className="col-lg-6 bg-light ps-5 pt-5 mt-3">
+            {/* <div className="col-lg-6 bg-light ps-5 pt-5 mt-3">
               <h1 className=" tawassamBlue mb-4 pl-2">
                 Visualize for a better future!
               </h1>
@@ -40,60 +68,76 @@ export class MainPage extends Component {
                 A platform that strives to enhance visual materials knowledge
                 for all healthcare personnel!
               </h4>
-            </div>
+            </div> */}
+
+              <div className="col-lg-6 bg-light ps-4 pt-5 mt-3">
+              <h1 style={{fontWeight: "bold", fontSize: "4rem"}} className="tawassamBlue">Tawassam is Here!</h1>
+              <h3  className="mt-3 mb-0 codepoiesisBlue"> <span className="tawassamYellow">Study</span> our library and <span className="tawassamYellow">practice</span> on all kinds of visual materials!</h3>
+              <h4  className="codepoiesisBlue">Including <span className="tawassamYellow">pathology</span>, <span className="tawassamYellow">radiology</span> and many others!</h4>
+              
+              <div className="">
+              {this.state.submitted
+                  ? this.state.submitted == true && (
+                    <div><h2 className="tawassamBlue mt-5">Thank you, we'll be in touch!</h2> <h3 className="tawassamBlue mb-3">Please take a tour and explore Tawassam!</h3></div>
+                       
+                    )
+                  :  <form className="mt-5 row d-flex justify-content-center">
+                  <hr/>
+                  <h2 className="tawassamBlue mb-3">Pre-Subscribe & Ace Your Exams!</h2>
+                    <div className="px-4" >
+                      
+                    {/* <h5 className=" mb-2 tawassamBlue mt-2 ">*Email</h5> */}
+                    <div className="input-group form-group mt-1">
+                      <input
+                        type="text"
+                        className="form-control"
+                        name="email"
+                        onChange={this.onChange}
+                        value={email}
+                        placeholder="Enter your email address"
+                      />
+                    </div>
+                    <div className="d-grid">
+                    <button
+                      type="button"
+                      value="Email"
+                      onClick={this.onSubmit}
+                      style={{ color: "white"}}
+                      className="btn btn-info tawassamBlueBG btn-lg mt-4"
+                    >
+                      Submit
+                    </button>
+                    </div>
+                    </div>
+                  </form>}
+
+              </div>
+
+              </div>
+
+
           </div>
         </div>
 
         {/* Features Row */}
 
         <div
-          className="row d-flex justify-content-around px-5"
-          style={{ backgroundColor: "#e9eef7", paddingTop: "5rem" }}
+          className=" px-3"
+          style={{ backgroundColor: "#e9eef7", paddingTop: "2rem" }}
         >
-          {/* <div className="col px-5 d-grid">
-            <div
-              className="tawassamBlueBG text-center mx-auto d-flex justify-content-around mb-2"
-              style={{
-                borderRadius: "100%",
-                height: "4.5rem",
-                width: "4.5rem",
-              }}
-            >
-              <i
-                class="fas fa-layer-group text-center text-white my-auto"
-                style={{ fontSize: "1.75rem" }}
-              ></i>
-            </div>
-            <h3 className="tawassamYellow text-center">Sets</h3>
-            <p className="text-center text-secondary mb-0">
-              Specialized collection of materials that focus on one specific
-              feature.
-            </p>
-          </div> */}
 
-          {/* <div
-            className="col px-5 d-grid"
-            style={{ borderRight: "3px solid #4ecdc4" }}
-          >
-            <div
-              className="tawassamBlueBG text-center mx-auto d-flex justify-content-around mb-2"
-              style={{
-                borderRadius: "100%",
-                height: "4.5rem",
-                width: "4.5rem",
-              }}
-            >
-              <i
-                class="fas fa-sitemap text-center text-white my-auto"
-                style={{ fontSize: "1.75rem" }}
-              ></i>
+<div className = "row d-flex  justify-content-center">
+              <h2 className ="codepoiesisBlue text-center">Stay tuned for the coming systems!</h2>
+              <h3 className ="tawassamYellow text-center">Gastrointestinal <span className="codepoiesisBlue">&</span> Genitourinary</h3>
             </div>
-            <h3 className="tawassamYellow text-center">Clusters</h3>
-            <p className="text-center text-secondary mb-0">
-              Group of related sets joining under one general umbrella.
-            </p>
-          </div> */}
+            {/* Timer */}
+          <div className="text-center d-flex  justify-content-center mt-4">
 
+    <SlideCountdown
+    deadline="2021-12-12 23:59:59" weeks={false} />
+</div>
+          
+{/* 
           <div
             className="col-4 px-5 d-grid"
             style={{ borderLeft: "3px solid #4ecdc4" }}
@@ -140,10 +184,11 @@ export class MainPage extends Component {
               standards.
             </p>
           </div>
-        </div>
+        </div> */}
+      </div>
 
         <div
-          className="d-flex justify-content-center pt-5"
+          className="d-flex justify-content-center pb-5"
           style={{ backgroundColor: "#e9eef7" }}
         >
           <div class="arrow bounce mb-0 mt-5 d-inline-flex ">
@@ -177,15 +222,64 @@ export class MainPage extends Component {
             style={{ paddingBottom: "9rem" }}
           >
             <div className="row">
-              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
-                <a href="/#/cardiovascular">
+
+
+              
+            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="/#/respiratory">
                   <div class="card-flyer">
                     <div class="text-box">
-                      <div class="image-box">
+                      <div class="image-box justify-content-center d-flex">
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/RespTawassam3.jpg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="text-container">
+                        <h6>Respiratory - Sample</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/MSKTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Musculoskeletal</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
                         <img
                           src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/CardioTawassam3.jpg"
                           alt=""
                         />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
                       </div>
                       <div class="text-container">
                         <h6>Cardiovascular</h6>
@@ -195,6 +289,122 @@ export class MainPage extends Component {
                 </a>
               </div>
 
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/HemOncTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Hematology/Oncology</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/NeuroTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Neurology</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/EndoTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Endocrine</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GastroTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Gastrointestinal</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GenitoTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Genitourinary</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+{/* 
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/musculoskeletal">
                   <div class="card-flyer">
@@ -229,9 +439,9 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
-              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/hemOnc">
                   <div class="card-flyer">
                     <div class="text-box">
@@ -247,9 +457,9 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
-              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/neurology">
                   <div class="card-flyer">
                     <div class="text-box">
@@ -265,8 +475,8 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
-
+              </div> */}
+{/* 
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/endocrine">
                   <div class="card-flyer">
@@ -283,9 +493,9 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
-              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/gastrointestinal">
                   <div class="card-flyer">
                     <div class="text-box">
@@ -301,9 +511,9 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
-              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/genitourinary">
                   <div class="card-flyer">
                     <div class="text-box">
@@ -319,7 +529,7 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -328,4 +538,9 @@ export class MainPage extends Component {
   }
 }
 
-export default MainPage;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { addEmailList, createMessage })(MainPage);
+

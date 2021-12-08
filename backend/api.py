@@ -9,16 +9,16 @@ from rest_framework.permissions import IsAdminUser, SAFE_METHODS
 # Permissions
 class IsAdminUserOrReadOnly(IsAdminUser):
     def has_permission(self, request, view):
-        is_instructors = super(
+        is_educators = super(
             IsAdminUserOrReadOnly,
             self).has_permission(request, view)
         # Python3: is_admin = super().has_permission(request, view)
-        return request.method in SAFE_METHODS or is_instructors
+        return request.method in SAFE_METHODS or is_educators
 
-# If the user is in the Instructors group, they will be able to do add sets
-class IsInstructor(permissions.BasePermission):
+# If the user is in the Educators group, they will be able to do add sets
+class IsEducator(permissions.BasePermission):
     def has_permission(self, request, view):
-        if request.user and request.user.groups.filter(name='instructors'):
+        if request.user and request.user.groups.filter(name='Educators'):
             return True
         return request.method in SAFE_METHODS
 
@@ -35,7 +35,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
 class ClusterViewSet(viewsets.ModelViewSet):
     queryset = Cluster.objects.all()
     permission_classes = [
-        IsInstructor,
+        IsEducator,
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
@@ -50,7 +50,7 @@ class SetViewSet(viewsets.ModelViewSet):
     permission_classes = [
         # permissions.IsAuthenticated,
         # IsAdminUserOrReadOnly
-        IsInstructor,
+        IsEducator,
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )

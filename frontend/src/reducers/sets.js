@@ -27,7 +27,7 @@ export default function(state = initialState, action) {
       case GET_MYSETS:
         return {
           ...state,
-          sets: action.payload.filter((set) =>  set.owner_username == action.user ),
+          sets: action.payload.filter((set) =>  set.owner == action.user ),
           // sets: action.payload.filter((set) =>  set.subject == action.subject && set.block == action.block),
           //  &&
         }

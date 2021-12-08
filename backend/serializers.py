@@ -19,7 +19,7 @@ class PracticeDescSessionSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         #PracticeDescInput
         creator = self.context['request'].user
-        practiceDescSession = PracticeDescSession.objects.create(block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+        practiceDescSession = PracticeDescSession.objects.create(block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
         #Get the sets array from frotnend
         setsArray =self.context.get('view').request.data.get('setsArray')
         #To split set ids
@@ -78,7 +78,7 @@ class PracticeDescInputSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         #PracticeDescInput
         creator = self.context['request'].user
-        practiceDescInput = PracticeDescInput.objects.create(description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+        practiceDescInput = PracticeDescInput.objects.create(description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
 
         setID =self.context.get('view').request.data.get('setId')
         setID = setID.split(',')
@@ -122,7 +122,7 @@ class ClusterSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         #Cluster
         creator = self.context['request'].user
-        cluster = Cluster.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+        cluster = Cluster.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
         #Get the sets array from fronend
         setsArray =self.context.get('view').request.data.get('setsArray')
         #To split set ids
@@ -182,7 +182,7 @@ class SetSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         #SET
         creator = self.context['request'].user
-        set = Set.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.username )
+        set = Set.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
 
 
         #IMAGES

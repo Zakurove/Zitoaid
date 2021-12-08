@@ -44,8 +44,8 @@ export class MyPractice extends Component {
         isUpdating: false,
       });
     }
-        this.setState({username: user.username})
-      this.props.getMyPracticeDescSessions(user.username);
+        this.setState({username: user.name})
+      this.props.getMyPracticeDescSessions(user.id);
     }
   }
 
@@ -256,7 +256,8 @@ export class MyPractice extends Component {
           <thead>
             <tr>
             <th><span className="tawassamYellow">ID</span></th>
-                <th><span className="tawassamYellow">Type</span></th>
+                <th><span className="tawassamYellow">Blcok</span></th>
+                <th><span className="tawassamYellow">Date</span></th>
               <th />
             </tr>
           </thead>
@@ -264,7 +265,8 @@ export class MyPractice extends Component {
             {this.props.practiceDescSessions.map((session) => (
               <tr key={session.id}>
                   <td className="tawassamBlue">{session.id}</td>
-                  <td className="tawassamBlue"> Practice Description</td>
+                  <td className="tawassamBlue">{session.block}</td>
+                  <td className="tawassamBlue">{session.date}</td>
 
                 <td>
                   <a

@@ -34,7 +34,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // LOGIN USER
-export const login = (username, password) => (dispatch) => {
+export const login = (email, password) => (dispatch) => {
   // Headers
   const config = {
     headers: {
@@ -43,12 +43,12 @@ export const login = (username, password) => (dispatch) => {
   };
 
   // Request Body
-  const body = JSON.stringify({ username, password });
+  const body = JSON.stringify({ email, password });
 
   axios
     .post('/api/auth/login', body, config)
     .then((res) => {
-      dispatch(createMessage({info: `Welcome back ${res.data.user.username}!`  }))
+      dispatch(createMessage({info: `Welcome back ${res.data.user.name}!`  }))
       dispatch({  
         type: LOGIN_SUCCESS,
         payload: res.data,
@@ -77,7 +77,7 @@ export const register = newUser => (dispatch) => {
   axios
     .post('/api/auth/register', newUser, config)
     .then((res) => {
-      dispatch(createMessage({success: `Welcome ${res.data.user.username}!`  }))
+      dispatch(createMessage({success: `Welcome ${res.data.user.name}!`  }))
       dispatch({
         type: REGISTER_SUCCESS,
         payload: res.data,

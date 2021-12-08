@@ -349,7 +349,7 @@ function mapStateToProps(state, ownProps) {
     sets: [],
   };
   let practiceDescSessionSets = 
-    [{id: "", title: "This Session Has No Sets", description: "This Session Has No Sets", images: [], owner_username: "three"},];
+    [{id: "", title: "This Session Has No Sets", description: "This Session Has No Sets", images: [], owner_username: "three", owner: null},];
 
   //Filtering through all sessions to get this one
   let selectedSessionId = ownProps.match.params.id;

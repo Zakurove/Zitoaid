@@ -44,7 +44,7 @@ export class DetailsSet extends Component {
       set: this.props.set,
       deleteModalShow: false,
       user: null,
-      // username: this.props.auth.user.username
+
     };
 
     this.pointXY = this.pointXY.bind(this);
@@ -490,8 +490,8 @@ export class DetailsSet extends Component {
                 <div className="col-sm-12 col-md-12 col-lg">
 
                 {user
-                  ? this.props.auth.user.username ==
-                      this.state.set.owner_username && (
+                  ? this.props.auth.user.id ==
+                      this.state.set.owner && (
                       <Button
                         onClick={(e) => {
                           this.handleToggleNoteMode(e);
@@ -607,8 +607,8 @@ export class DetailsSet extends Component {
                                 </PopoverHeader>
                                 
                                   {user
-                                    ? this.props.auth.user.username ==
-                                        this.props.set.owner_username && (
+                                    ? this.props.auth.user.id ==
+                                        this.props.set.owner && (
                                           <PopoverBody>
                                           <Button
                                         className="me-2 tawassamBlueBG"
@@ -729,8 +729,8 @@ export class DetailsSet extends Component {
                   <i class="fas fa-arrow-left"></i> Back to sets list
                 </Button>
                 {user
-                  ? this.props.auth.user.username ==
-                      this.props.set.owner_username && (
+                  ? this.props.auth.user.id ==
+                      this.props.set.owner && (
                       <Button
                         className=" float-end tawassamYellowBG me-3"
                         style={{ marginBottom: "3px", marginRight: "3px" }}

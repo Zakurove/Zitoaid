@@ -21,7 +21,7 @@ export default function(state = initialState, action) {
       case GET_MYCLUSTERS:
         return {
           ...state,
-          clusters: action.payload.filter((cluster) =>  cluster.owner_username == action.user ),
+          clusters: action.payload.filter((cluster) =>  cluster.owner == action.user ),
         }
         case GET_ALLCLUSTERS:
           return {

@@ -1,5 +1,6 @@
+from accounts.models import User
 from django.db import models
-from django.contrib.auth.models import User
+
 
 # def upload_path(instance, filename):
 #     return '/'.join(['RespMicro', str(instance.title), filename])
