@@ -270,7 +270,7 @@ export class MyPractice extends Component {
 
                 <td>
                   <a
-                    href= {`#/${this.state.block}/practice/description/results/${session.id}`}
+                    href= {`#/${session.block}/practice/description/results/${session.id}`}
                     className="btn tawassamYellowBG"
                     style={{ whiteSpace: "nowrap" }}
                     onClick={(e) => {

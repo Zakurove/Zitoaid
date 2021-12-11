@@ -131,14 +131,14 @@ export class PracticeList extends Component {
                                 <i className="far fa-file-alt mb-2 tawassamBlue" />
                                 </div>
                                 <div class="text-container">                                    
-                                    <h6>Practice Description</h6> 
+                                    <h6>Description</h6> 
                                 </div>
                             </div>
                         </div>
                     </a>
                 </div>
 
-                <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <a href="#"                     onClick={(e) => {
                               this.setState({
                                 practiceIdentification: true,
@@ -147,18 +147,46 @@ export class PracticeList extends Component {
                             }}>
                         <div class="card-flyer mt-1 mb-5">
                             <div class="text-box">
+
+
                                 <div class="image-boxSubjects p-5">
                                 <i className="fas fa-search mb-2 tawassamBlue" />
                                 </div>
                                 <div class="text-container">                                    
                                     <h6>Practice Identification</h6> 
                                 </div>
+
                             </div>
                         </div>
                     </a>
-                </div>
-
+                </div> */}
+                
                 <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <a href="javascript:void(0)" className="disabled" onClick={(e) => {
+                              this.setState({
+                                practiceIdentification: true,
+                              });
+                              event.preventDefault();
+                            }}>
+                  <div class="card-flyer mt-1 mb-5" >
+                    <div class="text-box">
+                      <div class="image-boxSubjects justify-content-center d-flex p-5" style={{position: "relative"}}>
+
+                         <i className="fas fa-search mb-2 tawassamBlue" style={{opacity: "0.5"}}/>
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="codepoiesisBlue">Coming Soon</h1>
+                              </section>
+                      </div>
+                      <div class="text-container">                                    
+                                    <h6>Identification</h6> 
+                                </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+                {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <a href="#"                     onClick={(e) => {
                               this.setState({
                                 practiceNote: true,
@@ -176,10 +204,34 @@ export class PracticeList extends Component {
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> */}
+                                <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <a href="javascript:void(0)" className="disabled" onClick={(e) => {
+                              this.setState({
+                                practiceIdentification: true,
+                              });
+                              event.preventDefault();
+                            }}>
+                  <div class="card-flyer mt-1 mb-5" >
+                    <div class="text-box">
+                      <div class="image-boxSubjects justify-content-center d-flex p-5" style={{position: "relative"}}>
+
+                         <i className="fas fa-info-circle mb-2 tawassamBlue" style={{opacity: "0.5"}}/>
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="codepoiesisBlue">Coming Soon</h1>
+                              </section>
+                      </div>
+                      <div class="text-container">                                    
+                                    <h6>Notes</h6> 
+                                </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
 
 
-                <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <a href="#"                     onClick={(e) => {
                               this.setState({
                                 practiceMCQ: true,
@@ -197,7 +249,31 @@ export class PracticeList extends Component {
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> */}
+                                                <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <a href="javascript:void(0)" className="disabled" onClick={(e) => {
+                              this.setState({
+                                practiceIdentification: true,
+                              });
+                              event.preventDefault();
+                            }}>
+                                  <div class="card-flyer mt-1 mb-5" >
+                    <div class="text-box">
+                      <div class="image-boxSubjects justify-content-center d-flex p-5" style={{position: "relative"}}>
+
+                         <i className="far fa-question-circle mb-2 tawassamBlue" style={{opacity: "0.5"}}/>
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="codepoiesisBlue">Coming Soon</h1>
+                              </section>
+                      </div>
+                      <div class="text-container">                                    
+                                    <h6>MCQs</h6> 
+                                </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
 
 
 
