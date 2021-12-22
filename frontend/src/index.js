@@ -28,7 +28,7 @@ const alertOptions = {
     app: 'tawassam',
     plugins: [
       googleAnalytics({
-        trackingId: 'UA-187572377-1',
+        trackingId: 'UA-179977978-1',
       })
     ]
   })

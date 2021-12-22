@@ -55,7 +55,7 @@ export class MainPage extends Component {
                   "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
                 }
                 style={{ width: "100%" }}
-                className=" img-fluid float-right py-5 my-4"
+                className=" img-fluid float-right my-5"
               />
             </div>
 
@@ -70,12 +70,12 @@ export class MainPage extends Component {
               </h4>
             </div> */}
 
-              <div className="col-lg-6 bg-light ps-4 pt-5 mt-3">
+              <div className="col-lg-6 bg-light ps-4 pt-5 mt-5">
               <h1 style={{fontWeight: "bold", fontSize: "4rem"}} className="tawassamBlue">Tawassam is Here!</h1>
-              <h3  className="mt-3 mb-0 codepoiesisBlue"> <span className="tawassamYellow">Study</span> our library and <span className="tawassamYellow">practice</span> on all kinds of visual materials!</h3>
+              <h3  className="mt-3 codepoiesisBlue"> <span className="tawassamYellow">Study</span> our library and <span className="tawassamYellow">practice</span> on all kinds of visual materials!</h3>
               <h4  className="codepoiesisBlue">Including <span className="tawassamYellow">pathology</span>, <span className="tawassamYellow">radiology</span> and many others!</h4>
               
-              <div className="">
+              {/* <div className="">
               {this.state.submitted
                   ? this.state.submitted == true && (
                     <div><h2 className="tawassamBlue mt-5">Thank you, we'll be in touch!</h2> <h3 className="tawassamBlue mb-3">Please take a tour and explore Tawassam!</h3></div>
@@ -86,7 +86,7 @@ export class MainPage extends Component {
                   <h2 className="tawassamBlue mb-3">Pre-Subscribe & Ace Your Exams!</h2>
                     <div className="px-4" >
                       
-                    {/* <h5 className=" mb-2 tawassamBlue mt-2 ">*Email</h5> */}
+                   
                     <div className="input-group form-group mt-1">
                       <input
                         type="text"
@@ -111,7 +111,7 @@ export class MainPage extends Component {
                     </div>
                   </form>}
 
-              </div>
+              </div>  */}
 
               </div>
 
@@ -127,15 +127,15 @@ export class MainPage extends Component {
         >
 
 <div className = "row d-flex  justify-content-center">
-              <h2 className ="codepoiesisBlue text-center">Stay tuned for the coming systems!</h2>
+              <h2 className ="codepoiesisBlue text-center">Two new systems have arrived!</h2>
               <h3 className ="tawassamYellow text-center">Gastrointestinal <span className="codepoiesisBlue">&</span> Genitourinary</h3>
             </div>
             {/* Timer */}
-          <div className="text-center d-flex  justify-content-center mt-4">
+          {/* <div className="text-center d-flex  justify-content-center mt-4">
 
     <SlideCountdown
-    deadline="2021-12-12 23:59:59" weeks={false} />
-</div>
+    deadline="2021-12-13 23:59:59" weeks={false} />
+</div> */}
           
 {/* 
           <div
@@ -224,7 +224,43 @@ export class MainPage extends Component {
             <div className="row">
 
 
-              
+            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="/#/gastrointestinal">
+                  <div class="card-flyer">
+                    <div class="text-box">
+                      <div class="image-box">
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GastroTawassam3.jpg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="text-container">
+                        <h6>Gastrointestinal</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="/#/genitourinary">
+                  <div class="card-flyer">
+                    <div class="text-box">
+                      <div class="image-box">
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/GenitoTawassam3.jpg"
+                          alt=""
+                        />
+                      </div>
+                      <div class="text-container">
+                        <h6>Genitourinary</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div>
+
+{/*               
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <a href="/#/respiratory">
                   <div class="card-flyer">
@@ -237,6 +273,29 @@ export class MainPage extends Component {
                       </div>
                       <div class="text-container">
                         <h6>Respiratory - Sample</h6>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </div> */}
+
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+                <a href="javascript:void(0)" className="disabled">
+                  <div class="card-flyerSoon">
+
+                    <div class="text-box">
+                      <div class="image-box justify-content-center d-flex" style={{position: "relative"}}>
+                        <img
+                          src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/Blocks/RespTawassam3.jpg"
+                          alt=""
+                        />
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="tawassamBlue">Coming Soon</h1>
+                              </section>
+
+                      </div>
+                      <div class="text-container">
+                        <h6>Respiratory</h6>
                       </div>
                     </div>
                   </div>
@@ -358,7 +417,7 @@ export class MainPage extends Component {
                 </a>
               </div>
 
-              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+              {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <a href="javascript:void(0)" className="disabled">
                   <div class="card-flyerSoon">
 
@@ -402,7 +461,7 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
 {/* 
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
@@ -511,9 +570,9 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div> */}
+              </div>
 
-              {/* <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
+              <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
                 <a href="/#/genitourinary">
                   <div class="card-flyer">
                     <div class="text-box">

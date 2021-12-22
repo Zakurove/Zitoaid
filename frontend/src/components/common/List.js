@@ -2,11 +2,15 @@ import React, { Component, Fragment } from "react";
 import PropTypes from "prop-types";
 import ListSets from "../sets/ListSets";
 import ListClusters from "../clusters/ListClusters";
+import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 export class List extends Component {
+  static propTypes = {
+    isAuthenticated: PropTypes.bool,
+  };
   constructor(props) {
     super(props);
-
+    
     this.state = {
       isSet: false,
       isCluster: false,
@@ -126,5 +130,7 @@ export class List extends Component {
     );
   }
 }
-
-export default List;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+export default connect(mapStateToProps)(List);

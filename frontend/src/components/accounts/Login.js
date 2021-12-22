@@ -72,6 +72,7 @@ onChangeCheckbox = event => {
         <div className="container pt-5">
           <div className="row">
             <div className="col-md-5 mx-auto pt-5">
+            <a href="#/welcome">
             <img
               src={
                 "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
@@ -80,6 +81,8 @@ onChangeCheckbox = event => {
               alt="Responsive image"
               style={{ width: "150%" }}
             />
+            </a>
+            
             </div>
           </div>
           <div className="row">
