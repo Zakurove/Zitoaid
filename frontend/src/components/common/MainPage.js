@@ -127,15 +127,15 @@ export class MainPage extends Component {
         >
 
 <div className = "row d-flex  justify-content-center">
-              <h2 className ="codepoiesisBlue text-center">Two new systems have arrived!</h2>
-              <h3 className ="tawassamYellow text-center">Gastrointestinal <span className="codepoiesisBlue">&</span> Genitourinary</h3>
+              <h2 className ="codepoiesisBlue text-center">Coming back with more <span className="tawassamYellow">systems!</span></h2>
+              {/* <h3 className ="tawassamYellow text-center">Gastrointestinal <span className="codepoiesisBlue">&</span> Genitourinary</h3> */}
             </div>
             {/* Timer */}
-          {/* <div className="text-center d-flex  justify-content-center mt-4">
+          <div className="text-center d-flex  justify-content-center mt-4">
 
     <SlideCountdown
-    deadline="2021-12-13 23:59:59" weeks={false} />
-</div> */}
+    deadline="2022-2-13 23:59:59" weeks={false} />
+</div>
           
 {/* 
           <div
@@ -224,7 +224,7 @@ export class MainPage extends Component {
             <div className="row">
 
 
-            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <a href="/#/gastrointestinal">
                   <div class="card-flyer">
                     <div class="text-box">
@@ -258,7 +258,7 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
 {/*               
             <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
@@ -417,7 +417,7 @@ export class MainPage extends Component {
                 </a>
               </div>
 
-              {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+              <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <a href="javascript:void(0)" className="disabled">
                   <div class="card-flyerSoon">
 
@@ -461,7 +461,7 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div> */}
+              </div>
 
 {/* 
               <div className="col-xs-12 col-sm-6 col-md-3 col-lg-3">
