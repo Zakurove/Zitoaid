@@ -211,7 +211,7 @@ state = {
             (Description)
           </h1> */}
           {/* <hr /> */}
-          <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}/practice`}>
+          <a className="btn btn-secondary mt-1" href={`#/${this.state.blockLink}/practice/description`}>
           <i class="fas fa-arrow-left"></i> Previous Page
           </a>
           <hr />
@@ -367,4 +367,4 @@ function mapStateToProps(state, ownProps) {
 }
 
 
-export default connect(mapStateToProps, { getBlockSets, addPracticeDescInput, getPracticeDescSessions })(DetailsPracticeDescription);
+export default connect(mapStateToProps, { getBlockSets, addPracticeDescInput, getPracticeDescSessions, createMessage })(DetailsPracticeDescription);

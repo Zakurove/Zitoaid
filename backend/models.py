@@ -1,6 +1,6 @@
 from accounts.models import User
-from django.db import models
-
+from django.db import models 
+from django.db.models import JSONField
 
 # def upload_path(instance, filename):
 #     return '/'.join(['RespMicro', str(instance.title), filename])
@@ -73,6 +73,7 @@ class PracticeDescInput(models.Model):
 #PracticeDescSession
 class PracticeDescSession(models.Model):
     date = models.DateField(auto_now_add=True, null=True)
+    practiceType = models.CharField(default="Description", max_length=40)
     block = models.CharField(blank=True, null=True, max_length=20)
     owner_username = models.CharField(max_length=30, null=True)
     owner = models.ForeignKey(
@@ -83,6 +84,23 @@ class PracticeDescSession(models.Model):
 
     def save(self, *args, **kwargs):
         super(PracticeDescSession, self).save(*args, **kwargs)
+
+#PracticeIdentifySession
+class PracticeIdentifySession(models.Model):
+    date = models.DateField(auto_now_add=True, null=True)
+    practiceType = models.CharField(default="Identification", max_length=40)
+    block = models.CharField(blank=True, null=True, max_length=20)
+    owner_username = models.CharField(max_length=30, null=True)
+    owner = models.ForeignKey(
+        User, related_name="practiceIdentifySession", on_delete=models.CASCADE, null=True)
+    questions = JSONField(encoder=None, blank=True, null=True)
+    result = JSONField(encoder=None, blank=True, null=True)
+    # #Many to many relationship between sets and Practice session
+    # sets = models.ManyToManyField(Set, related_name='practiceDescSession', blank=True)
+    # practiceDescInputs = models.ManyToManyField(PracticeDescInput, related_name='practiceDescSessions', blank=True)
+
+    def save(self, *args, **kwargs):
+        super(PracticeIdentifySession, self).save(*args, **kwargs)
 
 #EmailList
 class EmailList(models.Model):

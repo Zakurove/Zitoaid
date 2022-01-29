@@ -32,9 +32,12 @@ import List from "./common/List.js";
 import WelcomePage from "./common/WelcomePage.js";
 
 import PracticeList from "./practice/PracticeList.js";
-import  PracticeDescriptionForm  from "./practice/PracticeDescriptionForm";
+import PracticeDescriptionForm  from "./practice/PracticeDescriptionForm";
 import DetailsPracticeDescription  from "./practice/DetailsPracticeDescription";
 import ResultsPracticeDescription  from "./practice/ResultsPracticeDescription";
+import PracticeIdentifyForm  from "./practice/PracticeIdentifyForm";
+import DetailsPracticeIdentify  from "./practice/DetailsPracticeIdentify";
+import ResultsPracticeIdentify  from "./practice/ResultsPracticeIdentify";
 import MyPractice from "./practice/MyPractice.js";
 
 import MySets from "./sets/MySets.js";
@@ -77,6 +80,7 @@ export default function App() {
                   <PrivateRoute exact path="/cardiovascular/practice/description" component={(props) => <PracticeDescriptionForm {...props} block={`Cardiovascular`} />} />
                   <PrivateRoute exact path="/cardiovascular/practice/description/:id" component={(props) => <DetailsPracticeDescription {...props} block={`Cardiovascular`}/>} />
                   <PrivateRoute exact path="/cardiovascular/practice/description/results/:id" component={(props) => <ResultsPracticeDescription {...props} block={`Cardiovascular`}/>} />
+                  <PrivateRoute exact path="/cardiovascular/practice/identification" component={(props) => <PracticeIdentifyForm {...props} block={`Cardiovascular`} />} />
                   {/* <PrivateRoute exact path="/cardiovascular" component={MainPage} /> */}
                   <PrivateRoute exact path="/cardiovascular" component={(props) => <List {...props} block={`Cardiovascular`}/>} />
                   <PrivateRoute exact path="/cardiovascular/sets" component={(props) => <ListSets {...props} block={`Cardiovascular`} />} />
@@ -298,15 +302,19 @@ export default function App() {
                   {/* <PrivateRoute exact path="/gastrointestinal" component={(props) => <Subjects {...props} block={`Gastrointestinal`} />} /> */}
 
 
-                  {/* <PrivateRoute exact path="/gastrointestinal/practice" component={(props) => <PracticeList {...props} block={`Gastrointestinal`} />} />
+                  <PrivateRoute exact path="/gastrointestinal/practice" component={(props) => <PracticeList {...props} block={`Gastrointestinal`} />} />
                   <PrivateRoute exact path="/gastrointestinal/practice/description" component={(props) => <PracticeDescriptionForm {...props} block={`Gastrointestinal`} />} />
                   <PrivateRoute exact path="/gastrointestinal/practice/description/:id" component={(props) => <DetailsPracticeDescription {...props} block={`Gastrointestinal`}/>} />
                   <PrivateRoute exact path="/gastrointestinal/practice/description/results/:id" component={(props) => <ResultsPracticeDescription {...props} block={`Gastrointestinal`}/>} />
+                  <PrivateRoute exact path="/gastrointestinal/practice/identification" component={(props) => <PracticeIdentifyForm {...props} block={`Gastrointestinal`} />} />
+                  <PrivateRoute exact path="/gastrointestinal/practice/identification/:id" component={(props) => <DetailsPracticeIdentify {...props} block={`Gastrointestinal`} />} />
+                  <PrivateRoute exact path="/gastrointestinal/practice/identification/results/:id" component={(props) => <ResultsPracticeIdentify {...props} block={`Gastrointestinal`} />} />
+
                   <PrivateRoute exact path="/gastrointestinal" component={(props) => <List {...props} block={`Gastrointestinal`} />} />
                   <PrivateRoute exact path="/gastrointestinal/sets" component={(props) => <ListSets {...props} block={`Gastrointestinal`} />} />
                   <PrivateRoute exact path="/gastrointestinal/sets/:id" component={(props) => <DetailsSet {...props} block={`Gastrointestinal`} />} />
                   <PrivateRoute exact path="/gastrointestinal/clusters" component={(props) => <ListClusters {...props} block={`Gastrointestinal`} />} />
-                  <PrivateRoute exact path="/gastrointestinal/clusters/:id" component={(props) => <DetailsCluster {...props} block={`Gastrointestinal`} />} /> */}
+                  <PrivateRoute exact path="/gastrointestinal/clusters/:id" component={(props) => <DetailsCluster {...props} block={`Gastrointestinal`} />} />
 
 
 
@@ -338,7 +346,7 @@ export default function App() {
 {/* 
                   <PrivateRoute exact path="/genitourinary" component={(props) => <Subjects {...props} block={`Genitourinary`} />} /> */}
 
-{/* 
+
                   <PrivateRoute exact path="/genitourinary/practice" component={(props) => <PracticeList {...props} block={`Genitourinary`} />} />
                   <PrivateRoute exact path="/genitourinary/practice/description" component={(props) => <PracticeDescriptionForm {...props} block={`Genitourinary`} />} />
                   <PrivateRoute exact path="/genitourinary/practice/description/:id" component={(props) => <DetailsPracticeDescription {...props} block={`Genitourinary`}/>} />
@@ -347,7 +355,7 @@ export default function App() {
                   <PrivateRoute exact path="/genitourinary/sets" component={(props) => <ListSets {...props} block={`Genitourinary`} />} />
                   <PrivateRoute exact path="/genitourinary/sets/:id" component={(props) => <DetailsSet {...props} block={`Genitourinary`} />} />
                   <PrivateRoute exact path="/genitourinary/clusters" component={(props) => <ListClusters {...props} block={`Genitourinary`}/>} />
-                  <PrivateRoute exact path="/genitourinary/clusters/:id" component={(props) => <DetailsCluster {...props} block={`Genitourinary`}/>} /> */}
+                  <PrivateRoute exact path="/genitourinary/clusters/:id" component={(props) => <DetailsCluster {...props} block={`Genitourinary`}/>} />
 
 
 

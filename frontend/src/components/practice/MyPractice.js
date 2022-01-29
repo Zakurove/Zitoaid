@@ -3,7 +3,8 @@ import { connect } from "react-redux";
 import { Button } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { getMyPracticeDescSessions,  getPracticeDescSessions } from "../../actions/practiceDescSessions";
-
+import {  getMyPracticeIdentifySessions,  getPracticeIdentifySessions } from "../../actions/practiceIdentifySessions";
+import Loader from "../layout/Loader.js";
 
 export class MyPractice extends Component {
   constructor(props) {
@@ -15,9 +16,13 @@ export class MyPractice extends Component {
       isViewing: false,
       block: "cardiovascular",
       subject: this.props.subject,
+      sessions: [],
       selectedPracticeDescSessionId: null,
       selectedPracticeDescSession: null,
       username: null,
+      isReady: false,
+      pushIdentify: true,
+      pushDesc: true
     };
     this.handleChange = this.handleChange.bind(this);
   }
@@ -29,29 +34,35 @@ export class MyPractice extends Component {
       
     if (user && this.state.isUpdating == true) {
         if (this.state.username !== null) {
-      //            if (this.state.block == "Hematology/Oncology") {
-      //   this.setState({
-      //     blockLink: "hemOnc",
-      //   });
-      // }
-      // if (this.props.block !== "Hematology/Oncology") {
-      //   const blockLink = this.state.block.toLowerCase();
-      //   this.setState({
-      //     blockLink: blockLink,
-      //   });
-      // } 
       this.setState({
         isUpdating: false,
       });
     }
-        this.setState({username: user.name})
+      this.setState({username: user.name})
       this.props.getMyPracticeDescSessions(user.id);
+      this.props.getMyPracticeIdentifySessions(user.id);
+
+      if (this.state.pushIdentify) {
+      setTimeout(() => this.props.practiceIdentifySessions.forEach(session => {
+        let sessions= this.state.sessions
+        sessions.push(session)
+        this.setState({sessions: sessions, pushIdentify: false})
+      }), 1000);
+    }
+      if (this.state.pushDesc) {
+      setTimeout(() =>     this.props.practiceDescSessions.forEach(session => {
+        let sessions= this.state.sessions
+        sessions.push(session)
+        this.setState({sessions: sessions, pushDesc: false})
+      }), 1100);
+    }
     }
   }
 
   static propTypes = {
     //This is the first "cluster" from the func down below
     getMyPracticeDescSessions: PropTypes.func.isRequired,
+    getMyPracticeIdentifySessions: PropTypes.func.isRequired,
     getPracticeDescSessions: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
   };
@@ -62,9 +73,18 @@ export class MyPractice extends Component {
   render() {
     const { user } = this.props.auth;  
 
-    {
-      this.rendering(user);
-    }
+        // The loading handler
+        if (this.state.isReady == false) {
+          setTimeout(() => this.rendering(user), 1200);
+          setTimeout(() => this.setState({ isReady: true }), 1500);
+          }
+          // The loading component
+          if (this.state.isReady == false) {
+            return (
+            <Loader/>
+            );
+            }
+    if (this.state.isReady) {      
     return (
       <div className="container">
         <div id="cards_landscape_wrap-2" className="mb-5">
@@ -255,20 +275,21 @@ export class MyPractice extends Component {
         <table className="table table-striped">
           <thead>
             <tr>
-            <th><span className="tawassamYellow">ID</span></th>
-                <th><span className="tawassamYellow">Blcok</span></th>
-                <th><span className="tawassamYellow">Date</span></th>
+            <th className="text-center"><span className="tawassamYellow">Type</span></th>
+                <th className="text-center"><span className="tawassamYellow">Block</span></th>
+                <th className="text-center"><span className="tawassamYellow">Date</span></th>
               <th />
             </tr>
           </thead>
           <tbody>
-            {this.props.practiceDescSessions.map((session) => (
+            {this.state.sessions.map((session) => (
               <tr key={session.id}>
-                  <td className="tawassamBlue">{session.id}</td>
-                  <td className="tawassamBlue">{session.block}</td>
-                  <td className="tawassamBlue">{session.date}</td>
+                  <td className="tawassamBlue text-center">{session.practiceType}</td>
+                  <td className="tawassamBlue text-center">{session.block}</td>
+                  <td className="tawassamBlue text-center">{session.date}</td>
 
                 <td>
+                  {session.practiceType == "Description" && (
                   <a
                     href= {`#/${session.block}/practice/description/results/${session.id}`}
                     className="btn tawassamYellowBG"
@@ -280,8 +301,39 @@ export class MyPractice extends Component {
                       });
                     }}
                   >
+                    View Results
+                  </a>
+                  )}
+                    {(session.practiceType == "Identification" && session.result !==null ) && (
+                  <a
+                    href= {`#/${session.block}/practice/identification/results/${session.id}`}
+                    className="btn tawassamYellowBG"
+                    style={{ whiteSpace: "nowrap" }}
+                    onClick={(e) => {
+                      this.setState({
+                        selectedPracticeIdentifySessionId: session.id,
+                        selectedPracticeIdentifySession: session,
+                      });
+                    }}
+                  >
+                    View Results
+                  </a>
+                  )}
+                  {(session.practiceType == "Identification" && session.result === null) && (
+                  <a
+                    href= {`#/${session.block}/practice/identification/${session.id}`}
+                    className="btn tawassamYellowBG"
+                    style={{ whiteSpace: "nowrap" }}
+                    onClick={(e) => {
+                      this.setState({
+                        selectedPracticeIdentifySessionId: session.id,
+                        selectedPracticeIdentifySession: session,
+                      });
+                    }}
+                  >
                     View Session
                   </a>
+                  )}
                 </td>
               </tr>
             ))}
@@ -292,12 +344,14 @@ export class MyPractice extends Component {
       </div>
     );
   }
+  }
 }
 
 const mapStateToProps = (state) => ({
   // the first one is whatever we're getting so it's okay, the 2nd one is the name of the reducer, the 3rd the state in the reducer
   practiceDescSessions: state.practiceDescSessions.practiceDescSessions,
+  practiceIdentifySessions: state.practiceIdentifySessions.practiceIdentifySessions,
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getMyPracticeDescSessions, getPracticeDescSessions })(MyPractice);
+export default connect(mapStateToProps, { getMyPracticeDescSessions, getPracticeDescSessions, getMyPracticeIdentifySessions, })(MyPractice);

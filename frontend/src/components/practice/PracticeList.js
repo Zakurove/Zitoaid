@@ -116,7 +116,7 @@ export class PracticeList extends Component {
           <hr />
           <div className="row pt-2" >
 
-          <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
+          {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6" >
                     <a href={`#/${this.state.blockLink}/practice/description`}                           
                     //  onClick={(e) => {
                     //           this.setState({
@@ -136,15 +136,19 @@ export class PracticeList extends Component {
                             </div>
                         </div>
                     </a>
-                </div>
+                </div> */}
 
-                {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
-                    <a href="#"                     onClick={(e) => {
-                              this.setState({
-                                practiceIdentification: true,
-                              });
-                              event.preventDefault();
-                            }}>
+
+
+                <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                    <a href={`#/${this.state.blockLink}/practice/identification`}                     
+                    //  onClick={(e) => {
+                    //           this.setState({
+                    //             practiceIdentification: true,
+                    //           });
+                    //           event.preventDefault();
+                    //         }}
+                            >
                         <div class="card-flyer mt-1 mb-5">
                             <div class="text-box">
 
@@ -159,9 +163,34 @@ export class PracticeList extends Component {
                             </div>
                         </div>
                     </a>
-                </div> */}
-                
+                </div>
+
                 <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
+                <a href="javascript:void(0)" className="disabled" onClick={(e) => {
+                              this.setState({
+                                practiceIdentification: true,
+                              });
+                              event.preventDefault();
+                            }}>
+                  <div class="card-flyer mt-1 mb-5" >
+                    <div class="text-box">
+                      <div class="image-boxSubjects justify-content-center d-flex p-5" style={{position: "relative"}}>
+
+                         <i className="far fa-file-alt mb-2 tawassamBlue" style={{opacity: "0.5"}}/>
+                           <section style={{position: "absolute", top: "40%", left: "10%", right: "10%"}}>
+                                  <h1 className="codepoiesisBlue">Coming Soon</h1>
+                              </section>
+                      </div>
+                      <div class="text-container">                                    
+                                    <h6>Description</h6> 
+                                </div>
+
+                    </div>
+                  </div>
+                </a>
+              </div>
+                
+                {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <a href="javascript:void(0)" className="disabled" onClick={(e) => {
                               this.setState({
                                 practiceIdentification: true,
@@ -184,7 +213,7 @@ export class PracticeList extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
 
                 {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                     <a href="#"                     onClick={(e) => {

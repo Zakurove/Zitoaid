@@ -1,10 +1,66 @@
 from rest_framework import serializers
-from .models import Set, SetImage, SetNotes, Cluster, PracticeDescInput, PracticeDescSession, EmailList
+from .models import Set, SetImage, SetNotes, Cluster, PracticeDescInput, PracticeDescSession, EmailList, PracticeIdentifySession
 import logging
 import json
 import sys
 import re
+import random
 
+
+#PracticeIdentifySession
+class PracticeIdentifySessionSerializer(serializers.ModelSerializer):
+    class Meta:
+        ordering = ['-id']
+        model = PracticeIdentifySession
+        fields = ('id', 'date','block', 'owner_username', 'owner', 'result', 'questions', 'practiceType' )
+        # extra_kwargs = {'sets': {'required': False}}
+        # extra_kwargs = {'practiceDescInputs': {'required': False}}
+  
+    def create(self, validated_data):
+        creator = self.context['request'].user
+       
+        #Get the sets from frotnend
+        selectedSets= json.loads(self.context.get('view').request.data.get('selectedSets'))
+        blockSets = json.loads(self.context.get('view').request.data.get('blockSets'))
+        questionsArray = []
+        index = 0
+        numOfIndex = len(blockSets)-1
+        #Iterate through the selected sets and create a question from each
+        for set in selectedSets:
+            images = set["images"]
+            imageDict = images[0]
+            image = imageDict["image"]
+            #Get 3 random numbers, in the range of number of index in the block, it must not be equal to the index of our set
+            K = set
+            randomSets = random.sample(list(filter(lambda ele: ele["id"] != K["id"], blockSets)),3)
+            text1= randomSets[0]
+            text2=randomSets[1]
+            text3=randomSets[2]
+            index = index+1
+            #Choose options based on the random
+            options = [{'text': set["title"], 'isCorrect': 'true', 'id': int(set["id"])*11}, {'text': text1["title"], 'isCorrect': 'false', 'id': int(set["id"])*8}, {'text': text2["title"], 'isCorrect': 'false', 'id': int(set["id"])*33}, {'text': text3["title"], 'isCorrect': 'false', 'id': int(set["id"])*14}]
+            question = {'image': image, 'options': options, 'index': index}
+            questionsArray.append(question)
+        practiceIdentifySession = PracticeIdentifySession.objects.create(block=self.context.get('view').request.data.get('block'), practiceType = 'Identification', questions=questionsArray, owner= self.context['request'].user, owner_username= self.context['request'].user.name )
+
+        #RETURN
+        return practiceIdentifySession
+
+    def update(self, instance, validated_data):
+        #Practice Identification Session  
+        results= json.loads(self.context.get('view').request.data.get('results'))
+        #Calculating The Accuracy of the session
+        counter = 0
+        for question in results:
+            if question['isCorrect'] == 'true':
+                counter += 1
+        print(counter, "counter!!!")
+        percentageCorrect = counter/len(results)
+        results = {'answeredQuestions': results, 'accuracy': percentageCorrect*100}
+        # Saving and returning
+        instance.result = results
+        instance.save()
+        return instance
 
 
 #PracticeDescSession
@@ -12,14 +68,14 @@ class PracticeDescSessionSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = PracticeDescSession
-        fields = ('id', 'date','block', 'owner_username', 'owner', 'sets', 'practiceDescInputs' )
+        fields = ('id', 'date','block', 'owner_username', 'owner', 'sets', 'practiceDescInputs', 'practiceType' )
         extra_kwargs = {'sets': {'required': False}}
         extra_kwargs = {'practiceDescInputs': {'required': False}}
   
     def create(self, validated_data):
         #PracticeDescInput
         creator = self.context['request'].user
-        practiceDescSession = PracticeDescSession.objects.create(block=self.context.get('view').request.data.get('block'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
+        practiceDescSession = PracticeDescSession.objects.create(block=self.context.get('view').request.data.get('block'), practiceType = 'Description',owner= self.context['request'].user, owner_username= self.context['request'].user.name )
         #Get the sets array from frotnend
         setsArray =self.context.get('view').request.data.get('setsArray')
         #To split set ids

@@ -182,6 +182,8 @@ state = {
                                       
                                             {this.props.practiceDescSessionSets.map((set) => (
                                               <Fragment>
+                                                { input.sets && ( 
+                                                  <Fragment>
                                               { input.sets.includes(set.id) && ( 
                                             <div className=" mb-3 p-4 card mt-3"  style={{  minHeight: "250", maxHeight: "500px", overflow: "auto"}}>
                                                 <h2 className="card-title tawassamYellow text-center mb-4 mt-1">{set.title}</h2>
@@ -192,6 +194,8 @@ state = {
                                                 <h5 className="text-secondary text-center mb-1 mt-1">Answered as:</h5>
                                                 <p className="text-start card-text px-2 mb-3" style={{color: "#10a1b6", fontSize: "1.5rem"}}>{input.description}</p>
                                           </div>
+                                          )} 
+                                          </Fragment>
                                           )} 
                                           </Fragment>
                                           ))}
