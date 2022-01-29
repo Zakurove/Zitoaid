@@ -28,7 +28,8 @@ class PracticeIdentifySessionSerializer(serializers.ModelSerializer):
         #Iterate through the selected sets and create a question from each
         for set in selectedSets:
             images = set["images"]
-            imageDict = images[0]
+            numImages = len(images)-1
+            imageDict = images[random.randint(0, numImages)]
             image = imageDict["image"]
             #Get 3 random numbers, in the range of number of index in the block, it must not be equal to the index of our set
             K = set
