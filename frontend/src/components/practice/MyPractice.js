@@ -49,13 +49,13 @@ export class MyPractice extends Component {
         this.setState({sessions: sessions, pushIdentify: false})
       }), 1000);
     }
-      if (this.state.pushDesc) {
-      setTimeout(() =>     this.props.practiceDescSessions.forEach(session => {
-        let sessions= this.state.sessions
-        sessions.push(session)
-        this.setState({sessions: sessions, pushDesc: false})
-      }), 1100);
-    }
+    //   if (this.state.pushDesc) {
+    //   setTimeout(() =>     this.props.practiceDescSessions.forEach(session => {
+    //     let sessions= this.state.sessions
+    //     sessions.push(session)
+    //     this.setState({sessions: sessions, pushDesc: false})
+    //   }), 1100);
+    // }
     }
   }
 
@@ -304,7 +304,13 @@ export class MyPractice extends Component {
                     View Results
                   </a>
                   )}
-                    {(session.practiceType == "Identification" && session.result !==null ) && (
+                  {/* To Determine if the sessions is completed or not */}
+                  {(session.practiceType == "Identification" && session.result !== null ) && (
+                  <Fragment>
+                  {(session.practiceType == "Identification" && typeof session.result.answeredQuestions !== 'undefined') && (
+                <Fragment>
+                  {/* In case session was completed */}
+                  {(session.practiceType == "Identification" && session.questions.length == session.result.answeredQuestions.length) && (  
                   <a
                     href= {`#/${session.block}/practice/identification/results/${session.id}`}
                     className="btn tawassamYellowBG"
@@ -319,7 +325,28 @@ export class MyPractice extends Component {
                     View Results
                   </a>
                   )}
-                  {(session.practiceType == "Identification" && session.result === null) && (
+                  {/* In case session was NOT completed */}               
+                    {(session.practiceType == "Identification" && session.questions.length !== session.result.answeredQuestions.length ) && (
+                  <a
+                    href= {`#/${session.block}/practice/identification/${session.id}`}
+                    className="btn tawassamYellowBG"
+                    style={{ whiteSpace: "nowrap" }}
+                    onClick={(e) => {
+                      this.setState({
+                        selectedPracticeIdentifySessionId: session.id,
+                        selectedPracticeIdentifySession: session,
+                      });
+                    }}
+                  >
+                    View Session
+                  </a>
+                  )}
+                  </Fragment>
+                  )}
+                  </Fragment>
+                  )}
+
+                  {(session.practiceType == "Identification" && session.result === null ) && (
                   <a
                     href= {`#/${session.block}/practice/identification/${session.id}`}
                     className="btn tawassamYellowBG"

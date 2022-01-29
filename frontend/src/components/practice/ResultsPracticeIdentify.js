@@ -117,7 +117,7 @@ state = {
             {this.state.block} Identification
           </h1>
           <div className="text-center mb-4">
-            <CountUp className="tawassamYellow p-1" style={{fontSize: "2rem"}} end={this.props.practiceIdentifySession.result.accuracy} suffix="%" /><span className="codepoiesisBlue" style={{fontSize: "1.5rem"}}> Accuracy</span>
+            <CountUp className="tawassamYellow p-1" duration={1.5} style={{fontSize: "2rem"}} end={this.props.practiceIdentifySession.result.accuracy} suffix="%" /><span className="codepoiesisBlue" style={{fontSize: "1.5rem"}}> Accuracy</span>
           </div>
 
 

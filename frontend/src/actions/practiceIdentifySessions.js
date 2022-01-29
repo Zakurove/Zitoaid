@@ -64,7 +64,6 @@ export const updatePracticeIdentifySession = (practiceIdentifySession, id, resul
       }
     })
     .then(res => {
-      dispatch(createMessage({info: "Showing Results"}))
       dispatch({
         type: UPDATE_PRACTICEIDENTIFYSESSION,
         payload: res.data,

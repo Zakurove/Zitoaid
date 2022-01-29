@@ -92,7 +92,6 @@ export class DetailsPracticeIdentify extends Component {
         this.props.practiceIdentifySession.result.answeredQuestions.forEach(question => {
           solvedQuestions.push(question.question.index)
         })
-        console.log(solvedQuestions, "hey")
         this.setState({ selectedOption: this.props.practiceIdentifySession.result.answeredQuestions[0].chosenOption.id, results: this.props.practiceIdentifySession.result.answeredQuestions, isAnswering: false, solvedQuestions: solvedQuestions })
       }
     }
@@ -159,9 +158,17 @@ export class DetailsPracticeIdentify extends Component {
       let results = this.state.results
       let solvedQuestions = this.state.solvedQuestions
       let questionResult = { question: this.state.selectedQuestion, isCorrect: this.state.selectedOptionObj.isCorrect, chosenOption: this.state.selectedOptionObj, }
-      setTimeout(() => results.push(questionResult), 35);
+      // setTimeout(() => results.push(questionResult), 35);
+       results.push(questionResult)
       solvedQuestions.push(this.state.selectedQuestion.index)
-      setTimeout(() => this.setState({ results: results, solvedQuestions: solvedQuestions }), 50);
+      // setTimeout(() => this.setState({ results: results, solvedQuestions: solvedQuestions }), 50);
+      this.setState({ results: results, solvedQuestions: solvedQuestions })
+      let tempResults = JSON.stringify(this.state.results)
+      const session = new FormData();
+      session.append("date", this.props.practiceIdentifySession.date);
+      session.append("owner", this.props.practiceIdentifySession.owner);
+      session.append("results", tempResults)
+      setTimeout(() => this.props.updatePracticeIdentifySession(session, this.props.practiceIdentifySession.id, tempResults), 300);
     }
   }
 
