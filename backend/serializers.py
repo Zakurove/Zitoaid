@@ -258,7 +258,7 @@ class SetSerializer(serializers.ModelSerializer):
         set = instance
         instance.title = validated_data['title']
         instance.description = validated_data['description']
-        instance.references = validated_data['references']
+        instance.references = self.context.get('view').request.data.get('references')
         #IMAGES
         editingState = self.context.get('view').request.data.get('editingState')
         removedImageId = self.context.get('view').request.data.get('removedImageId')

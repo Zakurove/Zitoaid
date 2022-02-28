@@ -495,7 +495,7 @@ export class DetailsCluster extends Component {
               </h1>
               <div className=" mb-3 mt-4 px-3 card"  style={{   maxHeight: "300px", overflow: "auto"}}>
                   <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Cluster's Explanation</h5>
-              <p className="  text-center card-text  " style={{color: "#10a1b6", fontSize: "1.5rem"}} ><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.props.cluster.description}</pre></p>
+              <p className="  text-center card-text  " style={{color: "#10a1b6", fontSize: "1.5rem"}}>{this.props.cluster.description}</p>
               </div>
             </div>
           </div>
@@ -816,7 +816,7 @@ export class DetailsCluster extends Component {
                               {/* Set Description */}
                               <div className=" mb-3 py-1 px-3 card mt-3"  style={{  minHeight: "150", maxHeight: "500px", overflow: "auto"}}>
                   <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Current Set Explanation</h5>
-              <p className="text-start card-text " style={{color: "#10a1b6", fontSize: "1.5rem"}}><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.state.chosenSet.description}</pre></p>
+              <p className="text-start card-text " style={{color: "#10a1b6", fontSize: "1.5rem"}}>{this.state.chosenSet.description}</p>
                         </div>
              {/* Set References */}
               <div className=" mb-3 py-1 px-3 card mx-3 mt-4"  style={{  minHeight: "20", maxHeight: "300px", overflow: "auto"}}>

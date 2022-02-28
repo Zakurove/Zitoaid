@@ -43,7 +43,6 @@ export default function(state = initialState, action) {
         };
 
       case UPDATE_SET:
-        console.log(action.payload, "payloaad");
         return {
           ...state,
           sets: state.sets.map(set => {

@@ -87,7 +87,7 @@ export class EditSet extends Component {
                 <textarea
                   className="form-control"
                   type="text"
-                  name="Explanation"
+                  name="description"
                   onChange={this.onChange}
                   value={description}
                   placeholder="Explanation of the set"
