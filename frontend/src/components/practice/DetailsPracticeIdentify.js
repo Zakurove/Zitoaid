@@ -9,6 +9,7 @@ import { Carousel } from "react-responsive-carousel";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
 import { getPracticeIdentifySessions, updatePracticeIdentifySession } from "../../actions/practiceIdentifySessions.js";
+import { getImages } from "../../actions/sets.js";;
 
 import Loader from "../layout/Loader.js";
 
@@ -22,6 +23,7 @@ export class DetailsPracticeIdentify extends Component {
     isViewing: false,
     block: this.props.block,
     sets: [],
+    images: this.props.sessionImages,
     results: [],
     isAnswering: true,
     practiceIdentifySession: null,
@@ -32,6 +34,7 @@ export class DetailsPracticeIdentify extends Component {
     blockLink: null,
     currentSlide: 0,
     currentIndex: 0,
+    orderedImages: [],
   };
 
 
@@ -86,6 +89,7 @@ export class DetailsPracticeIdentify extends Component {
         isUpdating: false,
       });
       this.props.getPracticeIdentifySessions(this.state.block);
+      this.props.getImages(this.state.block);
       this.setState({ selectedQuestion: this.props.practiceIdentifySession.questions[0], selectedQuestionOptions: this.randomArrayShuffle(this.props.practiceIdentifySession.questions[0].options) })
       if (this.props.practiceIdentifySession.result !== 'undefined' && this.props.practiceIdentifySession.result !== null) {
         let solvedQuestions = []
@@ -102,6 +106,8 @@ export class DetailsPracticeIdentify extends Component {
   static propTypes = {
     practiceIdentifySession: PropTypes.object.isRequired,
     getPracticeIdentifySessions: PropTypes.func.isRequired,
+    getImages: PropTypes.func.isRequired,
+    sessionImages: PropTypes.array.isRequired,
     updatePracticeIdentifySession: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     block: PropTypes.string.isRequired,
@@ -197,7 +203,16 @@ export class DetailsPracticeIdentify extends Component {
     // The loading handler
     if (this.state.isReady == false) {
       setTimeout(() => this.props.getPracticeIdentifySessions(this.props.block), 1000);
+      setTimeout(() => this.props.getImages(this.props.block), 1000);
       setTimeout(() => this.rendering(), 1300);
+      setTimeout(() =>       
+      this.props.practiceIdentifySession.questions.forEach(question => {
+        let thisImage = this.props.sessionImages.find((image) => image.id == question.imageId)
+        let orderedImages = this.state.orderedImages
+        orderedImages.push(thisImage)
+        this.setState({orderedImages: orderedImages})
+       }), 1500);
+
       setTimeout(() => this.setState({ isReady: true }), 1600);
     }
 
@@ -209,6 +224,7 @@ export class DetailsPracticeIdentify extends Component {
     }
     //The List component
     if (this.state.isReady == true) {
+      
       return (
         <div className="container my-5">
           <h1 className="text-center py-2 tawassamBlue">
@@ -231,7 +247,7 @@ export class DetailsPracticeIdentify extends Component {
                       {this.state.selectedQuestion && (
                         <img
                           index={this.state.index}
-                          src={this.state.selectedQuestion.image}
+                          src={this.state.orderedImages[this.state.currentIndex].image}
                           style={{
                             maxWidth: "880px",
                             maxHeight: "800px",
@@ -381,24 +397,33 @@ function getPracticeSessionById(practiceIdentifySessions, id) {
 
 
 function mapStateToProps(state, ownProps) {
-  2
+
   let practiceIdentifySessions = state.practiceIdentifySessions.practiceIdentifySessions;
+  let images = state.images.images;
+
   let auth = state.auth;
   let practiceIdentifySession = {
     block: "",
     sets: [],
+    images:[]
   };
-
+  let sessionImages = 
+    [{id: "", image: ""},];
   //Filtering through all sessions to get this one
   let selectedSessionId = ownProps.match.params.id;
   if (selectedSessionId && practiceIdentifySessions.length > 0) {
     practiceIdentifySession = getPracticeSessionById(practiceIdentifySessions, selectedSessionId);
   }
+  if (practiceIdentifySession.images.length > 0) {
+    //Filtering through all sets to get the ones that are associated with this cluster
+    sessionImages = images.filter((image) =>  practiceIdentifySession.images.includes(image.id))
 
+    }
+    
 
   //returning
-  return { practiceIdentifySession: practiceIdentifySession, auth: auth };
+  return { practiceIdentifySession: practiceIdentifySession, auth: auth, sessionImages: sessionImages, images: images, };
 }
 
 
-export default connect(mapStateToProps, { getPracticeIdentifySessions, updatePracticeIdentifySession, createMessage })(DetailsPracticeIdentify);
+export default connect(mapStateToProps, { getImages, getPracticeIdentifySessions, updatePracticeIdentifySession, createMessage })(DetailsPracticeIdentify);

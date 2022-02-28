@@ -1,6 +1,6 @@
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
-from .api import SetViewSet, ClusterViewSet, PracticeDescInputViewSet, PracticeDescSessionViewSet, PracticeIdentifySessionViewSet, EmailListViewSet
+from .api import SetViewSet, ClusterViewSet, PracticeDescInputViewSet, PracticeDescSessionViewSet, PracticeIdentifySessionViewSet, EmailListViewSet, SetImageViewSet
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -13,6 +13,7 @@ router.register('api/practiceDescSessions', PracticeDescSessionViewSet, 'practic
 router.register('api/practiceDescInputs', PracticeDescInputViewSet, 'practiceDescInput')
 router.register('api/practiceIdentifySessions', PracticeIdentifySessionViewSet, 'practiceIdentifySession')
 router.register('api/emailLists', EmailListViewSet, 'emailList')
+router.register('api/images', SetImageViewSet, 'images')
 urlpatterns = [
     path('', include(router.urls)),
 ] 

@@ -1,8 +1,8 @@
-from .models import Set, Cluster, PracticeDescSession, PracticeDescInput, EmailList, PracticeIdentifySession
+from .models import Set, Cluster, PracticeDescSession, PracticeDescInput, EmailList, PracticeIdentifySession, SetImage
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, renderers
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from .serializers import SetSerializer, ClusterSerializer, PracticeDescSessionSerializer, PracticeDescInputSerializer, EmailListSerializer, PracticeIdentifySessionSerializer
+from .serializers import SetSerializer, ClusterSerializer, PracticeDescSessionSerializer, PracticeDescInputSerializer, EmailListSerializer, PracticeIdentifySessionSerializer, SetImageSerializer
 from rest_framework.permissions import IsAdminUser, SAFE_METHODS
 
 
@@ -55,6 +55,19 @@ class SetViewSet(viewsets.ModelViewSet):
     ]
     parser_classes = (MultiPartParser, )
     serializer_class = SetSerializer
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+# SetImage
+class SetImageViewSet(viewsets.ModelViewSet):
+    queryset = SetImage.objects.all()
+    permission_classes = [
+        # permissions.IsAuthenticated,
+        # IsAdminUserOrReadOnly
+        IsEducator,
+        IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
+    serializer_class = SetImageSerializer
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 

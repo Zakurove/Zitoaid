@@ -4,6 +4,7 @@ import errors from './errors';
 import messages from './messages';
 import auth from './auth';
 import sets from './sets';
+import images from './sets';
 import clusters from './clusters';
 import practiceDescSessions from './practiceDescSessions';
 import practiceDescInputs from './practiceDescInputs';
@@ -19,6 +20,7 @@ export default combineReducers({
   practiceDescSessions,
   practiceDescInputs,
   practiceIdentifySessions,
+  images,
   errors,
   messages,
   auth,

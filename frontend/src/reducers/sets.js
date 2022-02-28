@@ -1,7 +1,8 @@
-import { GET_SETS, GETBLOCK_SETS,DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET, GET_MYSETS, GET_ALLSETS, GET_SETS_BY_ID } from '../actions/types.js'
+import { GET_SETS,GET_IMAGES, GETBLOCK_SETS,DELETE_SET, ADD_SET, SHOW_SET, UPDATE_SET, REPLACE_SET, GET_MYSETS, GET_ALLSETS, GET_SETS_BY_ID } from '../actions/types.js'
 
 const initialState = {
-  sets: []
+  sets: [],
+  images: []
 }
 
 export default function(state = initialState, action) {
@@ -36,6 +37,11 @@ export default function(state = initialState, action) {
             ...state,
             sets: action.payload,
           }
+          case GET_IMAGES:
+            return {
+              ...state,
+              images: action.payload,
+            }
       case DELETE_SET:
         return {
           ...state,

@@ -97,7 +97,7 @@ class PracticeIdentifySession(models.Model):
     questions = JSONField(encoder=None, blank=True, null=True)
     result = JSONField(encoder=None, blank=True, null=True)
     # #Many to many relationship between sets and Practice session
-    # sets = models.ManyToManyField(Set, related_name='practiceDescSession', blank=True)
+    images = models.ManyToManyField(SetImage, related_name='practiceIdentifySession', blank=True)
     # practiceDescInputs = models.ManyToManyField(PracticeDescInput, related_name='practiceDescSessions', blank=True)
 
     def save(self, *args, **kwargs):

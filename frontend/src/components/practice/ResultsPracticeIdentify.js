@@ -6,6 +6,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { Carousel } from "react-responsive-carousel";
 import { getPracticeIdentifySessions } from "../../actions/practiceIdentifySessions.js";
+import { getImages } from "../../actions/sets.js";;
 import Loader from "../layout/Loader.js";
 import Zoom from 'react-medium-image-zoom'
 import 'react-medium-image-zoom/dist/styles.css'
@@ -26,6 +27,7 @@ state = {
       blockLink: null,
       currentSlide: 0,
       currentIndex: 0,
+      orderedImages: [],
     };
 
 
@@ -71,6 +73,7 @@ state = {
         isUpdating: false,
       });
       this.props.getPracticeIdentifySessions(this.state.block);
+      this.props.getImages();
     }
 
   }
@@ -79,6 +82,7 @@ state = {
     //This is the first "set" from the func down below
     practiceIdentifySession: PropTypes.object.isRequired,
     getPracticeIdentifySessions: PropTypes.func.isRequired,
+    getImages: PropTypes.func.isRequired,
     auth: PropTypes.object.isRequired,
     block: PropTypes.string.isRequired,
   };
@@ -87,6 +91,7 @@ state = {
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   componentDidMount() {
     this.props.getPracticeIdentifySessions(this.props.block);
+    this.props.getImages();
   }
 
   render() {
@@ -94,10 +99,18 @@ state = {
     // The loading handler
     if (this.state.isReady == false) {
     setTimeout(() => this.props.getPracticeIdentifySessions(this.props.block), 1000);
+    setTimeout(() => this.props.getImages(), 1000);
     setTimeout(() => this.rendering(), 1300);
     setTimeout(() =>     this.props.practiceIdentifySession.result.answeredQuestions.forEach(question => {
       this.setState({[`questionCorrect${question.question.index}`]: question.question.options.find((option) => option.isCorrect == 'true')})
     }), 1450);
+    setTimeout(() =>       
+    this.props.practiceIdentifySession.questions.forEach(question => {
+      let thisImage = this.props.sessionImages.find((image) => image.id == question.imageId)
+      let orderedImages = this.state.orderedImages
+      orderedImages.push(thisImage)
+      this.setState({orderedImages: orderedImages})
+     }), 1500);
     setTimeout(() => this.setState({ isReady: true }), 1600);
 
 
@@ -143,7 +156,7 @@ state = {
         <h3 className="tawassamBlue text-center">{this.state[`questionCorrect${question.question.index}`].text}</h3>
         <div className="text-center justify-content-center">
           <Zoom>
-        <img src={question.question.image} style={{maxWidth: "800px"}}/>
+        <img src={this.state.orderedImages[question.question.index-1].image} style={{maxWidth: "800px"}}/>
         </Zoom>
         </div>
       </div>
@@ -166,21 +179,31 @@ function getPracticeSessionById(practiceIdentifySessions, id) {
 
 function mapStateToProps(state, ownProps) {
   let practiceIdentifySessions = state.practiceIdentifySessions.practiceIdentifySessions;
+  let images = state.images.images;
   let auth = state.auth;
   let practiceIdentifySession = {
     block: "",
     image: "",
+    images:[]
   };
+  let sessionImages = 
+  [{id: "", image: ""},];
   //Filtering through all sessions to get this one
   let selectedSessionId = ownProps.match.params.id;
   if (selectedSessionId && practiceIdentifySessions.length > 0) {
     practiceIdentifySession = getPracticeSessionById(practiceIdentifySessions, selectedSessionId);
   }
   
+  if (practiceIdentifySession.images.length > 0) {
+    //Filtering through all sets to get the ones that are associated with this cluster
+    sessionImages = images.filter((image) =>  practiceIdentifySession.images.includes(image.id))
+
+    }
+    
 
 //returning
-  return { practiceIdentifySession: practiceIdentifySession, auth: auth};
+  return { practiceIdentifySession: practiceIdentifySession, auth: auth, sessionImages: sessionImages};
 }
 
 
-export default connect(mapStateToProps, { getPracticeIdentifySessions })(ResultsPracticeIdentify);
+export default connect(mapStateToProps, { getPracticeIdentifySessions, getImages })(ResultsPracticeIdentify);

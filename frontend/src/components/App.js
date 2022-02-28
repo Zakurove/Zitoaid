@@ -268,6 +268,10 @@ export default function App() {
                   <PrivateRoute exact path="/endocrine/practice/description" component={(props) => <PracticeDescriptionForm {...props} block={`Endocrine`} />} />
                   <PrivateRoute exact path="/endocrine/practice/description/:id" component={(props) => <DetailsPracticeDescription {...props} block={`Endocrine`}/>} />
                   <PrivateRoute exact path="/endocrine/practice/description/results/:id" component={(props) => <ResultsPracticeDescription {...props} block={`Endocrine`}/>} />
+                  <PrivateRoute exact path="/endocrine/practice/identification" component={(props) => <PracticeIdentifyForm {...props} block={`Endocrine`} />} />
+                  <PrivateRoute exact path="/endocrine/practice/identification/:id" component={(props) => <DetailsPracticeIdentify {...props} block={`Endocrine`} />} />
+                  <PrivateRoute exact path="/endocrine/practice/identification/results/:id" component={(props) => <ResultsPracticeIdentify {...props} block={`Endocrine`} />} />
+                 
                   <PrivateRoute exact path="/endocrine" component={(props) => <List {...props} block={`Endocrine`} />} />
                   <PrivateRoute exact path="/endocrine/sets" component={(props) => <ListSets {...props} block={`Endocrine`} />} />
                   <PrivateRoute exact path="/endocrine/sets/:id" component={(props) => <DetailsSet {...props} block={`Endocrine`} />} />

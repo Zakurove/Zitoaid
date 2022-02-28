@@ -1,5 +1,6 @@
 // Sets
 export const GET_SETS = 'GET_SETS';
+export const GET_IMAGES = 'GET_IMAGES';
 export const GETBLOCK_SETS = 'GETBLOCK_SETS';
 export const GET_SETS_BY_ID = 'GET_SETS_BY_ID';
 export const GET_ALLSETS = 'GET_ALLSETS';

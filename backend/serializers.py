@@ -12,25 +12,27 @@ class PracticeIdentifySessionSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = PracticeIdentifySession
-        fields = ('id', 'date','block', 'owner_username', 'owner', 'result', 'questions', 'practiceType' )
-        # extra_kwargs = {'sets': {'required': False}}
+        fields = ('id', 'date','block', 'owner_username', 'owner', 'result', 'questions', 'practiceType', 'images' )
+        extra_kwargs = {'images': {'required': False}}
         # extra_kwargs = {'practiceDescInputs': {'required': False}}
   
     def create(self, validated_data):
         creator = self.context['request'].user
        
         #Get the sets from frotnend
-        selectedSets= json.loads(self.context.get('view').request.data.get('selectedSets'))
+        selectedSetsUnshuffled= json.loads(self.context.get('view').request.data.get('selectedSets'))
+        selectedSets = random.sample(selectedSetsUnshuffled, len(selectedSetsUnshuffled))
         blockSets = json.loads(self.context.get('view').request.data.get('blockSets'))
         questionsArray = []
+        sessionImages = []
         index = 0
         numOfIndex = len(blockSets)-1
         #Iterate through the selected sets and create a question from each
         for set in selectedSets:
             images = set["images"]
             numImages = len(images)-1
-            imageDict = images[random.randint(0, numImages)]
-            image = imageDict["image"]
+            chosenImage = images[random.randint(0, numImages)]
+            image = chosenImage["image"]
             #Get 3 random numbers, in the range of number of index in the block, it must not be equal to the index of our set
             K = set
             randomSets = random.sample(list(filter(lambda ele: ele["id"] != K["id"], blockSets)),3)
@@ -40,10 +42,15 @@ class PracticeIdentifySessionSerializer(serializers.ModelSerializer):
             index = index+1
             #Choose options based on the random
             options = [{'text': set["title"], 'isCorrect': 'true', 'id': int(set["id"])*11}, {'text': text1["title"], 'isCorrect': 'false', 'id': int(set["id"])*8}, {'text': text2["title"], 'isCorrect': 'false', 'id': int(set["id"])*33}, {'text': text3["title"], 'isCorrect': 'false', 'id': int(set["id"])*14}]
-            question = {'image': image, 'options': options, 'index': index}
+            
+            #Add a many to many relationship with the images
+            sessionImages.append(chosenImage['id'])
+
+            #Create the quetion based on the above
+            question = {'options': options, 'index': index, 'imageId':chosenImage['id']}
             questionsArray.append(question)
         practiceIdentifySession = PracticeIdentifySession.objects.create(block=self.context.get('view').request.data.get('block'), practiceType = 'Identification', questions=questionsArray, owner= self.context['request'].user, owner_username= self.context['request'].user.name )
-
+        practiceIdentifySession.images.set(sessionImages)
         #RETURN
         return practiceIdentifySession
 
