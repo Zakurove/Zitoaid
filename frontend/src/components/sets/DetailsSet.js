@@ -751,7 +751,7 @@ export class DetailsSet extends Component {
                     Update Current Image
                   </a>
                   <a href="#" className="btn tawassamBlueBG my-2">
-                    Update Title/Description
+                    Update Title/Explanation
                   </a>
                   <a href="#" className="btn tawassamBlueBG">
                     Add new image
@@ -760,11 +760,19 @@ export class DetailsSet extends Component {
               </div>
 
               <div className="col-12 p-2">
-
+                {/* Set Explanation */}
                 <div className=" mb-3 py-1 px-3 card"  style={{  minHeight: "150", maxHeight: "500px", overflow: "auto"}}>
-                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Set Description</h5>
-              <p className="  text-start card-text" style={{color: "#10a1b6", fontSize: "1.5rem"}} >{this.props.set.description}</p>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Explanation</h5>
+              <p className="  text-start card-text" style={{color: "#10a1b6", fontSize: "1.5rem"}} ><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.props.set.description}</pre></p>
               </div>
+                  {/* Set References */}
+                  {user ? this.props.set.references && (
+              <div className=" mb-3 py-1 px-3 card mx-3 mt-4"  style={{  minHeight: "20", maxHeight: "300px", overflow: "auto"}}>
+                  <h5 className="card-title text-secondary text-center mb-2 mt-1">References</h5>
+              <p className="  text-start card-text text-secondary" style={{maxHeight: "100px", overflow: "auto"}}><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.props.set.references}</pre> </p>
+              </div>
+                                  )
+                                  : ""}
               </div>
             </div>
           </div>

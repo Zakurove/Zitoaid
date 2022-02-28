@@ -95,14 +95,14 @@ export class MyPractice extends Component {
         <div className="mx-auto px-5" >
         <select className="form-select form-select-lg mb-3 text-center" value={this.state.selectedBlock} onChange={this.handleChange}>
           <option selected>Choose block to practice on:</option>
-          <option value="cardiovascular">Cardiovascular</option>
-          <option value="musculoskeletal">Musculoskeletal</option>
-          <option value="respiratory">Respiratory</option>
-          <option value="hemOnc">Hematology/Oncology</option>
-          <option value="neurology">Neurology</option>
           <option value="endocrine">Endocrine</option>
-          <option value="gastrointestinal">Gastrointestinal</option>
-          <option value="genitourinary">Genitourinary</option>
+          <option disabled value="cardiovascular">Cardiovascular</option>
+          <option disabled value="musculoskeletal">Musculoskeletal</option>
+          <option disabled value="respiratory">Respiratory</option>
+          <option disabled value="hemOnc">Hematology/Oncology</option>
+          <option disabled value="neurology">Neurology</option>
+          <option disabled value="gastrointestinal">Gastrointestinal</option>
+          <option disabled value="genitourinary">Genitourinary</option>
         </select>
         </div>
 

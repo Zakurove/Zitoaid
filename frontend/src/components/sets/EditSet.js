@@ -18,6 +18,7 @@ export class EditSet extends Component {
     set: this.props.set,
     title: this.props.set.title,
     description: this.props.set.description,
+    references: this.props.set.references,
     setImages: this.props.set.images,
     slideImages: "this is slideImages, Hello!",
   };
@@ -39,6 +40,7 @@ export class EditSet extends Component {
     const set = new FormData();
     set.append("title", this.state.title);
     set.append("description", this.state.description);
+    set.append("references", this.state.references);
     await this.pond
       .getFiles()
       .map((fileItem) => fileItem.file)
@@ -50,6 +52,7 @@ export class EditSet extends Component {
     this.setState({
       title: "",
       description: "",
+      references: "",
     });
   };
 }
@@ -59,7 +62,7 @@ export class EditSet extends Component {
     }
   }
   render() {
-    const { title, description, files, setFiles } = this.state;
+    const { title, description, references, files, setFiles } = this.state;
     return (
       <div className="container mt-5 mb-5">
         <div className="row">
@@ -84,11 +87,24 @@ export class EditSet extends Component {
                 <textarea
                   className="form-control"
                   type="text"
-                  name="description"
+                  name="Explanation"
                   onChange={this.onChange}
                   value={description}
                   placeholder="Explanation of the set"
                   rows="6"
+                />
+              </div>
+
+              <div className="form-group">
+                <h4 className="tawassamYellow mt-3">References:</h4>
+                <textarea
+                  className="form-control"
+                  type="text"
+                  name="references"
+                  onChange={this.onChange}
+                  value={references}
+                  placeholder="References for used content"
+                  rows="2"
                 />
               </div>
 

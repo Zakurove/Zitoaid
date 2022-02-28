@@ -157,7 +157,7 @@ export class PracticeList extends Component {
                                 <i className="fas fa-search mb-2 tawassamBlue" />
                                 </div>
                                 <div class="text-container">                                    
-                                    <h6>Practice Identification</h6> 
+                                    <h6>Identification</h6> 
                                 </div>
 
                             </div>

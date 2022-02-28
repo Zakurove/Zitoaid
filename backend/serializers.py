@@ -233,13 +233,13 @@ class SetSerializer(serializers.ModelSerializer):
     class Meta:
         ordering = ['-id']
         model = Set
-        fields = ('id', 'title', 'description',  'images', 'block', 'subject', 'owner_username', 'owner', 'clusters')
+        fields = ('id', 'title', 'description', 'references',  'images', 'block', 'subject', 'owner_username', 'owner', 'clusters')
         extra_kwargs = {'clusters': {'required': False}}
         
     def create(self, validated_data):
         #SET
         creator = self.context['request'].user
-        set = Set.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'),block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
+        set = Set.objects.create(title=validated_data.get('title', 'no-title'), description=validated_data.get('description', 'no-description'), references=validated_data.get('references', 'no-references'), block=self.context.get('view').request.data.get('block'),subject=self.context.get('view').request.data.get('subject'), owner= self.context['request'].user, owner_username= self.context['request'].user.name )
 
 
         #IMAGES
@@ -258,7 +258,7 @@ class SetSerializer(serializers.ModelSerializer):
         set = instance
         instance.title = validated_data['title']
         instance.description = validated_data['description']
-
+        instance.references = validated_data['references']
         #IMAGES
         editingState = self.context.get('view').request.data.get('editingState')
         removedImageId = self.context.get('view').request.data.get('removedImageId')

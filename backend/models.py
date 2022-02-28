@@ -16,6 +16,7 @@ from django.db.models import JSONField
 class Set(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
+    references = models.TextField(blank=True, null=True)
     block = models.CharField(blank=True, null=True, max_length=20)
     subject = models.CharField(blank=True, null=True, max_length=20)
     owner_username = models.CharField(max_length=30, null=True)

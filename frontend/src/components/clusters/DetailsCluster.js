@@ -494,14 +494,14 @@ export class DetailsCluster extends Component {
                 {this.props.cluster.title}
               </h1>
               <div className=" mb-3 mt-4 px-3 card"  style={{   maxHeight: "300px", overflow: "auto"}}>
-                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Cluster's Description</h5>
-              <p className="  text-center card-text  " style={{color: "#10a1b6", fontSize: "1.5rem"}} >{this.props.cluster.description}</p>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Cluster's Explanation</h5>
+              <p className="  text-center card-text  " style={{color: "#10a1b6", fontSize: "1.5rem"}} ><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.props.cluster.description}</pre></p>
               </div>
             </div>
           </div>
               <hr className="mb-4 mt-2" />
              {/* Current set title */}
-              <div className="row mt-2 mb-2"><div className="col"><h4 className=" text-center tawassamDarkBlue">Current Set: {this.state.chosenSet.title}</h4></div></div>
+              <div className="row mt-2 mb-2"><div className="col"><h4 className=" text-center tawassamDarkBlue" style={{fontWeight: "normal"}}>Current Set: {this.state.chosenSet.title}</h4></div></div>
           {/* Row that contains both slider and explanation */}
           <div className="row flex-sm-row-reverse" style={{ height: "770px" }}>
 
@@ -814,10 +814,15 @@ export class DetailsCluster extends Component {
              </div>
 
                               {/* Set Description */}
-                              <div className=" mb-3 py-1 px-3 card mt-3"  style={{  minHeight: "250", maxHeight: "500px", overflow: "auto"}}>
-                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Current Set Description</h5>
-              <p className="  text-start card-text " style={{color: "#10a1b6", fontSize: "1.5rem"}}>{this.state.chosenSet.description}</p>
+                              <div className=" mb-3 py-1 px-3 card mt-3"  style={{  minHeight: "150", maxHeight: "500px", overflow: "auto"}}>
+                  <h5 className="card-title tawassamYellow text-center mb-2 mt-1">Current Set Explanation</h5>
+              <p className="text-start card-text " style={{color: "#10a1b6", fontSize: "1.5rem"}}><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.state.chosenSet.description}</pre></p>
                         </div>
+             {/* Set References */}
+              <div className=" mb-3 py-1 px-3 card mx-3 mt-4"  style={{  minHeight: "20", maxHeight: "300px", overflow: "auto"}}>
+                  <h5 className="card-title text-secondary text-center mb-2 mt-1">References</h5>
+              <p className="  text-start card-text text-secondary" style={{maxHeight: "100px", overflow: "auto"}}><pre style={{fontFamily: "inherit", color: "inherit", fontSize: "inherit"}}>{this.state.chosenSet.references}</pre> </p>
+              </div>
             </div>
 
             

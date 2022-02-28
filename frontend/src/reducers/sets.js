@@ -50,7 +50,7 @@ export default function(state = initialState, action) {
             if (set.id !== action.payload.id) {
               return set;
             } else {
-              return { ...set, title: action.payload.title, description: action.payload.description, images: action.payload.images };
+              return { ...set, title: action.payload.title, description: action.payload.description, references: action.payload.references, images: action.payload.images };
             }
           })
         };

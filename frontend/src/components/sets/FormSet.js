@@ -21,6 +21,7 @@ import { createMessage } from "../../actions/messages";
    state = {
      title: '',
      description: '',
+     references: '',
      slideImages: "this is slideImages, Hello!",
      block: this.props.block,
      subject: this.props.subject,
@@ -43,6 +44,7 @@ import { createMessage } from "../../actions/messages";
        const set = new FormData();
        set.append('title', this.state.title)
        set.append('description', this.state.description);
+       set.append('references', this.state.references);
        set.append('block', this.props.block);
        set.append('subject', this.props.subject);
        this.pond.getFiles()
@@ -55,6 +57,7 @@ import { createMessage } from "../../actions/messages";
        this.setState({
          title: "",
          description: "",
+         references: "",
          slideImages: "this is slideImages, Hello!"
        })
        
@@ -63,7 +66,7 @@ import { createMessage } from "../../actions/messages";
      };
     }
      render() {
-       const {title, description, files, setFiles } = this.state;
+       const {title, description, references, files, setFiles } = this.state;
        return (
          <div className="container mb-5 mt-5" >
            <h1 className="text-center py-2 tawassamBlue">{this.props.block} {this.props.subject}: Create Set</h1>
@@ -102,7 +105,17 @@ import { createMessage } from "../../actions/messages";
                   rows="6"
                 />
               </div>
- 
+              <div className="form-group">
+                <h4 className="tawassamYellow mt-3">References:</h4>
+                <textarea
+                  className="form-control"
+                  type="text"
+                  name="references"
+                  onChange={this.onChange}
+                  value={references}
+                  placeholder="References for used content"
+                />
+              </div>
 
             </form>
             </div>
