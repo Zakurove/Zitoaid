@@ -41,7 +41,6 @@ export class DetailsSet extends Component {
       noteDisplay: "",
       optionsState: false,
       isRemovingImage: false,
-      set: this.props.set,
       deleteModalShow: false,
       user: null,
 
@@ -173,6 +172,7 @@ export class DetailsSet extends Component {
     const set = new FormData();
     set.append("title", this.props.set.title);
     set.append("description", this.props.set.description);
+    set.append("references", this.props.set.references);
     set.append("editingState", "adding");
     set.append("noteContent", this.state.noteContent);
     set.append("x", this.state.x);
@@ -191,6 +191,7 @@ export class DetailsSet extends Component {
     const set = new FormData();
     set.append("title", this.props.set.title);
     set.append("description", this.props.set.description);
+    set.append("references", this.props.set.references);
     set.append("noteId", this.state.EditedNoteId);
     set.append("noteContent", this.state.noteContent);
     set.append("setImage_id", this.state.selectedImageId);
@@ -207,6 +208,7 @@ export class DetailsSet extends Component {
     const set = new FormData();
     set.append("title", this.props.set.title);
     set.append("description", this.props.set.description);
+    set.append("references", this.props.set.references);
     set.append("noteId", this.state.EditedNoteId);
     set.append("setImage_id", this.state.selectedImageId);
     set.append("editingState", "deleting");
@@ -335,6 +337,12 @@ export class DetailsSet extends Component {
       
           setTimeout(() => this.setState({ isReady: true }), 1000);
           }
+      // The loading component
+      if (this.state.isReady == false) {
+        return (
+        <Loader/>
+        );
+        }
     return (
       <Fragment>
         <Modal
@@ -781,14 +789,6 @@ export class DetailsSet extends Component {
         <div></div>
       </Fragment>
     );
-    if (this.state.isReady == false) {
-      return (
-  
-      <Loader/>
-  
-  
-      );
-      }
   }
 }
 
@@ -805,6 +805,7 @@ function mapStateToProps(state, ownProps) {
   let set = {
     title: "",
     description: "",
+    references: "",
     block: "",
     subject: "",
     id: "",

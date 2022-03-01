@@ -14,6 +14,7 @@ import * as clusterActions from "../../actions/clusters.js";
 import * as setActions from "../../actions/sets.js";
 import Loader from "../layout/Loader.js";
 
+
 export class DetailsCluster extends Component {
   constructor(props) {
     super(props);
@@ -179,6 +180,7 @@ export class DetailsCluster extends Component {
     const set = new FormData();
     set.append("title", this.state.chosenSet.title);
     set.append("description", this.state.chosenSet.description);
+    set.append("references", this.state.chosenSet.references);
     set.append("editingState", "adding");
     set.append("noteContent", this.state.noteContent);
     set.append("x", this.state.x);
@@ -202,6 +204,7 @@ export class DetailsCluster extends Component {
     const set = new FormData();
     set.append("title", this.state.chosenSet.title);
     set.append("description", this.state.chosenSet.description);
+    set.append("references", this.state.chosenSet.references);
     set.append("noteId", this.state.EditedNoteId);
     set.append("noteContent", this.state.noteContent);
     set.append("setImage_id", this.state.selectedImageId);
@@ -222,6 +225,7 @@ export class DetailsCluster extends Component {
     const set = new FormData();
     set.append("title", this.state.chosenSet.title);
     set.append("description", this.state.chosenSet.description);
+    set.append("references", this.state.chosenSet.references);
     set.append("noteId", this.state.EditedNoteId);
     set.append("setImage_id", this.state.selectedImageId);
     set.append("editingState", "deleting");
@@ -302,8 +306,6 @@ export class DetailsCluster extends Component {
       tooltipOpen: true,
       user: this.props.user,
     });
-
-    // this.props.actions.getSets(this.props.block, this.props.subject);
     this.props.actions.getAllClusters();
     this.props.setActions.getAllSets();
 
@@ -324,7 +326,6 @@ export class DetailsCluster extends Component {
     if (this.state.redirectDelete == true) {
       return <Redirect to={"/clusters"} />;
     }
-
     if (this.state.isEditing) {
       return (
         <Fragment>
@@ -343,14 +344,22 @@ export class DetailsCluster extends Component {
       );
     }
 
-    // The loading handler
+    // // The loading handler
+    // if (this.state.isReady == false) {
+    //   setTimeout(() => this.setState({ isReady: true, ] }), 1000);
+    //   }
+ // The loading handler
     if (this.state.isReady == false) {
-      
-      setTimeout(() => this.setState({ isReady: true, chosenSet: this.props.clusterSets[0] }), 1000);
+      setTimeout(() => this.setState({ isReady: true, chosenSet: this.props.clusterSets[0] }), 1500);
       }
+      // The loading component
+      if (this.state.isReady == false) {
+        return (
+        <Loader/>
+        );
+        }
+
     if (this.state.isReady && this.state.chosenSet) {
-    //for sets that have changed notes
-    // this.props.setActions.getSetById(this.props.cluster.subject, this.props.cluster.block, this.state.chosenSet.id)
     return (
       <Fragment>
         <Modal
@@ -830,19 +839,11 @@ export class DetailsCluster extends Component {
           </div>
         </div>
 
-        <div></div>
+        <div className="mb-5 mt-5"><span> </span></div>
       </Fragment>
     );
   }
 
-  if (this.state.isReady == false) {
-    return (
-
-    <Loader/>
-
-
-    );
-    }
 
   }
 }
@@ -870,13 +871,14 @@ function mapStateToProps(state, ownProps) {
   let cluster = {
     title: "",
     description: "",
+    references: "",
     block: "",
     subject: "",
     id: "",
     sets: [],
   };
   let clusterSets = 
-    [{id: "", title: "This Cluster Has No Sets", description: "This Cluster Has No Sets", images: [], owner_username: "three", owner: null},];
+    [{id: "", title: "This Cluster Has No Sets", description: "",references: "", images: [], owner_username: "three", owner: null},];
 
   //Filtering through all clusters to get this one
   let selectedClusterId = ownProps.match.params.id;

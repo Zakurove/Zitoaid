@@ -48,15 +48,15 @@ export class WelcomePage extends Component {
 
     const { email, currentBlock } = this.state;
     return (
-      <div className=" justify-content-around" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/WelcomePageCropped.png")`, backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: "right top"  }}>                          
-        <div className="row justify-content-center">
-          <div className="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mb-5 pe-5 p-2" style={{marginTop: "13rem"}}>
-          <h1 style={{fontSize: "3.0rem"}} className="me-2 p-3"><span className="tawassamBlue">Visualize</span> for a better <span className="">tomorrow!</span></h1>
-          <h3 className="me-5 p-3">An interactive visual solution for the healthcare sector.</h3>
+      <div className="container bg-light justify-content-start mb-5">                          
+        <div className="row mt-5 mb-5">
+          <div className="col-8 mb-5">
+          <h1 style={{fontSize: "5.5rem"}}><span className="tawassamBlue">Visualize</span> for a better <span className="">tomorrow!</span></h1>
+          <h3>An interactive educational platform for healthcare<span className="tawassamBlue"> visual material</span> <span className="tawassamYellow">interpretation</span>.</h3>
 
-          <div className="mt-5 pt-5 justify-content-center text-center px-3">
+          <div className="mt-5 pt-3 justify-content-center text-center">
           <Link to="/register">
-            <button type="button" className="btn btn-info btn-lg tawassamBlueBG" style={{padding: "0.7rem 1.5rem", fontSize: "3rem", borderRadius: "2.9rem", borderColor:"#00D0C5"}}>Start Your Free Trial!</button>
+            <button type="button" className="btn btn-info btn-lg tawassamBlueBG" style={{padding: "0.7rem 1.5rem", fontSize: "3rem", borderRadius: "2.9rem", borderColor:"#00D0C5"}}>Start Now for Free!</button>
             </Link>
           </div>
 
@@ -64,17 +64,15 @@ export class WelcomePage extends Component {
 
 
         </div>
-        <div className="col-xl-3 col-lg-3 col-md-3"></div>
         </div>
-        <div className="row mb-5" style={{marginTop: "5rem"}}>
-        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-5 pt-5 align-self-center">
-          <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/SubjectsList.png" class="img-fluid p-5" />
-        </div>
-        <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 align-self-center p-4">
-        <h1 style={{fontSize: "3rem"}} className=""><span className="tawassamBlue">Study</span> different subject and <span className="">ACE your exams!</span></h1>
+        <div className="row mt-5">
+        <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6 mt-5 pt-5">
+        <h1 style={{fontSize: "3rem"}} className="mt-5 pt-5"><span className="tawassamBlue">Study</span> different subject and <span className="">ACE your exams!</span></h1>
           <h4><span className="tawassamBlue">Explore</span> our library and <span className="tawassamYellow">practice</span> various subjects in all systems.</h4>
         </div>
-
+        <div className="col-xs-12 col-sm-12 col-md-12 col-lg-6 col-xl-6">
+          <img src="https://tawassam.ams3.digitaloceanspaces.com/Test1/media/SubjectsListCropped.png" class="img-fluid p-5" />
+        </div>
 
 
         </div>

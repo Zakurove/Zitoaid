@@ -223,7 +223,7 @@ export class MainPage extends Component {
           >
             <div className="row">
 
-            <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
+            {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <a href="/#/endocrine/clusters">
                   <div class="card-flyer">
                     <div class="text-box">
@@ -239,7 +239,9 @@ export class MainPage extends Component {
                     </div>
                   </div>
                 </a>
-              </div>
+              </div> */}
+
+              
             {/* <div className="col-xs-12 col-sm-6 col-md-6 col-lg-4 col-xl-3">
                 <a href="/#/gastrointestinal">
                   <div class="card-flyer">
