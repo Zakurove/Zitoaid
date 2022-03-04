@@ -1,1 +1,1 @@
-web: gunicorn Tawassam.wsgi 
+web: gunicorn Zitoaid.wsgi 

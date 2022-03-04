@@ -1,3 +1,4 @@
+from numpy import character
 from accounts.models import User
 from django.db import models 
 from django.db.models import JSONField
@@ -12,101 +13,54 @@ from django.db.models import JSONField
 
 
 
-# Set
-class Set(models.Model):
+# Complaint
+class Complaint(models.Model):
     title = models.CharField(max_length=200)
-    description = models.TextField(blank=True, null=True)
-    references = models.TextField(blank=True, null=True)
-    block = models.CharField(blank=True, null=True, max_length=20)
-    subject = models.CharField(blank=True, null=True, max_length=20)
+    site = models.TextField(blank=True, null=True)
+    onset = models.TextField(blank=True, null=True)
+    characteristics = models.TextField(blank=True, null=True)
+    radation = models.TextField(blank=True, null=True)
+    timing = models.TextField(blank=True, null=True)
+    factorsBetter = models.TextField(blank=True, null=True)
+    factorsWorse = models.TextField(blank=True, null=True)
+    criteria = models.TextField(blank=True, null=True)
+    extra1 = models.TextField(blank=True, null=True)
+    extra2 = models.TextField(blank=True, null=True)
+    extra3 = models.TextField(blank=True, null=True)
     owner_username = models.CharField(max_length=30, null=True)
     owner = models.ForeignKey(
-        User, related_name="set", on_delete=models.CASCADE, null=True)
+        User, related_name="complaint", on_delete=models.CASCADE, null=True)
     
     def save(self, *args, **kwargs):
-        super(Set, self).save(*args, **kwargs)
-
-
-class SetImage(models.Model):
-    set = models.ForeignKey(Set, on_delete=models.CASCADE,
-                            null=True, related_name='setImages')
-    image = models.ImageField(upload_to='Sets', blank=True, null=True)
-
-
-class SetNotes(models.Model):
-    setImage = models.ForeignKey(
-        SetImage, on_delete=models.CASCADE, null=True, related_name='setNotes')
-    noteContent = models.TextField(blank=True, null=True)
-    x = models.IntegerField(blank=True, null=True)
-    y = models.IntegerField(blank=True, null=True)
+        super(Complaint, self).save(*args, **kwargs)
 
 
 
-#Cluster
-class Cluster(models.Model):
+
+#Condition
+class Condition(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField(blank=True, null=True)
-    block = models.CharField(blank=True, null=True, max_length=20)
-    subject = models.CharField(blank=True, null=True, max_length=20)
     owner_username = models.CharField(max_length=30, null=True)
     owner = models.ForeignKey(
-        User, related_name="cluster", on_delete=models.CASCADE, null=True)
+        User, related_name="condition", on_delete=models.CASCADE, null=True)
     #Many to many relationship between sets and clusters
-    sets = models.ManyToManyField(Set, related_name='clusters', blank=True)
+    complaints = models.ManyToManyField(Complaint, related_name='conditions', blank=True)
 
     def save(self, *args, **kwargs):
-        super(Cluster, self).save(*args, **kwargs)
+        super(Condition, self).save(*args, **kwargs)
 
-#PracticeDescInput
-class PracticeDescInput(models.Model):
+#Session
+class Session(models.Model):
     date = models.DateField(auto_now_add=True, null=True)
-    description = models.TextField(blank=True, null=True)
-    block = models.CharField(blank=True, null=True, max_length=21)
+    mrn = models.TextField(blank=True, null=True)
+    patient_name = models.TextField(blank=True, null=True)
+    birth = models.CharField(blank=True, null=True, max_length=20)
     owner_username = models.CharField(max_length=30, null=True)
     owner = models.ForeignKey(
-        User, related_name="practiceDescInput", on_delete=models.CASCADE, null=True)
-    #Many to many relationship between sets and PracticeDescInput
-    sets = models.ManyToManyField(Set, related_name='practiceDescInput', blank=True)
-
+        User, related_name="session", on_delete=models.CASCADE, null=True)
+    #Many to many relationship between sets and clusters
+    complaints = models.ManyToManyField(Complaint, related_name='sessions', blank=True)
+    conditions = models.ManyToManyField(Condition, related_name='sessionsConditions', blank=True)
     def save(self, *args, **kwargs):
-        super(PracticeDescInput, self).save(*args, **kwargs)
-
-#PracticeDescSession
-class PracticeDescSession(models.Model):
-    date = models.DateField(auto_now_add=True, null=True)
-    practiceType = models.CharField(default="Description", max_length=40)
-    block = models.CharField(blank=True, null=True, max_length=20)
-    owner_username = models.CharField(max_length=30, null=True)
-    owner = models.ForeignKey(
-        User, related_name="practiceDescSession", on_delete=models.CASCADE, null=True)
-    #Many to many relationship between sets and Practice session
-    sets = models.ManyToManyField(Set, related_name='practiceDescSession', blank=True)
-    practiceDescInputs = models.ManyToManyField(PracticeDescInput, related_name='practiceDescSessions', blank=True)
-
-    def save(self, *args, **kwargs):
-        super(PracticeDescSession, self).save(*args, **kwargs)
-
-#PracticeIdentifySession
-class PracticeIdentifySession(models.Model):
-    date = models.DateField(auto_now_add=True, null=True)
-    practiceType = models.CharField(default="Identification", max_length=40)
-    block = models.CharField(blank=True, null=True, max_length=20)
-    owner_username = models.CharField(max_length=30, null=True)
-    owner = models.ForeignKey(
-        User, related_name="practiceIdentifySession", on_delete=models.CASCADE, null=True)
-    questions = JSONField(encoder=None, blank=True, null=True)
-    result = JSONField(encoder=None, blank=True, null=True)
-    # #Many to many relationship between sets and Practice session
-    images = models.ManyToManyField(SetImage, related_name='practiceIdentifySession', blank=True)
-    # practiceDescInputs = models.ManyToManyField(PracticeDescInput, related_name='practiceDescSessions', blank=True)
-
-    def save(self, *args, **kwargs):
-        super(PracticeIdentifySession, self).save(*args, **kwargs)
-
-#EmailList
-class EmailList(models.Model):
-    email = models.CharField(max_length=200)
-    currentBlock = models.CharField(blank=True, null=True, max_length=20)
-
-    def save(self, *args, **kwargs):
-        super(EmailList, self).save(*args, **kwargs)
+        super(Session, self).save(*args, **kwargs)

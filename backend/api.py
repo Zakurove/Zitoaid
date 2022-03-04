@@ -1,8 +1,8 @@
-from .models import Set, Cluster, PracticeDescSession, PracticeDescInput, EmailList, PracticeIdentifySession, SetImage
+from .models import Session, Complaint, Condition
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, renderers
 from rest_framework.parsers import MultiPartParser, FormParser, JSONParser
-from .serializers import SetSerializer, ClusterSerializer, PracticeDescSessionSerializer, PracticeDescInputSerializer, EmailListSerializer, PracticeIdentifySessionSerializer, SetImageSerializer
+from .serializers import ConditionSerializer, SessionSerializer, ComplaintSerializer
 from rest_framework.permissions import IsAdminUser, SAFE_METHODS
 
 
@@ -30,23 +30,35 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         return obj.owner == request.user
 
 
-
-# Cluster
-class ClusterViewSet(viewsets.ModelViewSet):
-    queryset = Cluster.objects.all()
+# Complain
+class ComplaintViewSet(viewsets.ModelViewSet):
+    queryset = Complaint.objects.all()
     permission_classes = [
         IsEducator,
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
-    serializer_class = ClusterSerializer
+    serializer_class = ComplaintSerializer
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-# Set
-class SetViewSet(viewsets.ModelViewSet):
-    queryset = Set.objects.all()
+# Condition
+class ConditionViewSet(viewsets.ModelViewSet):
+    queryset = Condition.objects.all()
+    permission_classes = [
+        IsEducator,
+        IsOwnerOrReadOnly
+    ]
+    parser_classes = (MultiPartParser, )
+    serializer_class = ConditionSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
+
+# Session
+class SessionViewSet(viewsets.ModelViewSet):
+    queryset = Session.objects.all()
     permission_classes = [
         # permissions.IsAuthenticated,
         # IsAdminUserOrReadOnly
@@ -54,61 +66,6 @@ class SetViewSet(viewsets.ModelViewSet):
         IsOwnerOrReadOnly
     ]
     parser_classes = (MultiPartParser, )
-    serializer_class = SetSerializer
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-# SetImage
-class SetImageViewSet(viewsets.ModelViewSet):
-    queryset = SetImage.objects.all()
-    permission_classes = [
-        # permissions.IsAuthenticated,
-        # IsAdminUserOrReadOnly
-        IsEducator,
-        IsOwnerOrReadOnly
-    ]
-    parser_classes = (MultiPartParser, )
-    serializer_class = SetImageSerializer
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-# PracticeIdentifySession
-class PracticeIdentifySessionViewSet(viewsets.ModelViewSet):
-    queryset = PracticeIdentifySession.objects.all()
-    permission_classes = [
-	IsOwnerOrReadOnly
-    ]
-    parser_classes = (MultiPartParser, JSONParser )
-    serializer_class = PracticeIdentifySessionSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-# PracticeDescSession
-class PracticeDescSessionViewSet(viewsets.ModelViewSet):
-    queryset = PracticeDescSession.objects.all()
-    permission_classes = [
-	IsOwnerOrReadOnly
-    ]
-    parser_classes = (MultiPartParser, )
-    serializer_class = PracticeDescSessionSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-# PracticeDescInput
-class PracticeDescInputViewSet(viewsets.ModelViewSet):
-    queryset = PracticeDescInput.objects.all()
-    parser_classes = (MultiPartParser, )
-    serializer_class = PracticeDescInputSerializer
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
-
-# EmailList
-class EmailListViewSet(viewsets.ModelViewSet):
-    queryset = EmailList.objects.all()
-    parser_classes = (MultiPartParser, )
-    serializer_class = EmailListSerializer
-
+    serializer_class = SessionSerializer
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
