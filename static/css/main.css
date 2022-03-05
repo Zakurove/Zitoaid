@@ -56,13 +56,13 @@ body {
 	color: #10a1b6 !important;
 }
 .tawassamBlue {
-	color: #00D0C5 !important;
+	color: #d9c891 !important;
 }
 /* #4ecdc4 */
 .tawassamBlueBG {
 	font-weight: bold;
 	color: #fff;
-	background-color: #00D0C5 !important;
+	background-color: #d9c891 !important;
 }
 a.tawassamBlueBG:hover {
 	color: #fff;
@@ -77,12 +77,12 @@ Button.tawassamBlueBG:hover {
 	background-color: #1daaa1 !important;
 }
 .tawassamYellow {
-	color: #ffb703 !important;
+	color: #da7063 !important;
 }
 .tawassamYellowBG {
 	font-weight: bold;
 	color: #fff;
-	background-color: #ffb703 !important;
+	background-color: #da7063 !important;
 	
 }
 .tawassamYellowBG:hover {

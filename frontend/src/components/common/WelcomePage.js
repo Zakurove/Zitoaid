@@ -48,14 +48,14 @@ export class WelcomePage extends Component {
 
     const { email, currentBlock } = this.state;
     return (
-      <div className=" justify-content-around" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/WelcomePageCropped.png")`, backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: "right top"  }}>                          
+      <div className=" justify-content-around" style={{backgroundImage: `url("https://tawassam.ams3.digitaloceanspaces.com/Test1/media/ZitoaidWelcome.png")`, backgroundSize: 'contain', backgroundRepeat: "no-repeat", backgroundPosition: "right top"  }}>                          
         <div className="row justify-content-center">
           <div className="col-xs-12 col-sm-12 col-md-6 col-lg-5 col-xl-5 mb-5 pe-5 p-2" style={{marginTop: "13rem"}}>
           <h1 style={{fontSize: "3.0rem"}} className="me-2 p-3"><span className="tawassamBlue">Seek</span> a better <span className="">outcome!</span></h1>
           <h3 className="me-5 p-3">"If I have 30 mins to see a patient, I will spend 29 mins in history taking."</h3>
 
           <div className="mt-5 pt-5 justify-content-center text-center px-3">
-          <Link to="/register">
+          <Link to="/session">
             <button type="button" className="btn btn-info btn-lg tawassamBlueBG" style={{padding: "0.7rem 1.5rem", fontSize: "3rem", borderRadius: "2.9rem", borderColor:"#00D0C5"}}>Start Session</button>
             </Link>
           </div>

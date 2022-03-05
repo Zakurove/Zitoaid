@@ -27,7 +27,7 @@ import Login from "./accounts/Login.js";
 import Register from "./accounts/Register.js";
 import PrivateRoute from "./common/PrivateRoute.js";
 import MainPage from "./common/MainPage.js";
-import Subjects from "./common/Subjects.js";
+import Session from "./common/Session.js";
 import List from "./common/List.js";
 import WelcomePage from "./common/WelcomePage.js";
 
@@ -73,6 +73,7 @@ export default function App() {
                   <Route  path="/register" component={Register} />
                   <Route  path="/login" component={Login} />
                   <Route  path="/welcome" component={WelcomePage} />
+                  <Route  path="/session" component={Session} />
                   <PrivateRoute exact path="/" component={MainPage} />
 
                   {/* <Route exact path="/cardiovascular" render={(props) => <Subjects {...props} block={`Cardiovascular`} />} /> */}
