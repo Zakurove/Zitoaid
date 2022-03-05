@@ -19,7 +19,7 @@ export class Session extends Component {
     isStarting: true,
     session: "",
     complaints: [{title: "", site: "", siteOptions: [], onset: "", characteristics: "", radation: "", timing: "", factorsBetter: "", factorsWorse: "", criteria: "criteriaOne"},
-    {title: "Abdominal Pain",site: "Where's the pain?", siteOpitons: ["Whole abdomen", "Left lower abdomen", "Right lower abdomen","Epigastric"], characteristics: "What does the pain feel like?", characteristicsOptions:["Tearing (AAA)", "Stabbing (Pancreatitis)", "Dull-ache (Appendicitis)", "Sharp localized (EP)"], radation: "Does the pain go anywhere else?", radationOptions: ["Upward flank (Hepatic & Biliary Pathology)", "Flank toward the back (Pyelonephritis)", "Sides of the abdomen (Nephrolithiasis)", "No"], factorsWorse: "Does anything make the pain worse?",factorsWorseOptions: ["Movement (Appendicitis)","Cough (Hernia)", "Fatty Food (Pancreasitis)", "None"], criteria: "criteriaOne"}],
+    {title: "Abdominal Pain",site: "Where's the pain?", siteOptions: ["Whole abdomen", "Left lower abdomen", "Right lower abdomen","Epigastric"], characteristics: "What does the pain feel like?", characteristicsOptions:["Tearing (AAA)", "Stabbing (Pancreatitis)", "Dull-ache (Appendicitis)", "Sharp localized (EP)"], radation: "Does the pain go anywhere else?", radationOptions: ["Upward flank (Hepatic & Biliary Pathology)", "Flank toward the back (Pyelonephritis)", "Sides of the abdomen (Nephrolithiasis)", "No"], factorsWorse: "Does anything make the pain worse?",factorsWorseOptions: ["Movement (Appendicitis)","Cough (Hernia)", "Fatty Food (Pancreasitis)", "None"], criteria: "criteriaOne"}],
     conditions: [],
     criteria: "x"
   };
@@ -69,7 +69,7 @@ export class Session extends Component {
             <a href="#/welcome">
             <img
               src={
-                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/zitoaidLogo.png"
               }
               className="img-fluid"
               alt="Responsive image"

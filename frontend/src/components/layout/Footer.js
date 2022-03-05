@@ -10,7 +10,7 @@ export class Footer extends Component {
               <div className="my-2 flex-center">
                 <a
                   className="tw-ic tawassamBlue pl-4 ms-2"
-                  href="https://twitter.com/TawassamMed"
+                  href="https://twitter.com/Zitoaid"
                 >
                   <i className="fab fa-twitter  me-md-5 me-3 fa-2x">
                     {" "}
@@ -19,7 +19,7 @@ export class Footer extends Component {
 
                 <a
                   className="tw-ic tawassamBlue"
-                  href="mailto:tawassam.med@gmail.com"
+                  href="mailto:zitoaid@gmail.com"
                 >
                   <i className="far fa-envelope me-md-5 me-3 fa-2x">
                     {" "}
@@ -31,10 +31,10 @@ export class Footer extends Component {
           
 
           <div className="footer-copyright text-center py-3 tawassamBlue text-decoration-none" style={{fontWeight: "bold"}}>
-          © 2021 Copyright:
-          <s href="mailto:tawassam.med@gmail.com"className="text-decoration-none tawassamYellow" style={{fontWeight: "bold"}}>
+          © 2022 Copyright:
+          <s href="mailto:zitoaid@gmail.com"className="text-decoration-none tawassamYellow" style={{fontWeight: "bold"}}>
             {" "}
-            Tawassam
+            Zitoaid
           </s>
         </div>
         </div>

@@ -9,7 +9,7 @@ export class Loader extends Component {
 		<div className="col-12 col-sm-6 col-md-6 col-lg-3 col-xl-3 mx-auto">
             <img
               src=
-                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/zitoaidLogo.png"
               
               className="img-fluid mt-5 mb-4"
               alt="Responsive image"

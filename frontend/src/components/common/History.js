@@ -13,7 +13,7 @@ import { getImages } from "../../actions/sets.js";;
 
 import Loader from "../layout/Loader.js";
 
-export class DetailsPracticeIdentify extends Component {
+export class History extends Component {
 
   state = {
     isUpdating: true,
@@ -76,7 +76,6 @@ export class DetailsPracticeIdentify extends Component {
   }
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
     complaint: PropTypes.object.isRequired,
   };
 
@@ -165,7 +164,7 @@ export class DetailsPracticeIdentify extends Component {
   //   this.props.getPracticeIdentifySessions(this.props.block);
   // }
   render() {
-    const { user } = this.props.auth;
+    const { description } = this.state;
     // The loading handler
     if (this.state.isReady == false) {
       // setTimeout(() => this.props.getPracticeIdentifySessions(this.props.block), 1000);
@@ -185,43 +184,114 @@ export class DetailsPracticeIdentify extends Component {
       
       return (
         <div className="container my-5">
-          <h1 className="text-center py-2 tawassamBlue">
-           History Session
+          <h1 className="text-center py-2" style={{color: "#00D0C5"}}>
+           {this.state.complaint.title}
           </h1>
-          <a className="btn btn-secondary mt-1" href={`#/`}>
-            <i class="fas fa-arrow-left"></i> Previous Page
-          </a>
+          {this.state.currentIndex != 0 && (
+          <button className="btn btn-secondary mt-1" onClick={this.prev}>
+          <i class="fas fa-arrow-left"></i> Previous Question
+        </button>
+            )}
+
           <hr />
           <p></p>
 
-
-          <div className="row justify-content-center mt-3">
-            {/* Options */}
-            <div className="col-md-9" style={{ padding: "0px" }}>
-              <div className="col-12 p-2 px-3" >
-
-              <h1>Hello there!!!</h1>
-
-              </div>
-
-
-            </div>
-          </div>
-
           <div className="row"><p></p></div>
           <div className="row d-flex justify-content-center">
-            {this.state.currentIndex != 0 && (
-              <div className=" col-6 px-4 d-grid">
-                <button type="submit" onClick={this.back} className="btn btn-lg btn-secondary mt-4">
-                  <i className="far fa-arrow-alt-circle-left" style={{ fontSize: "1.4rem" }}></i> Previous Question
-                </button>
+
+             {this.state.currentIndex == 0 && (
+              <div className="">
+                <h1 className="text-center mb-2 tawassamYellow">{this.state.complaint.site}</h1>
+                
+              <div class="d-grid col-3 mx-auto">
+              <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.siteOptions[0]}</button>
+              <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.siteOptions[1]}</button>
+            </div>
+            <div class="d-grid col-3 mx-auto">
+              <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.siteOptions[2]}</button>
+              <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.siteOptions[3]}</button>
+            </div>
+
+            </div>
+
+            )}
+                 {this.state.currentIndex == 1 && (
+              <div className="">
+                <h1 className="text-center mb-2 tawassamYellow">{this.state.complaint.characteristics}</h1>
+                
+                <div class="d-grid col-3 mx-auto">
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.characteristicsOptions[0]}</button>
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.characteristicsOptions[1]}</button>
+              </div>
+              <div class="d-grid col-3 mx-auto">
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.characteristicsOptions[2]}</button>
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.characteristicsOptions[3]}</button>
+              </div>
+              </div>
+
+            )}
+             {this.state.currentIndex == 2 && (
+              <div className="">
+                <h1 className="text-center mb-2 tawassamYellow">{this.state.complaint.radation}</h1>
+                
+                <div class="d-grid col-3 mx-auto">
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.radationOptions[0]}</button>
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.radationOptions[1]}</button>
+              </div>
+              <div class="d-grid col-3 mx-auto">
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.radationOptions[2]}</button>
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.radationOptions[3]}</button>
+              </div>
               </div>
             )}
-            {( this.state.currentIndex < 2) && (
-              <div className="px-4 col-6 d-grid">
-                <button type="submit" onClick={this.next} className="btn btn-lg btn-secondary tawassamBlueBG mt-4">
+             {this.state.currentIndex == 3 && (
+              <div className="">
+                <h1 className="text-center mb-2 tawassamYellow">{this.state.complaint.factorsWorse}</h1>
+                
+                <div class="d-grid col-3 mx-auto">
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.factorsWorseOptions[0]}</button>
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.factorsWorseOptions[1]}</button>
+              </div>
+              <div class="d-grid col-3 mx-auto">
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.factorsWorseOptions[2]}</button>
+                <button type="button" onClick={this.next} class="btn tawassamBlueBG m-3">{this.state.complaint.factorsWorseOptions[3]}</button>
+              </div>
+              </div>
+            )}
+               {this.state.currentIndex == 4 && (
+              <div className="">
+                <h1 className="text-center mb-2 tawassamYellow">Extra Notes</h1>
+                
+                <div class="d-grid col-6 mx-auto mb-3">
+                <textarea
+                  className="form-control"
+                  type="text"
+                  name="description"
+                  onChange={this.onChange}
+                  value={description}
+                  placeholder="Extra notes of the session"
+                  rows="3"
+                />
+
+              </div>
+              </div>
+            )}
+            {( this.state.currentIndex <= 3) && (
+              <div className="row">
+              <div className="px-4 d-grid">
+                <button type="submit" onClick={this.next} className="btn btn-lg btn-secondary tawassamYellowBG mt-4">
                   <i className="far fa-arrow-alt-circle-right" style={{ fontSize: "1.4rem" }}></i> Go Next
                 </button>
+              </div>
+              </div>
+            )}
+              {( this.state.currentIndex > 3) && (
+              <div className="row">
+              <div className="px-4 d-grid">
+                <a type="submit" href="#/" className="btn btn-lg btn-secondary tawassamYellowBG mt-4">
+                  <i className="fas fa-flag-checkered" style={{ fontSize: "1.4rem", color: "white" }}></i> Submit and Analyze
+                </a>
+              </div>
               </div>
             )}
           </div>

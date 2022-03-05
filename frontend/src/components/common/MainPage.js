@@ -52,7 +52,7 @@ export class MainPage extends Component {
             <div className=" col-lg-5 d-flex justify-content-around ">
               <img
                 src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/zitoaidLogo.png"
                 }
                 style={{ width: "100%" }}
                 className=" img-fluid float-right my-5"

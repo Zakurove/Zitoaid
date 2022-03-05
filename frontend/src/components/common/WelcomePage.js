@@ -56,7 +56,7 @@ export class WelcomePage extends Component {
 
           <div className="mt-5 pt-5 justify-content-center text-center px-3">
           <Link to="/session">
-            <button type="button" className="btn btn-info btn-lg tawassamBlueBG" style={{padding: "0.7rem 1.5rem", fontSize: "3rem", borderRadius: "2.9rem", borderColor:"#00D0C5"}}>Start Session</button>
+            <button type="button" className="btn btn-info btn-lg tawassamBlueBG" style={{padding: "0.7rem 1.5rem", fontSize: "3rem", borderRadius: "2.9rem"}}>Start Session</button>
             </Link>
           </div>
 
@@ -64,7 +64,7 @@ export class WelcomePage extends Component {
 
 
         </div>
-        <div className="col-xl-3 col-lg-3 col-md-3"></div>
+        {/* <div className="col-xl-3 col-lg-3 col-md-3"></div>
         </div>
         <div className="row mb-5" style={{marginTop: "5rem"}}>
         <div className="col-xs-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 mt-5 pt-5 align-self-center">
@@ -73,7 +73,7 @@ export class WelcomePage extends Component {
         <div className=" col-xs-12 col-sm-12 col-md-12 col-lg-4 col-xl-4 align-self-center p-4">
         <h1 style={{fontSize: "3rem"}} className=""><span className="tawassamBlue">Study</span> different subject and <span className="">ACE your exams!</span></h1>
           <h4><span className="tawassamBlue">Explore</span> our library and <span className="tawassamYellow">practice</span> various subjects in all systems.</h4>
-        </div>
+        </div> */}
 
 
 

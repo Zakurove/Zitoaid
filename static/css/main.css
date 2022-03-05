@@ -58,6 +58,10 @@ body {
 .tawassamBlue {
 	color: #d9c891 !important;
 }
+.zitoaidRed {
+	color: #ff0054 !important;
+}
+
 /* #4ecdc4 */
 .tawassamBlueBG {
 	font-weight: bold;
@@ -66,15 +70,15 @@ body {
 }
 a.tawassamBlueBG:hover {
 	color: #fff;
-	background-color: #1daaa1 !important;
+	background-color: #d9c891 !important;
 }
 button.tawassamBlueBG:hover {
 	color: #fff;
-	background-color: #1daaa1 !important;
+	background-color: #d9c891 !important;
 }
 Button.tawassamBlueBG:hover {
 	color: #fff;
-	background-color: #1daaa1 !important;
+	background-color: #d9c891 !important;
 }
 .tawassamYellow {
 	color: #da7063 !important;
@@ -85,6 +89,23 @@ Button.tawassamBlueBG:hover {
 	background-color: #da7063 !important;
 	
 }
+.zitoaidRedBG {
+	font-weight: bold;
+	color: #fff;
+	background-color: #ff0054 !important;
+	
+}
+.zitoaidPurpleBG {
+	font-weight: bold;
+	color: #fff;
+	background-color: #76b500 !important;
+	
+}
+.zitoaidPurple {
+	color: #76b500;
+	
+}
+
 .tawassamYellowBG:hover {
 	color: #fff;
 	background-color:  #f1c556 !important;

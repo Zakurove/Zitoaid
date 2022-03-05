@@ -67,7 +67,7 @@ export class Register extends Component {
             <a href="#/welcome">
             <img
               src={
-                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/zitoaidLogo.png"
               }
               className="img-fluid"
               alt="Responsive image"

@@ -53,7 +53,7 @@ export class Header extends Component {
       <div className="">
       <Navbar  bg="light" expand="lg" className="">
       <Navbar.Brand href="/#" style={{fontSize: "2.5rem"}} className="d-inline-block align-top ms-3"><img src={
-                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/tawassamLogo.png"
+                  "https://tawassam.ams3.digitaloceanspaces.com/Test1/media/zitoaidLogo.png"
                 } style={{width: "130px"}} /></Navbar.Brand> 
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
